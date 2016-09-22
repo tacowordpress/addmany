@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AddManyComponent from './AddMany.jsx';
+import AddManyComponent from './AddManyComponent.jsx';
 import { createStore } from 'redux';
 import expect from 'expect';
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
+
+require('../scss/addmany.scss');
 
 const reducer = (state = {}, action) => {
   switch(action.type) {

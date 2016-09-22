@@ -21,7 +21,7 @@ class AddMany {
 
     wp_register_script(
       'addmanyjs',
-      '/addons/addmany/Frontend/js/app.bundle.js',
+      '/addons/dist/addmany.min.js',
       false,
       self::VERSION,
       true);
@@ -29,7 +29,7 @@ class AddMany {
 
     wp_register_style(
       'addmany',
-      '/addons/addmany/Frontend/css/addmany.css',
+      '/addons/dist/addmany.min.css',
       false,
       self::VERSION
     );

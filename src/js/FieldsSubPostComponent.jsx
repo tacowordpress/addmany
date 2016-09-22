@@ -1,7 +1,7 @@
 import React from 'react';
 import InputComponent from './InputComponent.jsx';
-import TacoStr from './lib/util/TacoStr.js';
-import TacoGeneral from './lib/util/TacoGeneral.js';
+import TacoStr from './util/TacoStr.js';
+import TacoGeneral from './util/TacoGeneral.js';
 import { Provider } from 'react-redux'
 
 export default class FieldsSubPostComponent extends React.Component {

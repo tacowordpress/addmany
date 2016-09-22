@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SubPostComponent from './SubPostComponent.jsx';
 import InputComponent from './InputComponent.jsx';
-import TacoStr from './lib/util/TacoStr.js';
+import TacoStr from './util/TacoStr.js';
 import { Provider } from 'react-redux'
 
 export default class AddManyComponent extends React.Component {
@@ -339,7 +339,7 @@ export default class AddManyComponent extends React.Component {
     let $ = jQuery;
     let self = this;
     const { store } = this.context;
-  
+
     $.ajax({
       url: this.props.submitURL,
       method: 'post',

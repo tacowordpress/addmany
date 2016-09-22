@@ -12,13 +12,11 @@ class Loader
         add_action('admin_head', '\JasandPereza\AddMany::init');
         add_action('wp_ajax_AJAXSubmit', '\JasandPereza\AddMany::AJAXSubmit');
         add_action('save_post', '\JasandPereza\AddMany::saveAll');
-
         add_filter('parse_query', function($query) {
-          
           $front_end_loader = new FrontendLoader(
-            dirname(__FILE__),
-            'addons/addmany',
-            'Frontend'
+           realpath(dirname(__FILE__).'/../'),
+           'addons',
+           'dist'
           );
           $front_end_loader->fileServe($query);
           return $query;
