@@ -1,6 +1,6 @@
 <?php
 
-namespace JasandPereza;
+namespace Taco;
 use \FrontendLoader\FrontendLoader;
 require __DIR__.'/SubPost.php';
 

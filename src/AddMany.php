@@ -5,7 +5,7 @@
  * create an arbitrary number of fields for custom posts in the WordPress admin.
  */
 
-namespace JasandPereza;
+namespace Taco;
 use \Taco\Util\Arr;
 use \Taco\Util\Collection;
 

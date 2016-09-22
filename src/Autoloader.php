@@ -1,5 +1,5 @@
 <?php
-namespace JasandPereza;
+namespace Taco;
 
 /**
  * An example of a general-purpose implementation that includes the optional
