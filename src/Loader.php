@@ -7,7 +7,7 @@ require __DIR__.'/SubPost.php';
 class Loader
 {
 
-    public static function init()
+    public static function initAddMany()
     {
         add_action('admin_head', '\JasandPereza\AddMany::init');
         add_action('wp_ajax_AJAXSubmit', '\JasandPereza\AddMany::AJAXSubmit');
