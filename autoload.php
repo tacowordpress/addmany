@@ -2,4 +2,4 @@
 
 require_once __DIR__.'/src/Autoloader.php';
 
-JasandPereza\Autoloader::register();
+Taco\Autoloader::register();
