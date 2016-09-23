@@ -2,9 +2,9 @@
   "name": "tacowordpress/addmany",
   "type": "library",
   "description": "AddMany is a TacoWordPress add-on that allows you to assign posts relationships and create an arbitrary number of fields for custom posts in the WordPress admin",
-  "license": "proprietary",
+  "license": "MIT",
   "minimum-stability": "dev",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "require": {
     "php": ">= 5.4"
   },
