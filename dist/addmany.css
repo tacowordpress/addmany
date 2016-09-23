@@ -2,11 +2,9 @@
   clear: both;
   width: 100%;
   height: 0;
-  overflow-y: scroll;
-  &.contains-results {
-    height: 200px;
-  }
-}
+  overflow-y: scroll; }
+  .addbysearch-results.contains-results {
+    height: 200px; }
 
 .addbysearch-result {
   cursor: pointer;
@@ -14,51 +12,41 @@
   height: 28px;
   margin-bottom: 5px;
   padding-left: 10px;
-  line-height: 27px;
-
-  i {
+  line-height: 27px; }
+  .addbysearch-result i {
     float: right;
     margin-right: 10px;
-    font-size: 10px;
-  }
-}
+    font-size: 10px; }
 
 .addbysearch-actual-values {
   clear: both;
   width: 100%;
   height: 150px;
-  overflow-y: scroll;
-}
+  overflow-y: scroll; }
 
 .addmany-result {
-  cursor:  move;
+  cursor: move;
   box-sizing: border-box;
   width: 100%;
   height: auto;
   margin-bottom: 15px;
   padding: 10px 50px 10px 10px;
   line-height: 11px;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 .addmany-actual-values {
   clear: both;
   width: 99%;
   height: auto;
   padding: 5px;
-  background: #FFF;
-
-  a {
-    display: block;
-  }
-
-  .addmany-result.postbox {
+  background: #FFF; }
+  .addmany-actual-values a {
+    display: block; }
+  .addmany-actual-values .addmany-result.postbox {
     background-color: #f7f7f7;
     padding: 0 50px 0 10px;
     box-shadow: none;
-    border-bottom: none;
-  }
-}
+    border-bottom: none; }
 
 .wp-core-ui button.btn-addmany-delete {
   position: absolute;
@@ -68,82 +56,66 @@
   background: none;
   border: none;
   box-shadow: none;
-  padding-top: 4px;
-
-  span {
-    color: #e6a7a7;
-  }
-}
+  padding-top: 4px; }
+  .wp-core-ui button.btn-addmany-delete span {
+    color: #e6a7a7; }
 
 .addmany ~ b {
-  line-height: 40px;
-}
+  line-height: 40px; }
 
 .wp-core-ui .addbysearch-result button {
   float: right;
   background: none;
   border: none;
   box-shadow: none;
-  padding-top: 4px;
-}
+  padding-top: 4px; }
 
 .addbysearch-result a,
-.addbysearch-reference-td  a {
+.addbysearch-reference-td a {
   text-decoration: none;
-  color: #757474;
-}
+  color: #757474; }
 
 .addbysearch-result span.dashicons-external,
 .addbysearch-reference-td span.dashicons-external {
   font-size: 15px;
   color: #757474;
   line-height: 26px;
-  opacity: 0;
-}
+  opacity: 0; }
 
 .addbysearch-result a:hover span.dashicons-external,
 .addbysearch-reference-td a:hover span.dashicons-external {
-  opacity: 1;
-}
+  opacity: 1; }
 
 .wp-core-ui .addbysearch-result button span.dashicons.dashicons-plus-alt {
-  color: #9ad2a7;
-}
+  color: #9ad2a7; }
 
-.addmany-actual-values {
-  a.addmany-edit-link  {
-    display: inline-block;
-  }
-  tr:nth-child(3) > td {
-    padding-top: 20px;
-  }
-  tr:last-child > td {
-    padding-bottom: 20px;
-  }
-}
+.addmany-actual-values a.addmany-edit-link {
+  display: inline-block; }
+
+.addmany-actual-values tr:nth-child(3) > td {
+  padding-top: 20px; }
+
+.addmany-actual-values tr:last-child > td {
+  padding-bottom: 20px; }
 
 .meta-box-sortables td.addbysearch-reference-td:not(.no-fields) {
   margin: 10px;
   border-bottom: solid #dedede 2px;
   padding-top: 19px;
-  padding-bottom: 10px;
-}
+  padding-bottom: 10px; }
 
 .addbysearch-reference-td.no-fields a {
-  line-height: 20px;
-}
+  line-height: 20px; }
 
 .meta-box-sortables td.addbysearch-reference-td:not(.no-fields) span.dashicons-external {
-  line-height: 9px;
-}
+  line-height: 9px; }
 
 .addmany-searchable-field.is-loading {
   background: url(/wp-admin/images/spinner.gif);
   background-repeat: no-repeat;
   background-position-x: 97%;
   background-size: 10%;
-  background-position-y: 4px;
-}
+  background-position-y: 4px; }
 
 .addmany-btn-order-up,
 .addmany-btn-order-down {
@@ -154,27 +126,22 @@
   color: #b1aeae;
   border-radius: 50%;
   border: dotted 2.5px;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .addmany-btn-order-up {
   right: 8px;
-  top: 43px;
-}
+  top: 43px; }
 
 .addmany-btn-order-down {
   right: 8px;
-  top: 74px;
-}
+  top: 74px; }
 
 .addmany-search-results {
   max-height: 270px;
   min-width: 150px;
   overflow-y: scroll;
   border: solid 5px #f1f1f1;
-  background: #f1f1f1;
-}
+  background: #f1f1f1; }
 
 .subpost-component .mce-tinymce.mce-container.mce-panel {
-  border: solid thin #DDD;
-}
+  border: solid thin #DDD; }
