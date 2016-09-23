@@ -8,7 +8,7 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
 
 AddMany would not be possible without The TacoWordPress framework – An ORM for custom post types. This is a requirement.
 
-Documentation still in progress. Check back for more.
+Documentation still in progress. Check back later for more info.
 
 
 
