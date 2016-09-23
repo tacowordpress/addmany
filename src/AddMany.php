@@ -297,6 +297,7 @@ class AddMany {
           'post_type' => 'sub-post',
           'post_status' => 'publish',
           'post_parent' => $parent_id,
+          'posts_per_page' => -1,
           'meta_query' => [
             [
               'key' => 'field_assigned_to',
