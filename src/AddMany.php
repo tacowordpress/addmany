@@ -21,7 +21,7 @@ class AddMany {
 
     wp_register_script(
       'addmanyjs',
-      '/addons/dist/addmany.min.js',
+      '/addons/dist/addmany.js',
       false,
       self::VERSION,
       true);
@@ -63,6 +63,10 @@ class AddMany {
     );
   }
 
+  public static function getDefaultInterfaces() {
+    return [];
+  }
+
   public function loadFieldDefinitions() {
     global $post;
     if(!$post) {
@@ -88,22 +92,44 @@ class AddMany {
       $fields = $custom_post->getFields();
 
       foreach($fields as $k => $v) {
-        if(!\Taco\Util\Arr::iterable($v)) continue;
-        foreach($v as $key => $value) {
-          if(!\Taco\Util\Arr::iterable($value)) continue;
-          //if(!array_key_exists('fields', $value)) continue;
-          if(array_key_exists('is_addbysearch', $value)) {
+        // Does an addMany config exist
+        if(!array_key_exists('config_addmany', $v)) continue;
+        if(!array_key_exists('field_variations', $v['config_addmany'])) continue;
+
+        $config_addmany = $v['config_addmany'];
+
+        // Do any user intefaces exist exist?
+
+        $interfaces = self::getDefaultInterfaces();
+        if(
+          array_key_exists('interfaces', $config_addmany)
+          && \Taco\Util\Arr::iterable($config_addmany['interfaces']))
+        {
+          $interfaces = array_merge($interfaces , $config_addmany['interfaces']);
+
+          // Is this AddMany config indicate that it uses AddBySearch?
+          if(array_key_exists('addbysearch',  $interfaces)) {
+            $addbysearch_options = $interfaces['addbysearch'];
             self::$field_definitions[$k]['is_addbysearch'] = true;
+
+            // Set default to class Post (gets pairs from post type of post)
+            // class must be of Taco
+            self::$field_definitions[$k]['class_method'] = 'Post';
+            if(array_key_exists('class_method', $addbysearch_options)) {
+              self::$field_definitions[$k]['class_method'] = $addbysearch_options['class_method'];
+            }
           }
-          if(array_key_exists('class_method', $value)) {
-            self::$field_definitions[$k]['class_method'] = $value['class_method'];
+        }
+
+        // If there are field variations for subposts, get them.
+        if(\Taco\Util\Arr::iterable($variations = $config_addmany['field_variations'])) {
+          foreach($variations as $key => $value) {
+            self::$field_definitions[$k][$key] = $value['fields'];
           }
-          self::$field_definitions[$k][$key] = $value['fields'];
         }
       }
     }
   }
-
 
   public static function createNewSubPost($post_data) {
     if(!array_key_exists('field_assigned_to', $post_data)) {
@@ -262,11 +288,11 @@ class AddMany {
     return $wpdb->get_results($query, OBJECT);
   }
 
-  private static function getFieldDefinitionKeys($field_assigned_to, $parent_id, $fields_variation) {
+  public static function getFieldDefinitionKeys($field_assigned_to, $parent_id, $fields_variation) {
     $post_parent = \Taco\Post\Factory::create($parent_id);
     $post_parent->loaded_post = $post_parent;
     return array_keys(
-      $post_parent ->getFields()[$field_assigned_to][$fields_variation]['fields']
+      $post_parent ->getFields()[$field_assigned_to]['config_addmany']['field_variations'][$fields_variation]['fields']
     );
   }
 
@@ -275,7 +301,7 @@ class AddMany {
     $post_parent = \Taco\Post\Factory::create($parent_id);
     $post_parent->loaded_post = $post_parent;
 
-    $record_fields = $post_parent->getFields()[$field_assigned_to][$fields_variation]['fields'];
+    $record_fields = $post_parent->getFields()[$field_assigned_to]['config_addmany']['field_variations'][$fields_variation]['fields'];
     $fields_attribs = [];
 
     if(!Arr::iterable($record_fields)) return [];
@@ -425,7 +451,7 @@ class AddMany {
     $field_assigned_to = $subpost->get('field_assigned_to');
 
     $subpost_fields = \Taco\Post\Factory::create($object_post_parent->ID)
-      ->getFields()[$field_assigned_to][$subpost->get('fields_variation')]['fields'];
+      ->getFields()[$field_assigned_to]['config_addmany']['field_variations'][$subpost->get('fields_variation')]['fields'];
 
     if(!array_key_exists('order', $subpost_fields)) {
       $subpost_fields['order'] = (int) $fields_values['order'];

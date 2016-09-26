@@ -67,7 +67,7 @@ const reducer = (state = {}, action) => {
 const AddManyComponentWithStore = connect(state => state)(AddManyComponent);
 
 (function($){
-  let $elements = $('.addmany');
+  let $elements = $('[data-addmany=1]');
   if(!$elements.length) return;
   $elements.each(function(){
     let fieldDefinitions = window.field_definitions[$(this).attr('name')];
