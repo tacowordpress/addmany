@@ -8909,7 +8909,7 @@
 	})(_AddManyComponent2.default);
 
 	(function ($) {
-	  var $elements = $('.addmany');
+	  var $elements = $('[data-addmany=1]');
 	  if (!$elements.length) return;
 	  $elements.each(function () {
 	    var fieldDefinitions = window.field_definitions[$(this).attr('name')];
