@@ -8,6 +8,38 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
 
 AddMany would not be possible without The TacoWordPress framework – An ORM for custom post types. This is a requirement.
 
+```php
+
+// Example configuration
+
+public function getFields() {
+    return [
+      'employees' => [
+        'type' => 'text',
+        'data-addmany' => true,
+        'config_addmany' => [
+          'interfaces' => [
+            'addbysearch' => [
+              'class_method' => 'Post'
+            ]
+          ],
+          'buttons' => ['sorting_reverse','sorting_alpha'],
+          'field_variations' => [
+            'default_variation' => [
+              'fields' => [
+                'first_name' => ['type' => 'text'],
+                'bio' => ['type' => 'textarea'],
+                'gender' => ['type' => 'select', 'options' => ['male', 'female', 'other']]
+              ]
+            ]
+          ]
+        ]
+      ]
+    ];
+  }
+```
+
+
 Documentation still in progress. Check back later for more info.
 
 
