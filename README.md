@@ -30,6 +30,7 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
 
 ```php
 // Example configuration for an AddMany field with AddBySearch
+
   public function getFields() {
     return [
       'employees' => \Taco\AddMany\Factory::createWithAddBySearch('Employee')
@@ -39,6 +40,7 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
  
  ```php
 // Example AddBySearch with shared fields
+
   public function getFields() {
     return [
       'products' => \Taco\AddMany\Factory::createWithAddBySearch('Product',[
