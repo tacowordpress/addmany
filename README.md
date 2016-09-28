@@ -12,29 +12,15 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
 
 // Example configuration
 
-public function getFields() {
+  public function getFields() {
     return [
-      'employees' => [
-        'type' => 'text',
-        'data-addmany' => true,
-        'config_addmany' => [
-          'interfaces' => [
-            'addbysearch' => [
-              'class_method' => 'Post'
-            ]
-          ],
-          'buttons' => ['sorting_reverse','sorting_alpha'],
-          'field_variations' => [
-            'default_variation' => [
-              'fields' => [
-                'first_name' => ['type' => 'text'],
-                'bio' => ['type' => 'textarea'],
-                'gender' => ['type' => 'select', 'options' => ['male', 'female', 'other']]
-              ]
-            ]
-          ]
-        ]
-      ]
+      'employees' => \Taco\AddMany\Factory::create(
+        [
+          'first_name' => ['type' => 'text'],
+          'last_name' => ['type' => 'text'],
+          'bio' => ['type' => 'textarea']
+        ], 
+        ['limit_range' => [2, 3]])->toArray()
     ];
   }
 ```
