@@ -39,8 +39,8 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
   public function getFields() {
     return [
       'products' => \Taco\AddMany\Factory::createWithAddBySearch('Product',[
-        'price' => ['type' => 'text],
-        'tax' => ['type' => 'text]
+        'price' => ['type' => 'text'],
+        'tax' => ['type' => 'text']
       ]);
     ];
   }
