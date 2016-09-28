@@ -20,7 +20,8 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
           'last_name' => ['type' => 'text'],
           'bio' => ['type' => 'textarea']
         ], 
-        ['limit_range' => [2, 3]])->toArray() // Enforce a minimum of 2 items, but no more than 3.
+        ['limit_range' => [2, 3]] // Enforce a minimum of 2 items, but no more than 3.
+       )->toArray() 
     ];
   }
 ```
@@ -46,6 +47,30 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
   }
  ```
  
+ ```php
+
+// Example AddMany field with field variations
+
+  public function getFields() {
+    return [
+      'staff_members' => \Taco\AddMany\Factory::create(
+        [
+          'board_members' => [
+            'first_name' => ['type' => 'text'],
+            'last_name' => ['type' => 'text'],
+            'bio' => ['type' => 'textarea']
+          ],
+          'general_staff' => [
+            'first_name' => ['type' => 'text'],
+            'last_name' => ['type' => 'text'],
+            'department' => ['type' => 'select', 'options' => $this->getDepartments()]
+          ],
+        ], 
+        ['limit_range' => [2, 3]] // Enforce a minimum of 2 items, but no more than 3.
+       )->toArray() 
+    ];
+  }
+```
 
 
 Documentation still in progress. Check back later for more info.
