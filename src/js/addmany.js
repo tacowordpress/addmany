@@ -80,8 +80,8 @@ const AddManyComponentWithStore = connect(state => state)(AddManyComponent);
           parentPostId={$('#post_ID').val()}
           domElement={$(this).parent()}
           fieldDefinitions={window.field_definitions}
-          currentVariation='default_variation'
           fieldName={$(this).attr('name')}
+          limitRange={window.field_definitions[$(this).attr('name')]['limit_range']}
           isAddBySearch={typeof fieldDefinitions.is_addbysearch !== 'undefined'}
           classMethod={(typeof fieldDefinitions.class_method !== 'undefined' ) ? fieldDefinitions.class_method : null}
           />

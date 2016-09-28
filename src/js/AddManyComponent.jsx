@@ -12,12 +12,32 @@ export default class AddManyComponent extends React.Component {
     this.loadSaved();
     store.dispatch({
       type: 'INIT',
-      currentVariation: 'default_variation',
+      currentVariation: this.getDefaultVariation(),
       fieldName: this.props.fieldName,
       removedSubpostIds: [],
       searchButtonText: 'Show all',
     });
+    this.addPostSaveHook();
   }
+
+  addPostSaveHook() {
+    let $ = jQuery;
+    let self = this;
+    $('#post').on('submit', function(e){
+      if(!self.limitCheckMin()) {
+        return false;
+      }
+      return true;
+    });
+  }
+
+  getDefaultVariation() {
+    let field_variations = this.props.fieldDefinitions[this.props.fieldName].field_variations;
+    return (!this.props.isAddBySearch)
+      ?(Object.keys(field_variations)[0])
+      : 'default_variation'
+  }
+
 
   render() {
     const { store } = this.context;
@@ -26,7 +46,8 @@ export default class AddManyComponent extends React.Component {
       removedSubpostIds,
       searchButtonText,
       loadingClass,
-      resultsMessage
+      resultsMessage,
+      currentVariation
     } = store.getState();
 
     let variations = this.getFieldsVariationOptions();
@@ -59,6 +80,7 @@ export default class AddManyComponent extends React.Component {
           {
             (variations !== null)
               ? <select
+                  value={currentVariation}
                   onChange={(e) => {
                     store.dispatch({
                       type: 'UPDATE_VARIATION',
@@ -301,7 +323,7 @@ export default class AddManyComponent extends React.Component {
   }
 
   getFieldsVariationOptions(){
-    let subfields = this.props.fieldDefinitions[this.props.fieldName];
+    let subfields = this.props.fieldDefinitions[this.props.fieldName].field_variations;
     if(Object.keys(subfields).length === 1) {
       return null;
     }
@@ -334,8 +356,41 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
+  limitCheckMax() {
+    let self = this;
+    const { store } = this.context;
+    const state = store.getState();
+    const subposts = state.subposts;
+    if(!this.props.limitRange.length) {
+      return false;
+    }
+    if(subposts.length === this.props.limitRange[1]) {
+      alert('Item not added. You have reached the max number of items.')
+      return true;
+    }
+  }
+
+  limitCheckMin() {
+    let self = this;
+    const { store } = this.context;
+    const state = store.getState();
+    const subposts = state.subposts;
+
+    if(!this.props.limitRange.length) {
+      return true;
+    }
+    if(subposts.length < this.props.limitRange[0]) {
+      alert('You must have at least ' + this.props.limitRange[0] + ' items selected for the "' + TacoStr.human(this.props.fieldName) + '" field.' );
+      return false;
+    }
+    return true;
+  }
+
   createNewSubPost(e, postReferenceInfo=null) {
     e.preventDefault();
+    if(this.limitCheckMax()) {
+      return;
+    }
     let $ = jQuery;
     let self = this;
     const { store } = this.context;

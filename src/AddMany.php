@@ -15,13 +15,11 @@ class AddMany {
   public $interfaces = [];
   public $buttons = [];
   public $field_variations = [];
-  public $key = null;
-
+  public $limit_range = false;
 
   // Instance methods
 
-  public function __construct($key, $config = []) {
-    $this->key = $key;
+  public function __construct($config = []) {
     $this->config = $this->getConfigDefaults();
     $this->config = array_merge_recursive(
       $this->config, $config
@@ -36,7 +34,8 @@ class AddMany {
       'config_addmany' => [
         'interfaces' => $this->interfaces,
         'buttons' => $this->buttons,
-        'field_variations' => $this->field_variations
+        'field_variations' => $this->field_variations,
+        'limit_range' => $this->limit_range
       ]
     ];
   }
@@ -48,7 +47,8 @@ class AddMany {
           'class_method' => 'Post'
         ]
       ],
-      'buttons' => ['reverese', 'alpah']
+      'limit_range' => false,
+      'buttons' => ['reverse-sort', 'alpha-sort']
     ];
   }
 
@@ -56,7 +56,7 @@ class AddMany {
     if(!array_key_exists($k, $this->config)) {
       return $this;
     }
-    $this->config[$K] = $v;
+    $this->config[$k] = $v;
     return $this;
   }
 
@@ -92,7 +92,7 @@ class AddMany {
 
     wp_register_style(
       'addmany',
-      '/addons/dist/addmany.min.css',
+      '/addons/dist/addmany.css',
       false,
       self::VERSION
     );
@@ -155,14 +155,15 @@ class AddMany {
       $fields = $custom_post->getFields();
 
       foreach($fields as $k => $v) {
+
         // Does an addMany config exist
         if(!array_key_exists('config_addmany', $v)) continue;
         if(!array_key_exists('field_variations', $v['config_addmany'])) continue;
 
         $config_addmany = $v['config_addmany'];
 
-        // Do any user intefaces exist exist?
 
+        // Do any user intefaces exist exist?
         $interfaces = self::getDefaultInterfaces();
         if(
           array_key_exists('interfaces', $config_addmany)
@@ -187,8 +188,17 @@ class AddMany {
         // If there are field variations for subposts, get them.
         if(\Taco\Util\Arr::iterable($variations = $config_addmany['field_variations'])) {
           foreach($variations as $key => $value) {
-            self::$field_definitions[$k][$key] = $value['fields'];
+            self::$field_definitions[$k]['field_variations'][$key] = $value['fields'];
           }
+        }
+
+        if(
+          array_key_exists('limit_range', $config_addmany)
+          && count($config_addmany['limit_range']) == 2)
+        {
+          self::$field_definitions[$k]['limit_range'] = $config_addmany['limit_range'];
+        } else {
+          self::$field_definitions[$k]['limit_range'] = [];
         }
       }
     }

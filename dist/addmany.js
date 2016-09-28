@@ -8920,8 +8920,8 @@
 	      parentPostId: $('#post_ID').val(),
 	      domElement: $(this).parent(),
 	      fieldDefinitions: window.field_definitions,
-	      currentVariation: 'default_variation',
 	      fieldName: $(this).attr('name'),
+	      limitRange: window.field_definitions[$(this).attr('name')]['limit_range'],
 	      isAddBySearch: typeof fieldDefinitions.is_addbysearch !== 'undefined',
 	      classMethod: typeof fieldDefinitions.class_method !== 'undefined' ? fieldDefinitions.class_method : null
 	    })), $(this).parent()[0]);
@@ -30155,11 +30155,30 @@
 	      this.loadSaved();
 	      store.dispatch({
 	        type: 'INIT',
-	        currentVariation: 'default_variation',
+	        currentVariation: this.getDefaultVariation(),
 	        fieldName: this.props.fieldName,
 	        removedSubpostIds: [],
 	        searchButtonText: 'Show all'
 	      });
+	      this.addPostSaveHook();
+	    }
+	  }, {
+	    key: 'addPostSaveHook',
+	    value: function addPostSaveHook() {
+	      var $ = jQuery;
+	      var self = this;
+	      $('#post').on('submit', function (e) {
+	        if (!self.limitCheckMin()) {
+	          return false;
+	        }
+	        return true;
+	      });
+	    }
+	  }, {
+	    key: 'getDefaultVariation',
+	    value: function getDefaultVariation() {
+	      var field_variations = this.props.fieldDefinitions[this.props.fieldName].field_variations;
+	      return !this.props.isAddBySearch ? Object.keys(field_variations)[0] : 'default_variation';
 	    }
 	  }, {
 	    key: 'render',
@@ -30175,6 +30194,7 @@
 	      var searchButtonText = _store$getState.searchButtonText;
 	      var loadingClass = _store$getState.loadingClass;
 	      var resultsMessage = _store$getState.resultsMessage;
+	      var currentVariation = _store$getState.currentVariation;
 
 	      var variations = this.getFieldsVariationOptions();
 	      var removed = removedSubpostIds === null || typeof removedSubpostIds === 'undefined' ? [] : removedSubpostIds;
@@ -30195,6 +30215,7 @@
 
 	      if (!this.props.isAddBySearch) {
 	        return _react2.default.createElement('div', { ref: 'main_container', className: 'addmany-component' }, _react2.default.createElement('input', { name: 'addmany_deleted_ids', type: 'hidden', value: removed }), variations !== null ? _react2.default.createElement('select', {
+	          value: currentVariation,
 	          onChange: function onChange(e) {
 	            store.dispatch({
 	              type: 'UPDATE_VARIATION',
@@ -30411,7 +30432,7 @@
 	  }, {
 	    key: 'getFieldsVariationOptions',
 	    value: function getFieldsVariationOptions() {
-	      var subfields = this.props.fieldDefinitions[this.props.fieldName];
+	      var subfields = this.props.fieldDefinitions[this.props.fieldName].field_variations;
 	      if (Object.keys(subfields).length === 1) {
 	        return null;
 	      }
@@ -30446,11 +30467,48 @@
 	      });
 	    }
 	  }, {
+	    key: 'limitCheckMax',
+	    value: function limitCheckMax() {
+	      var self = this;
+	      var store = this.context.store;
+
+	      var state = store.getState();
+	      var subposts = state.subposts;
+	      if (!this.props.limitRange.length) {
+	        return false;
+	      }
+	      if (subposts.length === this.props.limitRange[1]) {
+	        alert('Item not added. You have reached the max number of items.');
+	        return true;
+	      }
+	    }
+	  }, {
+	    key: 'limitCheckMin',
+	    value: function limitCheckMin() {
+	      var self = this;
+	      var store = this.context.store;
+
+	      var state = store.getState();
+	      var subposts = state.subposts;
+
+	      if (!this.props.limitRange.length) {
+	        return true;
+	      }
+	      if (subposts.length < this.props.limitRange[0]) {
+	        alert('You must have at least ' + this.props.limitRange[0] + ' items selected for the "' + _TacoStr2.default.human(this.props.fieldName) + '" field.');
+	        return false;
+	      }
+	      return true;
+	    }
+	  }, {
 	    key: 'createNewSubPost',
 	    value: function createNewSubPost(e) {
 	      var postReferenceInfo = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
 
 	      e.preventDefault();
+	      if (this.limitCheckMax()) {
+	        return;
+	      }
 	      var $ = jQuery;
 	      var self = this;
 	      var store = this.context.store;
