@@ -1,9 +1,9 @@
 <?php
 
-namespace Taco;
+namespace Taco\AddMany;
 
 
-Trait AddManyMixins {
+Trait Mixins {
 
 
   private static function getPostTypeStructure($class_method) {
@@ -34,7 +34,7 @@ Trait AddManyMixins {
       }
       return $object;
     }, $subposts);
-    
+
     return $linked_posts;
   }
 
@@ -82,19 +82,28 @@ Trait AddManyMixins {
       }
 
       $field = $this->getField($key);
-      if(\Taco\Util\Arr::iterable($field) && array_key_exists('data-addmany', $field) && $field['data-addmany'] === true) {
+      if(\Taco\Util\Arr::iterable($field)
+        && array_key_exists('data-addmany', $field)
+        && $field['data-addmany'] === true
+        && !is_admin()
+      ){
         return $this->getRelations($key, $field);
       }
       if (!$convert_value) {
           if (!$field) {
-              return $val;
+            return $val;
           }
           if (array_key_exists('default', $field)) {
-              return $field['default'];
+            return $field['default'];
           }
       }
-      return (array_key_exists('options', $field) && array_key_exists($val, $field['options']))
-          ? $field['options'][$val]
-          : $val;
+      if(
+        array_key_exists('options', $field)
+        && array_key_exists($val, $field['options'])
+      ){
+          return $field['options'][$val];
+      }
+
+      return $val;
   }
 }

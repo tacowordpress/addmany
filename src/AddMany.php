@@ -1,20 +1,83 @@
 <?php
-/*
- * AddMany
- * Description: AddMany is a TacoWordPress add-on that allows you to
- * create an arbitrary number of fields for custom posts in the WordPress admin.
- */
 
 namespace Taco;
 use \Taco\Util\Arr;
 use \Taco\Util\Collection;
 
 class AddMany {
+
   const VERSION = '006';
   public static $field_definitions = [];
   public static $wp_tiny_mce_settings = null;
   public static $path_url = null;
-  public function init() {
+
+  public $config = [];
+  public $interfaces = [];
+  public $buttons = [];
+  public $field_variations = [];
+  public $key = null;
+
+
+  // Instance methods
+
+  public function __construct($key, $config = []) {
+    $this->key = $key;
+    $this->config = $this->getConfigDefaults();
+    $this->config = array_merge_recursive(
+      $this->config, $config
+    );
+    return $this;
+  }
+
+  public function toArray() {
+    return [
+      'type' => 'text',
+      'data-addmany' => true,
+      'config_addmany' => [
+        'interfaces' => $this->interfaces,
+        'buttons' => $this->buttons,
+        'field_variations' => $this->field_variations
+      ]
+    ];
+  }
+
+  public static function getConfigDefaults() {
+    return [
+      'interfaces' => [
+        'addbysearch' => [
+          'class_method' => 'Post'
+        ]
+      ],
+      'buttons' => ['reverese', 'alpah']
+    ];
+  }
+
+  public function set($k, $v) {
+    if(!array_key_exists($k, $this->config)) {
+      return $this;
+    }
+    $this->config[$K] = $v;
+    return $this;
+  }
+
+  public function get($k) {
+    if(!array_key_exists($k, $this->config)) {
+      return null;
+    }
+    return $this->config[$k];
+  }
+
+  public function __get($k) {
+    return $this->get($k);
+  }
+
+  public function __set($k, $v) {
+    return $this->set($k);
+  }
+
+  // Static methods (mostly for WordPress admin)
+
+  public static function init() {
     if(is_null(self::$path_url)) {
       self::$path_url = '/'.strstr(dirname(__FILE__), 'vendor');
     }
@@ -67,7 +130,7 @@ class AddMany {
     return [];
   }
 
-  public function loadFieldDefinitions() {
+  public static function loadFieldDefinitions() {
     global $post;
     if(!$post) {
       return false;
@@ -188,12 +251,12 @@ class AddMany {
 
   // This is if a user creates new sub-posts but then leaves the page
   // without hitting the publish or update button
-  public static function removeAbandonedPosts() {
-    $sub_posts = \SubPost::getWhere(array('post_parent' => 0));
-    foreach($sub_posts as $sp) {
-      wp_delete_post($sp->ID, true);
-    }
-  }
+  // public static function removeAbandonedPosts() {
+  //   $sub_posts = \SubPost::getWhere(array('post_parent' => 0));
+  //   foreach($sub_posts as $sp) {
+  //     wp_delete_post($sp->ID, true);
+  //   }
+  // }
 
   public static function getAJAXPostsUsingAddBySearch($class_method, $field_assigned_to, $parent_id, $keywords='') {
 
@@ -511,19 +574,5 @@ class AddMany {
       }
     }
     return true;
-  }
-
-  public static function getSubPosts($fieldname, $post_id) {
-
-    $record = \Taco\Post::find($post_id);
-    $subposts = self::getSubPostsSafe($fieldname, $post_id);
-    $subpost_ids = Collection::pluck($subposts, 'ID');
-
-    $filtered = [];
-    foreach($field_ids as $fid) {
-      if(!in_array($fid, $subpost_ids)) continue;
-      $filtered[$fid] = \Taco\Post::find($fid);
-    }
-    return $filtered;
   }
 }

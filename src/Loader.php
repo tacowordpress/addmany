@@ -1,10 +1,11 @@
 <?php
 
-namespace Taco;
+namespace Taco\AddMany;
+
 use \FrontendLoader\FrontendLoader;
 require __DIR__.'/SubPost.php';
 
-class AddManyLoader
+class Loader
 {
 
     public static function init()
