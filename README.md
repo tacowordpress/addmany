@@ -49,7 +49,7 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
  
  ```php
 
-// Example AddMany field with field variations
+// Example AddMany field with field variations – Adds a dropdown for users to select
 
   public function getFields() {
     return [
