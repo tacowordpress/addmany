@@ -26,7 +26,6 @@ class Factory {
       array_key_exists('limit_range', $other_options)
       && count($other_options['limit_range']) == 2)
     {
-
       $factory_instance->setLimitRange(
         $other_options['limit_range']
       );
@@ -58,7 +57,7 @@ class Factory {
   }
 
 
-  public static function createWithAddBySearch($post_class_method=null, $fields=null) {
+  public static function createWithAddBySearch($post_class_method=null, $fields=null, $other_options=[]) {
     $factory_instance = new \Taco\AddMany\Factory;
     $factory_instance->current_object = new \Taco\AddMany;
     if(strlen($post_class_method)) {
@@ -69,6 +68,16 @@ class Factory {
     } else {
       $factory_instance->addFieldVariations(['default_variation' => []]);
     }
+
+    if(
+      array_key_exists('limit_range', $other_options)
+      && count($other_options['limit_range']) == 2)
+    {
+      $factory_instance->setLimitRange(
+        $other_options['limit_range']
+      );
+    }
+
     return $factory_instance->toArray();
   }
 
