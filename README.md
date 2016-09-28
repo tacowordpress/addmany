@@ -10,20 +10,42 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
 
 ```php
 
-// Example configuration
+// Example configuration for a basic AddMany Field
 
   public function getFields() {
     return [
-      'employees' => \Taco\AddMany\Factory::create(
+      'staff_members' => \Taco\AddMany\Factory::create(
         [
           'first_name' => ['type' => 'text'],
           'last_name' => ['type' => 'text'],
           'bio' => ['type' => 'textarea']
         ], 
-        ['limit_range' => [2, 3]])->toArray()
+        ['limit_range' => [2, 3]])->toArray() // Enforce a minimum of 2 items, but no more than 3.
     ];
   }
 ```
+
+```php
+// Example configuration for an AddMany field with AddBySearch
+  public function getFields() {
+    return [
+      'employees' => \Taco\AddMany\Factory::createWithAddBySearch('Employee')
+    ];
+  }
+ ```
+ 
+ ```php
+// Example AddBySearch with shared fields
+  public function getFields() {
+    return [
+      'products' => \Taco\AddMany\Factory::createWithAddBySearch('Product',[
+        'price' => ['type' => 'text],
+        'tax' => ['type' => 'text]
+      ]);
+    ];
+  }
+ ```
+ 
 
 
 Documentation still in progress. Check back later for more info.
