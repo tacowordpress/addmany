@@ -440,7 +440,8 @@ class AddMany {
       $object_post_reference = \Taco\Post::find((int) $subpost->get('post_reference_id'));
       $post_reference_info = [
         'postId' => $object_post_reference->ID,
-        'postTitle' => $object_post_reference->post_title
+        'postTitle' => $object_post_reference->post_title,
+        'postDate' => $object_post_reference->post_date
       ];
     }
 
@@ -493,7 +494,8 @@ class AddMany {
         $object_post_reference = \Taco\Post::find((int) $subpost->get('post_reference_id'));
         $post_reference_info = [
           'postId' => $object_post_reference->ID,
-          'postTitle' => $object_post_reference->post_title
+          'postTitle' => $object_post_reference->post_title,
+          'postDate' => $object_post_reference->post_date
         ];
       }
       return array_merge(

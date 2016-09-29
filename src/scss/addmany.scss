@@ -179,3 +179,10 @@
 .subpost-component .mce-tinymce.mce-container.mce-panel {
   border: solid thin #DDD;
 }
+.addmany-sorting-buttons {
+  float: right;
+  li {
+    display: inline-block;
+    margin-left: 5px;
+  }
+}

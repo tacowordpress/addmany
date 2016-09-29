@@ -134,6 +134,11 @@ export default class AddManyComponent extends React.Component {
           <br />
 
           <b>Your Selection</b>
+          <ul className="addmany-sorting-buttons">
+            <li><button className="button" onClick={this.sortPostsReverse.bind(this)}>Reverse</button></li>
+            <li><button className="button" onClick={this.sortPostsAlpha.bind(this)}>Alpha</button></li>
+            <li><button className="button" onClick={this.sortPostsDate.bind(this)}>Post Date</button></li>
+          </ul>
           <ul className="addmany-actual-values">{renderedSubposts}</ul>
 
         </div>
@@ -427,6 +432,66 @@ export default class AddManyComponent extends React.Component {
       }
     });
     return order;
+  }
+
+  sortPostsReverse(e) {
+    e.preventDefault();
+    const { store } = this.context;
+    let subposts = store.getState().subposts.slice(0).reverse();
+    console.log(subposts);
+    store.dispatch({
+      type: 'UPDATE_ORDERING',
+      subposts: subposts
+    });
+  }
+
+  sortPostsAlpha(e) {
+    e.preventDefault();
+    const { store } = this.context;
+    let subposts = store.getState().subposts.slice(0).reverse();
+    let subpostTitles = subposts.map((s) => {
+      return s.postReferenceInfo.postTitle.toLowerCase();
+    });
+
+    subpostTitles.sort();
+    let sorted = [];
+    subpostTitles.forEach((title) => {
+      subposts.forEach((s) => {
+        if(title === s.postReferenceInfo.postTitle.toLowerCase()) {
+          sorted.push(s);
+        }
+      })
+    })
+
+    store.dispatch({
+      type: 'UPDATE_ORDERING',
+      subposts: sorted
+    });
+  }
+
+  sortPostsDate(e) {
+    e.preventDefault();
+    const { store } = this.context;
+    let subposts = store.getState().subposts.slice(0).reverse();
+
+    let subpostDates = subposts.map((s) => {
+      return s.postReferenceInfo.postDate;
+    });
+
+    subpostDates.sort();
+    let sorted = [];
+    subpostDates.forEach((title) => {
+      subposts.forEach((s) => {
+        if(title === s.postReferenceInfo.postDate.toLowerCase()) {
+          sorted.push(s);
+        }
+      })
+    })
+
+    store.dispatch({
+      type: 'UPDATE_ORDERING',
+      subposts: sorted
+    });
   }
 
   loadSaved(callback) {
