@@ -280,6 +280,11 @@ class AddMany {
       $results = $helper->$method($keywords);
     }
 
+    // remove thyself
+    if(array_key_exists($parent_id, $results)) {
+      unset($results[$parent_id]);
+    }
+
     $subfields = self::getFieldDefinitionKeys($field_assigned_to, $parent_id, 'default_variation');
     $formatted_records = [];
     $fields_attribs = self::getFieldDefinitionKeyAttribs($field_assigned_to, $parent_id, 'default_variation', true);

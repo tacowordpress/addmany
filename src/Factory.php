@@ -56,6 +56,10 @@ class Factory {
     return true;
   }
 
+  public static function createAndGet($fields_array=[], $other_options=[]) {
+    return self::create($fields_array, $other_options)->toArray();
+  }
+
 
   public static function createWithAddBySearch($post_class_method=null, $fields=null, $other_options=[]) {
     $factory_instance = new \Taco\AddMany\Factory;
@@ -78,7 +82,13 @@ class Factory {
       );
     }
 
-    return $factory_instance->toArray();
+    return $factory_instance;
+  }
+
+  public static function createAndGetWithAddBySearch($post_class_method=null, $fields=null, $other_options=[]) {
+    return self::createWithAddBySearch(
+      $post_class_method, $fields, $other_options
+    )->toArray();
   }
 
   private function setAddBySearchMethod($post_class_method) {

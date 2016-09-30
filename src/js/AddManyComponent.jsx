@@ -438,7 +438,6 @@ export default class AddManyComponent extends React.Component {
     e.preventDefault();
     const { store } = this.context;
     let subposts = store.getState().subposts.slice(0).reverse();
-    console.log(subposts);
     store.dispatch({
       type: 'UPDATE_ORDERING',
       subposts: subposts
