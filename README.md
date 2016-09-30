@@ -63,6 +63,7 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
  ```php
 // Example AddBySearch with shared fields
 
+class Store extends \Taco\Post {
   public function getFields() {
     return [
       'products' => \Taco\AddMany\Factory::createWithAddBySearch('Product',[
@@ -71,6 +72,7 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
       ])->toArray()
     ];
   }
+ }
  ```
  
 ######One-to-Many with field variations
