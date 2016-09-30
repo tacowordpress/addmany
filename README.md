@@ -30,7 +30,7 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
   }
 ```
 
-######Many-to-Many
+######Many-to-Many (AddBySearch)
 
 ```php
 // Example configuration for an AddMany field with AddBySearch
