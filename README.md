@@ -21,6 +21,7 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
  * Knowledge of requiring packages through Composer
  * Object-oriented programming 
 
+**Installation (Coming soon)**
 
 ####Example Usage
 
@@ -47,7 +48,7 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
 ######Many-to-Many (AddBySearch)
 
 ```php
-// Example configuration for an AddMany field with AddBySearch
+// Example configuration for an AddMany field with AddBySearch – Adds a search field for querying posts via AJAX
 
   public function getFields() {
     return [
