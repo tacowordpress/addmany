@@ -104,7 +104,7 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
 
 // You can simulate a one-to-one relationship by limiting the number of items to 1
 
-class Person {
+class Person extends \Taco\Post {
   public function getFields() {
     return [
       'spouse' => \Taco\AddMany\Factory::create(
