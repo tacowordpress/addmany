@@ -10,6 +10,8 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
 
 ####Example Usage
 
+
+######One-to-Many
 ```php
 
 // Example configuration for a basic AddMany Field
@@ -28,6 +30,8 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
   }
 ```
 
+######Many-to-Many
+
 ```php
 // Example configuration for an AddMany field with AddBySearch
 
@@ -37,6 +41,8 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
     ];
   }
  ```
+ 
+######One-to-Many with unique shared fields between parent and child
  
  ```php
 // Example AddBySearch with shared fields
@@ -50,6 +56,8 @@ AddMany would not be possible without The TacoWordPress framework – An ORM fo
     ];
   }
  ```
+ 
+######One-to-Many with field variations
  
  ```php
 
