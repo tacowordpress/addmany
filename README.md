@@ -48,7 +48,8 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
 ######Many-to-Many (AddBySearch)
 
 ```php
-// Example configuration for an AddMany field with AddBySearch – Adds a search field for querying posts via AJAX
+// Example configuration for an AddMany field with AddBySearch 
+// Adds a search field for querying posts via AJAX
 
   public function getFields() {
     return [
