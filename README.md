@@ -53,7 +53,7 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
 
   public function getFields() {
     return [
-      'employees' => \Taco\AddMany\Factory::createWithAddBySearch('Employee')
+      'employees' => \Taco\AddMany\Factory::createWithAddBySearch('Employee')->toArray()
     ];
   }
  ```
@@ -68,7 +68,7 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
       'products' => \Taco\AddMany\Factory::createWithAddBySearch('Product',[
         'price' => ['type' => 'text'],
         'tax' => ['type' => 'text']
-      ]);
+      ])->toArray()
     ];
   }
  ```
