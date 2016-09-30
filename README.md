@@ -8,13 +8,19 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
  * control the order of posts (custom post types)
  * assign modules or panels to a layout that are customizable
  * relate posts to other posts
- * repeate an arbitrary number of fields (like ACF repeater)
+ * repeat an arbitrary number of fields (like ACF repeater)
  * overriding a post(s) fields on a case by case basis without affecting the original
  * create site navigation (coming soon)
 
 **Requirements**
 
-AddMany would not be possible without The TacoWordPress framework – An ORM for custom post types. This is a requirement.
+AddMany would not be possible without [The TacoWordPress framework – An ORM for custom post types.] (https://github.com/tacowordpress/tacowordpress) This is a requirement.
+
+######Other requirements:
+ * PHP >= 5.4 
+ * Knowledge of requiring packages through Composer
+ * Object-oriented programming 
+
 
 ####Example Usage
 
