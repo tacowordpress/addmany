@@ -30237,7 +30237,7 @@
 	          onKeyPress: this.handleKeywordChange.bind(this),
 	          onChange: this.handleKeywordChange.bind(this) }), _react2.default.createElement('button', {
 	          className: 'button',
-	          onClick: this.searchPosts.bind(this) }, searchButtonText), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Search Results'), _react2.default.createElement('em', { style: { float: 'right' } }, resultsMessage), _react2.default.createElement('ul', { className: 'addmany-search-results' }, this.renderSearchResults()), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Your Selection'), _react2.default.createElement('ul', { className: 'addmany-actual-values' }, renderedSubposts));
+	          onClick: this.searchPosts.bind(this) }, searchButtonText), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Search Results'), _react2.default.createElement('em', { style: { float: 'right' } }, resultsMessage), _react2.default.createElement('ul', { className: 'addmany-search-results' }, this.renderSearchResults()), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Your Selection'), _react2.default.createElement('ul', { className: 'addmany-sorting-buttons' }, _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsReverse.bind(this) }, 'Reverse')), _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsAlpha.bind(this) }, 'Alpha')), _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsDate.bind(this) }, 'Post Date'))), _react2.default.createElement('ul', { className: 'addmany-actual-values' }, renderedSubposts));
 	      }
 	    }
 	  }, {
@@ -30545,6 +30545,71 @@
 	        }
 	      });
 	      return order;
+	    }
+	  }, {
+	    key: 'sortPostsReverse',
+	    value: function sortPostsReverse(e) {
+	      e.preventDefault();
+	      var store = this.context.store;
+
+	      var subposts = store.getState().subposts.slice(0).reverse();
+	      store.dispatch({
+	        type: 'UPDATE_ORDERING',
+	        subposts: subposts
+	      });
+	    }
+	  }, {
+	    key: 'sortPostsAlpha',
+	    value: function sortPostsAlpha(e) {
+	      e.preventDefault();
+	      var store = this.context.store;
+
+	      var subposts = store.getState().subposts.slice(0).reverse();
+	      var subpostTitles = subposts.map(function (s) {
+	        return s.postReferenceInfo.postTitle.toLowerCase();
+	      });
+
+	      subpostTitles.sort();
+	      var sorted = [];
+	      subpostTitles.forEach(function (title) {
+	        subposts.forEach(function (s) {
+	          if (title === s.postReferenceInfo.postTitle.toLowerCase()) {
+	            sorted.push(s);
+	          }
+	        });
+	      });
+
+	      store.dispatch({
+	        type: 'UPDATE_ORDERING',
+	        subposts: sorted
+	      });
+	    }
+	  }, {
+	    key: 'sortPostsDate',
+	    value: function sortPostsDate(e) {
+	      e.preventDefault();
+	      var store = this.context.store;
+
+	      var subposts = store.getState().subposts.slice(0).reverse();
+
+	      var subpostDates = subposts.map(function (s) {
+	        return s.postReferenceInfo.postDate;
+	      });
+
+	      subpostDates.sort();
+	      var sorted = [];
+	      subpostDates.forEach(function (title) {
+	        subposts.forEach(function (s) {
+	          if (title === s.postReferenceInfo.postDate.toLowerCase()) {
+	            sorted.push(s);
+	          }
+	        });
+	      });
+
+	      store.dispatch({
+	        type: 'UPDATE_ORDERING',
+	        subposts: sorted
+	      });
 	    }
 	  }, {
 	    key: 'loadSaved',
