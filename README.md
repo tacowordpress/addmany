@@ -58,7 +58,7 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
   }
  ```
  
-######One-to-Many with unique shared fields between parent and child
+######One-to-Many with unique common fields between parent and child (like a junction table)
  
  ```php
 // Example AddBySearch with shared fields
