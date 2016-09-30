@@ -10,7 +10,7 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
  * relate posts to other posts
  * repeat an arbitrary number of fields (like ACF repeater)
  * overriding a post(s) fields on a case by case basis without affecting the original
- * create site navigation (coming soon)
+ * create site navigation (future option)
 
 **Requirements**
 
