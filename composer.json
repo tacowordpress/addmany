@@ -10,7 +10,8 @@
     "jasand-pereza/frontend-loader": "dev-custom-paths"
   },
   "require-dev": {
-    "phpunit/phpunit": "5.5.*"
+    "tacowordpress/tacowordpress": "dev-master",
+    "tacowordpress/util": "dev-master"
   },
   "autoload": {
     "psr-4": {

@@ -270,7 +270,16 @@ class AddMany {
 
   public static function getAJAXPostsUsingAddBySearch($class_method, $field_assigned_to, $parent_id, $keywords='') {
 
-    $class_method_config = self::getPostTypeStructure($class_method);
+    // TODO this block needs major refactoring
+    $post_type_structure = self::getPostTypeStructure($class_method);
+    if(
+      count($post_type_structure) === 1 ||
+      count($post_type_structure) > 1 && $post_type_structure[1] == 'getPairs')
+    {
+      $post_type_structure['original_post_class'] = $post_type_structure[0];
+    }
+    
+    $class_method_config = $post_type_structure;
 
     if(array_key_exists('original_post_class', $class_method_config)) {
       $results = self::getPairsWithKeyWords($keywords,  $class_method_config['original_post_class']);
@@ -340,14 +349,7 @@ class AddMany {
   }
 
   public static function getPostTypeStructure($class_method) {
-    $post_type_structure = explode('::', $class_method);
-    if (count($post_type_structure) === 1) {
-        $post_type_structure['original_post_class'] = $post_type_structure[0];
-    }
-    if(count($post_type_structure) > 1 && $post_type_structure[1] == 'getPairs') {
-      $post_type_structure['original_post_class'] = $post_type_structure[0];
-    }
-    return $post_type_structure;
+    return explode('::', $class_method);
   }
 
   private static function getSubPostsSafe($field_assigned_to, $parent_id) {
