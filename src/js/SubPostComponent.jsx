@@ -13,6 +13,15 @@ export default class SubPostComponent extends React.Component {
     const { store } = this.context;
     let order = this.props.parentComponent.getOrder(this.props.postId);
     let postReferenceId = null;
+    const state = store.getState();
+
+    let classReordering = (state.repositionedSubpostId === this.props.postId)
+      ? 'addmany-currently-reordering '
+      : '';
+
+    let classMinimized = (this.props.parentComponent.isMinimized(this.props.postId))
+      ? 'addmany-currently-minimized '
+      : '';
 
     if(this.props.postReferenceInfo != null) {
       if(typeof this.props.postReferenceInfo.postId != 'undefined')  {
@@ -22,7 +31,7 @@ export default class SubPostComponent extends React.Component {
 
     return (
       <li
-        className="subpost-component addmany-result postbox"
+        className={'subpost-component addmany-result postbox ' + classReordering + classMinimized}
         order={order}
         data-subpost-id={this.props.postId}
         data-post-reference-id={postReferenceId}
@@ -39,23 +48,61 @@ export default class SubPostComponent extends React.Component {
 
         <button
           className="btn-addmany-delete button"
-          onClick={this.removeRow.bind(this)}
-          ><span className="dashicons dashicons-no"></span>
+          onClick={this.removeRow.bind(this)}>
+          <span className="dashicons dashicons-no"></span>
         </button>
 
         <button
-          onClick={this.moveItemOrderUp.bind(this)}
-          className="addmany-btn-order-up">
-          <span className="dashicons dashicons-arrow-up-alt"></span>
+          className="btn-addmany-minimize button"
+          onClick={this.minimize.bind(this)} >
+          <span className="dashicons dashicons-minus"></span>
         </button>
 
-        <button
-          onClick={this.moveItemOrderDown.bind(this)}
-          className="addmany-btn-order-down">
-          <span className="dashicons dashicons-arrow-down-alt"></span>
-        </button>
+        {this.getOrderButtons()}
+
       </li>
     );
+  }
+
+  minimize(e) {
+    e.preventDefault();
+    const { store } = this.context;
+    const state = store.getState();
+    let subposts = state.subposts.slice(0);
+
+    subposts.forEach((s) => {
+      if(s.postId === this.props.postId) {
+        s.isMinimized = (!this.props.parentComponent.isMinimized(s.postId));
+      }
+    });
+
+    store.dispatch({
+      type: 'SET_MINIMIZED',
+      subposts: subposts,
+    });
+  }
+
+  getOrderButtons() {
+    const {store} = this.context;
+    const state = store.getState();
+    if(state.subposts.length > 1 && !this.props.parentComponent.isMinimized(this.props.postId)) {
+      return (
+        <div>
+          <button
+            onClick={this.moveItemOrderUp.bind(this)}
+            className="addmany-btn-order-up">
+            <span className="dashicons dashicons-arrow-up-alt"></span>
+          </button>
+
+          <button
+            onClick={this.moveItemOrderDown.bind(this)}
+            className="addmany-btn-order-down">
+            <span className="dashicons dashicons-arrow-down-alt"></span>
+          </button>
+        </div>
+      )
+    }
+    return null;
   }
 
 
@@ -70,14 +117,19 @@ export default class SubPostComponent extends React.Component {
     if(order === 0) {
       return;
     }
+
+    let repositionedSubpostId = null;
+
     // offset order of all subposts
     subposts.forEach((s) => {
       let sOrder = parentComponent.getOrder(s.postId);
       if(sOrder === order) {
+        repositionedSubpostId = this.props.postId;
         reOrdered.push(
           Object.assign({}, s, { order: sOrder - 1 })
         );
       } else {
+        repositionedSubpostId = this.props.postId;
         reOrdered.push(
           Object.assign({}, s, { order: sOrder + 1 })
         );
@@ -90,8 +142,16 @@ export default class SubPostComponent extends React.Component {
 
     store.dispatch({
       type: 'UPDATE_ORDERING',
-      subposts: reOrdered
+      subposts: reOrdered,
+      repositionedSubpostId: repositionedSubpostId
     });
+
+    setTimeout(function(){
+      store.dispatch({
+        type: 'UI_ORDERING_DONE',
+        repositionedSubpostId: null
+      });
+    }, 2000)
   }
 
 
@@ -106,14 +166,19 @@ export default class SubPostComponent extends React.Component {
     if(order === subposts.length -1) {
       return;
     }
+
+    let repositionedSubpostId = null;
+
     // offset order of all subposts
     subposts.forEach((s) => {
       let sOrder = parentComponent.getOrder(s.postId);
       if(sOrder === order) {
+        repositionedSubpostId = this.props.postId;
         reOrdered.push(
           Object.assign({}, s, { order: sOrder + 1 })
         );
       } else {
+        repositionedSubpostId = this.props.postId;
         reOrdered.push(
           Object.assign({}, s, { order: sOrder - 1 })
         );
@@ -126,8 +191,16 @@ export default class SubPostComponent extends React.Component {
 
     store.dispatch({
       type: 'UPDATE_ORDERING',
-      subposts: reOrdered
+      subposts: reOrdered,
+      repositionedSubpostId: repositionedSubpostId
     });
+
+    setTimeout(function(){
+      store.dispatch({
+        type: 'UI_ORDERING_DONE',
+        repositionedSubpostId: null
+      });
+    }, 2000)
   }
 
   removeRow(e) {
@@ -177,6 +250,7 @@ export default class SubPostComponent extends React.Component {
       revert: 100,
       start: function(e, ui) {
 
+        ui.item.addClass('addmany-currently-reordering');
         $domActualValues.find('li').each(function(i) {
           $(this).find('.wysiwyg').each(function () {
             $(this).hide();
@@ -185,6 +259,7 @@ export default class SubPostComponent extends React.Component {
         });
       },
       stop: function(e, ui) {
+        ui.item.removeClass('addmany-currently-reordering');
         let newArrayOfSubposts = [];
         $domActualValues.find('li').each(function(i) {
           let $this = $(this);

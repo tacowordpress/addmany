@@ -135,15 +135,64 @@ export default class AddManyComponent extends React.Component {
 
           <b>Your Selection</b>
           <ul className="addmany-sorting-buttons">
-            <li><button className="button" onClick={this.sortPostsReverse.bind(this)}>Reverse</button></li>
-            <li><button className="button" onClick={this.sortPostsAlpha.bind(this)}>Alpha</button></li>
-            <li><button className="button" onClick={this.sortPostsDate.bind(this)}>Post Date</button></li>
+            <li><button className="button" onClick={this.sortPostsAlpha.bind(this)}>Sort by Alphanumeric</button></li>
+
+            {(this.props.isAddBySearch)
+              ? <li><button className="button" onClick={this.sortPostsDate.bind(this)}>Sort by Post Date</button></li>
+              : null }
+
+            <li><button style={{background: '#FFF'}} className="button" onClick={this.sortPostsReverse.bind(this)}>Flip</button></li>
+            <li><button style={{background: '#FFF'}} className="button" onClick={this.toggleCollapse.bind(this)}>Collapse/Expand</button></li>
+
           </ul>
           <ul className="addmany-actual-values">{renderedSubposts}</ul>
 
         </div>
       );
     }
+  }
+
+  toggleCollapse(e) {
+    e.preventDefault();
+    const { store } = this.context;
+    const state = store.getState();
+    let subposts = state.subposts.slice(0);
+    let isGloballyMinimized = false;
+
+    if(state.isGloballyMinimized) {
+      subposts.forEach((s) => {
+        s.isMinimized = false;
+      });
+      isGloballyMinimized = false;
+    } else {
+      subposts.forEach((s) => {
+        s.isMinimized = true;
+      });
+      isGloballyMinimized = true;
+
+    }
+    store.dispatch({
+      type: 'SET_MINIMIZED',
+      subposts: subposts,
+      isGloballyMinimized: isGloballyMinimized
+    });
+  }
+
+
+  isMinimized(postId) {
+    const { store } = this.context;
+    const state = store.getState();
+    let subposts = state.subposts.slice(0);
+    let isMinimized = false;
+
+    subposts.forEach((s) => {
+      if(postId === s.postId) {
+        if(s.isMinimized === true) {
+          isMinimized =  true;
+        }
+      }
+    });
+    return isMinimized;
   }
 
   renderSearchResults() {

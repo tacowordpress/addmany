@@ -60,14 +60,10 @@
 
 	__webpack_require__(296);
 
-	/* eslint max-len: 0 */
-
 	if (global._babelPolyfill) {
 	  throw new Error("only one instance of babel-polyfill is allowed");
 	}
 	global._babelPolyfill = true;
-
-	// Should be removed in the next major release:
 
 	var DEFINE_PROPERTY = "defineProperty";
 	function define(O, key, value) {
@@ -276,7 +272,7 @@
 	'use strict';
 	// ECMAScript 6 symbols shim
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var global = __webpack_require__(4),
 	    has = __webpack_require__(5),
@@ -684,7 +680,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	module.exports = function (it) {
 	  return (typeof it === 'undefined' ? 'undefined' : _typeof(it)) === 'object' ? it !== null : typeof it === 'function';
@@ -848,7 +844,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var META = __webpack_require__(19)('meta'),
 	    isObject = __webpack_require__(13),
@@ -1315,7 +1311,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 	var toIObject = __webpack_require__(32),
@@ -1929,7 +1925,7 @@
 	    fails = __webpack_require__(7),
 	    spaces = __webpack_require__(84),
 	    space = '[' + spaces + ']',
-	    non = '​',
+	    non = '\u200B\x85',
 	    ltrim = RegExp('^' + space + space + '*'),
 	    rtrim = RegExp(space + space + '*$');
 
@@ -1961,7 +1957,7 @@
 
 	'use strict';
 
-	module.exports = '\t\n\u000b\f\r   ᠎    ' + '         　\u2028\u2029﻿';
+	module.exports = '\t\n\x0B\f\r \xA0\u1680\u180E\u2000\u2001\u2002\u2003' + '\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
 
 /***/ },
 /* 85 */
@@ -5885,7 +5881,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	if (__webpack_require__(6)) {
 	  var LIBRARY = __webpack_require__(28),
@@ -7368,7 +7364,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var Map = __webpack_require__(211),
 	    $export = __webpack_require__(8),
@@ -7931,7 +7927,7 @@
 
 	/* WEBPACK VAR INJECTION */(function(global, module, process) {"use strict";
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
 	 * Copyright (c) 2014, Facebook, Inc.
@@ -8846,7 +8842,7 @@
 	__webpack_require__(532);
 
 	var reducer = function reducer() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	  var action = arguments[1];
 
 	  switch (action.type) {
@@ -8857,7 +8853,8 @@
 	        currentVariation: action.currentVariation,
 	        removedSubpostIds: [],
 	        searchResultPosts: [],
-	        searchButtonText: 'Show all'
+	        searchButtonText: 'Show all',
+	        isGloballyMinimized: false
 	      });
 	    case 'UPDATE_VARIATION':
 	      return Object.assign({}, state, {
@@ -8873,7 +8870,8 @@
 	      });
 	    case 'UPDATE_ORDERING':
 	      return Object.assign({}, state, {
-	        subposts: action.subposts
+	        subposts: action.subposts,
+	        repositionedSubpostId: action.repositionedSubpostId
 	      });
 	    case 'UPDATE_REMOVED':
 	      return Object.assign({}, state, {
@@ -8898,6 +8896,16 @@
 	      return Object.assign({}, state, {
 	        loadingClass: action.loadingClass,
 	        resultsMessage: action.resultsMessage
+	      });
+	    case 'UI_ORDERING_DONE':
+	      return Object.assign({}, state, {
+	        hasReordered: action.hasReordered,
+	        repositionedSubpostId: action.repositionedSubpostId
+	      });
+	    case 'SET_MINIMIZED':
+	      return Object.assign({}, state, {
+	        subposts: action.subposts,
+	        isGloballyMinimized: action.isGloballyMinimized
 	      });
 	    default:
 	      return state;
@@ -9554,7 +9562,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _assign = __webpack_require__(302);
 
@@ -10088,7 +10096,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _prodInvariant = __webpack_require__(305);
 
@@ -10372,7 +10380,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _prodInvariant = __webpack_require__(305);
 
@@ -10669,7 +10677,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _prodInvariant = __webpack_require__(305),
 	    _assign = __webpack_require__(302);
@@ -11738,7 +11746,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var ReactCurrentOwner = __webpack_require__(308);
 	var ReactComponentTreeHook = __webpack_require__(326);
@@ -11966,7 +11974,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _prodInvariant = __webpack_require__(305);
 
@@ -12314,7 +12322,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _prodInvariant = __webpack_require__(305);
 
@@ -12430,7 +12438,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var ReactElement = __webpack_require__(307);
 	var ReactPropTypeLocationNames = __webpack_require__(322);
@@ -13569,7 +13577,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var EventConstants = __webpack_require__(339);
 	var EventPropagators = __webpack_require__(340);
@@ -14210,7 +14218,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _prodInvariant = __webpack_require__(305);
 
@@ -19111,7 +19119,7 @@
 	 * @typechecks
 	 */
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var invariant = __webpack_require__(306);
 
@@ -19421,7 +19429,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _prodInvariant = __webpack_require__(305),
 	    _assign = __webpack_require__(302);
@@ -23581,7 +23589,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _prodInvariant = __webpack_require__(305),
 	    _assign = __webpack_require__(302);
@@ -23707,7 +23715,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _prodInvariant = __webpack_require__(305),
 	    _assign = __webpack_require__(302);
@@ -24666,7 +24674,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 
@@ -24679,7 +24687,8 @@
 	  if (x === y) {
 	    // Steps 1-5, 7-10
 	    // Steps 6.b-6.e: +0 != -0
-	    return x !== 0 || 1 / x === 1 / y;
+	    // Added the nonzero y check to make Flow happy, but it is redundant
+	    return x !== 0 || y !== 0 || 1 / x === 1 / y;
 	  } else {
 	    // Step 6.a: NaN == NaN
 	    return x !== x && y !== y;
@@ -24748,7 +24757,7 @@
 	 * @protected
 	 */
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	function shouldUpdateReactComponent(prevElement, nextElement) {
 	  var prevEmpty = prevElement === null || prevElement === false;
@@ -24902,7 +24911,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var KeyEscapeUtils = __webpack_require__(314);
 	var traverseAllChildren = __webpack_require__(312);
@@ -25225,7 +25234,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _prodInvariant = __webpack_require__(305);
 
@@ -27313,7 +27322,7 @@
 	 * @return {boolean} Whether or not the object is a DOM node.
 	 */
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	function isNode(object) {
 	  return !!(object && (typeof Node === 'function' ? object instanceof Node : (typeof object === 'undefined' ? 'undefined' : _typeof(object)) === 'object' && typeof object.nodeType === 'number' && typeof object.nodeName === 'string'));
@@ -30078,7 +30087,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -30237,8 +30246,53 @@
 	          onKeyPress: this.handleKeywordChange.bind(this),
 	          onChange: this.handleKeywordChange.bind(this) }), _react2.default.createElement('button', {
 	          className: 'button',
-	          onClick: this.searchPosts.bind(this) }, searchButtonText), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Search Results'), _react2.default.createElement('em', { style: { float: 'right' } }, resultsMessage), _react2.default.createElement('ul', { className: 'addmany-search-results' }, this.renderSearchResults()), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Your Selection'), _react2.default.createElement('ul', { className: 'addmany-sorting-buttons' }, _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsReverse.bind(this) }, 'Reverse')), _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsAlpha.bind(this) }, 'Alpha')), _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsDate.bind(this) }, 'Post Date'))), _react2.default.createElement('ul', { className: 'addmany-actual-values' }, renderedSubposts));
+	          onClick: this.searchPosts.bind(this) }, searchButtonText), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Search Results'), _react2.default.createElement('em', { style: { float: 'right' } }, resultsMessage), _react2.default.createElement('ul', { className: 'addmany-search-results' }, this.renderSearchResults()), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Your Selection'), _react2.default.createElement('ul', { className: 'addmany-sorting-buttons' }, _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsAlpha.bind(this) }, 'Sort by Alphanumeric')), this.props.isAddBySearch ? _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsDate.bind(this) }, 'Sort by Post Date')) : null, _react2.default.createElement('li', null, _react2.default.createElement('button', { style: { background: '#FFF' }, className: 'button', onClick: this.sortPostsReverse.bind(this) }, 'Flip')), _react2.default.createElement('li', null, _react2.default.createElement('button', { style: { background: '#FFF' }, className: 'button', onClick: this.toggleCollapse.bind(this) }, 'Collapse/Expand'))), _react2.default.createElement('ul', { className: 'addmany-actual-values' }, renderedSubposts));
 	      }
+	    }
+	  }, {
+	    key: 'toggleCollapse',
+	    value: function toggleCollapse(e) {
+	      e.preventDefault();
+	      var store = this.context.store;
+
+	      var state = store.getState();
+	      var subposts = state.subposts.slice(0);
+	      var isGloballyMinimized = false;
+
+	      if (state.isGloballyMinimized) {
+	        subposts.forEach(function (s) {
+	          s.isMinimized = false;
+	        });
+	        isGloballyMinimized = false;
+	      } else {
+	        subposts.forEach(function (s) {
+	          s.isMinimized = true;
+	        });
+	        isGloballyMinimized = true;
+	      }
+	      store.dispatch({
+	        type: 'SET_MINIMIZED',
+	        subposts: subposts,
+	        isGloballyMinimized: isGloballyMinimized
+	      });
+	    }
+	  }, {
+	    key: 'isMinimized',
+	    value: function isMinimized(postId) {
+	      var store = this.context.store;
+
+	      var state = store.getState();
+	      var subposts = state.subposts.slice(0);
+	      var isMinimized = false;
+
+	      subposts.forEach(function (s) {
+	        if (postId === s.postId) {
+	          if (s.isMinimized === true) {
+	            isMinimized = true;
+	          }
+	        }
+	      });
+	      return isMinimized;
 	    }
 	  }, {
 	    key: 'renderSearchResults',
@@ -30379,8 +30433,8 @@
 	  }, {
 	    key: 'addRow',
 	    value: function addRow(postId) {
-	      var fieldsConfig = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-	      var allData = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+	      var fieldsConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+	      var allData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 	      var store = this.context.store;
 
 	      var state = store.getState();
@@ -30503,7 +30557,7 @@
 	  }, {
 	    key: 'createNewSubPost',
 	    value: function createNewSubPost(e) {
-	      var postReferenceInfo = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+	      var postReferenceInfo = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
 	      e.preventDefault();
 	      if (this.limitCheckMax()) {
@@ -30650,7 +30704,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -30717,6 +30771,11 @@
 
 	      var order = this.props.parentComponent.getOrder(this.props.postId);
 	      var postReferenceId = null;
+	      var state = store.getState();
+
+	      var classReordering = state.repositionedSubpostId === this.props.postId ? 'addmany-currently-reordering ' : '';
+
+	      var classMinimized = this.props.parentComponent.isMinimized(this.props.postId) ? 'addmany-currently-minimized ' : '';
 
 	      if (this.props.postReferenceInfo != null) {
 	        if (typeof this.props.postReferenceInfo.postId != 'undefined') {
@@ -30725,7 +30784,7 @@
 	      }
 
 	      return _react2.default.createElement('li', {
-	        className: 'subpost-component addmany-result postbox',
+	        className: 'subpost-component addmany-result postbox ' + classReordering + classMinimized,
 	        order: order,
 	        'data-subpost-id': this.props.postId,
 	        'data-post-reference-id': postReferenceId,
@@ -30736,16 +30795,52 @@
 	        isAddBySearch: this.props.isAddBySearch,
 	        order: order })), _react2.default.createElement('button', {
 	        className: 'btn-addmany-delete button',
-	        onClick: this.removeRow.bind(this)
-	      }, _react2.default.createElement('span', { className: 'dashicons dashicons-no' })), _react2.default.createElement('button', {
-	        onClick: this.moveItemOrderUp.bind(this),
-	        className: 'addmany-btn-order-up' }, _react2.default.createElement('span', { className: 'dashicons dashicons-arrow-up-alt' })), _react2.default.createElement('button', {
-	        onClick: this.moveItemOrderDown.bind(this),
-	        className: 'addmany-btn-order-down' }, _react2.default.createElement('span', { className: 'dashicons dashicons-arrow-down-alt' })));
+	        onClick: this.removeRow.bind(this) }, _react2.default.createElement('span', { className: 'dashicons dashicons-no' })), _react2.default.createElement('button', {
+	        className: 'btn-addmany-minimize button',
+	        onClick: this.minimize.bind(this) }, _react2.default.createElement('span', { className: 'dashicons dashicons-minus' })), this.getOrderButtons());
+	    }
+	  }, {
+	    key: 'minimize',
+	    value: function minimize(e) {
+	      var _this2 = this;
+
+	      e.preventDefault();
+	      var store = this.context.store;
+
+	      var state = store.getState();
+	      var subposts = state.subposts.slice(0);
+
+	      subposts.forEach(function (s) {
+	        if (s.postId === _this2.props.postId) {
+	          s.isMinimized = !_this2.props.parentComponent.isMinimized(s.postId);
+	        }
+	      });
+
+	      store.dispatch({
+	        type: 'SET_MINIMIZED',
+	        subposts: subposts
+	      });
+	    }
+	  }, {
+	    key: 'getOrderButtons',
+	    value: function getOrderButtons() {
+	      var store = this.context.store;
+
+	      var state = store.getState();
+	      if (state.subposts.length > 1 && !this.props.parentComponent.isMinimized(this.props.postId)) {
+	        return _react2.default.createElement('div', null, _react2.default.createElement('button', {
+	          onClick: this.moveItemOrderUp.bind(this),
+	          className: 'addmany-btn-order-up' }, _react2.default.createElement('span', { className: 'dashicons dashicons-arrow-up-alt' })), _react2.default.createElement('button', {
+	          onClick: this.moveItemOrderDown.bind(this),
+	          className: 'addmany-btn-order-down' }, _react2.default.createElement('span', { className: 'dashicons dashicons-arrow-down-alt' })));
+	      }
+	      return null;
 	    }
 	  }, {
 	    key: 'moveItemOrderUp',
 	    value: function moveItemOrderUp(e) {
+	      var _this3 = this;
+
 	      e.preventDefault();
 	      var store = this.context.store;
 
@@ -30757,12 +30852,17 @@
 	      if (order === 0) {
 	        return;
 	      }
+
+	      var repositionedSubpostId = null;
+
 	      // offset order of all subposts
 	      subposts.forEach(function (s) {
 	        var sOrder = parentComponent.getOrder(s.postId);
 	        if (sOrder === order) {
+	          repositionedSubpostId = _this3.props.postId;
 	          reOrdered.push(Object.assign({}, s, { order: sOrder - 1 }));
 	        } else {
+	          repositionedSubpostId = _this3.props.postId;
 	          reOrdered.push(Object.assign({}, s, { order: sOrder + 1 }));
 	        }
 	      });
@@ -30773,12 +30873,22 @@
 
 	      store.dispatch({
 	        type: 'UPDATE_ORDERING',
-	        subposts: reOrdered
+	        subposts: reOrdered,
+	        repositionedSubpostId: repositionedSubpostId
 	      });
+
+	      setTimeout(function () {
+	        store.dispatch({
+	          type: 'UI_ORDERING_DONE',
+	          repositionedSubpostId: null
+	        });
+	      }, 2000);
 	    }
 	  }, {
 	    key: 'moveItemOrderDown',
 	    value: function moveItemOrderDown(e) {
+	      var _this4 = this;
+
 	      e.preventDefault();
 	      var store = this.context.store;
 
@@ -30790,12 +30900,17 @@
 	      if (order === subposts.length - 1) {
 	        return;
 	      }
+
+	      var repositionedSubpostId = null;
+
 	      // offset order of all subposts
 	      subposts.forEach(function (s) {
 	        var sOrder = parentComponent.getOrder(s.postId);
 	        if (sOrder === order) {
+	          repositionedSubpostId = _this4.props.postId;
 	          reOrdered.push(Object.assign({}, s, { order: sOrder + 1 }));
 	        } else {
+	          repositionedSubpostId = _this4.props.postId;
 	          reOrdered.push(Object.assign({}, s, { order: sOrder - 1 }));
 	        }
 	      });
@@ -30806,8 +30921,16 @@
 
 	      store.dispatch({
 	        type: 'UPDATE_ORDERING',
-	        subposts: reOrdered
+	        subposts: reOrdered,
+	        repositionedSubpostId: repositionedSubpostId
 	      });
+
+	      setTimeout(function () {
+	        store.dispatch({
+	          type: 'UI_ORDERING_DONE',
+	          repositionedSubpostId: null
+	        });
+	      }, 2000);
 	    }
 	  }, {
 	    key: 'removeRow',
@@ -30866,6 +30989,7 @@
 	        revert: 100,
 	        start: function start(e, ui) {
 
+	          ui.item.addClass('addmany-currently-reordering');
 	          $domActualValues.find('li').each(function (i) {
 	            $(this).find('.wysiwyg').each(function () {
 	              $(this).hide();
@@ -30874,6 +30998,7 @@
 	          });
 	        },
 	        stop: function stop(e, ui) {
+	          ui.item.removeClass('addmany-currently-reordering');
 	          var newArrayOfSubposts = [];
 	          $domActualValues.find('li').each(function (i) {
 	            var $this = $(this);
@@ -30910,7 +31035,7 @@
 
 	'use strict';
 
-	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -30919,7 +31044,7 @@
 	var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
 	  return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
 	} : function (obj) {
-	  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+	  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
 	};
 
 	var _createClass = function () {
@@ -31124,7 +31249,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -31301,7 +31426,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.__esModule = true;
 	exports["default"] = undefined;
@@ -31445,7 +31570,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _extends = Object.assign || function (target) {
 	  for (var i = 1; i < arguments.length; i++) {
@@ -31968,7 +32093,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.__esModule = true;
 	exports.ActionTypes = undefined;
@@ -32347,7 +32472,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	/**
 	 * Checks if `value` is object-like. A value is object-like if it's not `null`
@@ -32630,7 +32755,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.__esModule = true;
 	exports['default'] = bindActionCreators;
@@ -33112,7 +33237,7 @@
 
 	'use strict';
 
-	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -33121,7 +33246,7 @@
 	var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
 	  return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
 	} : function (obj) {
-	  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+	  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
 	};
 
 	var _createClass = function () {
@@ -33183,7 +33308,7 @@
 
 	'use strict';
 
-	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -33192,7 +33317,7 @@
 	var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
 	  return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
 	} : function (obj) {
-	  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+	  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
 	};
 
 	var _createClass = function () {
@@ -33333,7 +33458,7 @@
 
 	'use strict';
 
-	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -33837,7 +33962,7 @@
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	function isArguments(obj) {
 	  return Object.prototype.toString.call(obj) === '[object Arguments]';
@@ -35977,7 +36102,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var hasMap = typeof Map === 'function' && Map.prototype;
 	var mapSizeDescriptor = Object.getOwnPropertyDescriptor && hasMap ? Object.getOwnPropertyDescriptor(Map.prototype, 'size') : null;
@@ -36327,7 +36452,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var keys = __webpack_require__(515);
 	var foreach = __webpack_require__(517);
@@ -36395,7 +36520,7 @@
 
 	// modified from https://github.com/es-shims/es5-shim
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var has = Object.prototype.hasOwnProperty;
 	var toStr = Object.prototype.toString;
@@ -36535,7 +36660,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var toStr = Object.prototype.toString;
 
@@ -36581,7 +36706,7 @@
 
 	'use strict';
 
-	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -36740,7 +36865,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var regexExec = RegExp.prototype.exec;
 	var tryRegexExec = function tryRegexExec(value) {
@@ -36768,7 +36893,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var ObjectPrototype = Object.prototype;
 	var toStr = ObjectPrototype.toString;
@@ -37162,7 +37287,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var fnToStr = Function.prototype.toString;
 
@@ -37218,7 +37343,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var boolToStr = Boolean.prototype.toString;
 
@@ -37250,7 +37375,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var getDay = Date.prototype.getDay;
 	var tryDateObject = function tryDateObject(value) {
@@ -37297,7 +37422,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var numToStr = Number.prototype.toString;
 	var tryNumberObject = function tryNumberObject(value) {
@@ -37328,7 +37453,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var strValue = String.prototype.valueOf;
 	var tryStringObject = function tryStringObject(value) {
@@ -37359,7 +37484,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var toStr = Object.prototype.toString;
 	var hasSymbols = typeof Symbol === 'function' && _typeof(Symbol()) === 'symbol';

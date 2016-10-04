@@ -10,7 +10,7 @@
 
 .addbysearch-result {
   cursor: pointer;
-  width: 95%;
+  width: 98%;
   height: 28px;
   margin-bottom: 5px;
   padding-left: 10px;
@@ -74,6 +74,17 @@
   span {
     color: #e6a7a7;
   }
+}
+
+.wp-core-ui button.btn-addmany-minimize {
+  position: absolute;
+  left: 0;
+  top: 0;
+  float: right;
+  background: none;
+  box-shadow: none;
+  padding: 2px;
+  line-height: 4px;
 }
 
 .addmany ~ b {
@@ -184,5 +195,28 @@
   li {
     display: inline-block;
     margin-left: 5px;
+  }
+}
+
+.addmany-component ul.addmany-actual-values li.addmany-currently-reordering {
+  box-shadow: 4px 2px 14px -1px #CCC;
+}
+
+.addmany-component.with-addbysearch .addmany-actual-values a.addmany-edit-link {
+  margin-left: 26px;
+}
+.addmany-currently-minimized td:not(.addbysearch-reference-td){
+  &, & * {
+    height: 0 !important;
+    overflow: hidden;
+    padding: 0 !important;
+    line-height: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    font-size: 0 !important;
+    box-shadow: none;
+    select {
+      display: none;
+    }
   }
 }

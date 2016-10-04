@@ -18,6 +18,7 @@ const reducer = (state = {}, action) => {
         removedSubpostIds: [],
         searchResultPosts: [],
         searchButtonText: 'Show all',
+        isGloballyMinimized: false
       });
     case 'UPDATE_VARIATION':
       return Object.assign({}, state, {
@@ -34,6 +35,7 @@ const reducer = (state = {}, action) => {
     case 'UPDATE_ORDERING':
       return Object.assign({}, state, {
         subposts: action.subposts,
+        repositionedSubpostId: action.repositionedSubpostId
       });
     case 'UPDATE_REMOVED':
       return Object.assign({}, state, {
@@ -59,6 +61,16 @@ const reducer = (state = {}, action) => {
         loadingClass: action.loadingClass,
         resultsMessage: action.resultsMessage
       });
+    case 'UI_ORDERING_DONE':
+    return Object.assign({}, state, {
+      hasReordered: action.hasReordered,
+      repositionedSubpostId: action.repositionedSubpostId
+    });
+    case 'SET_MINIMIZED':
+    return Object.assign({}, state, {
+      subposts: action.subposts,
+      isGloballyMinimized: action.isGloballyMinimized
+    });
     default:
       return state;
   }
