@@ -52,15 +52,26 @@ export default class SubPostComponent extends React.Component {
           <span className="dashicons dashicons-no"></span>
         </button>
 
-        <button
-          className="btn-addmany-minimize button"
-          onClick={this.minimize.bind(this)} >
-          <span className="dashicons dashicons-minus"></span>
-        </button>
-
+        {this.getMinimizeButton()}
         {this.getOrderButtons()}
 
       </li>
+    );
+  }
+
+  getMinimizeButton() {
+    if(this.props.isAddBySearch && !Object.keys(this.props.fieldsConfig).length) {
+      return null;
+    }
+    let dashIcon = (this.props.parentComponent.isMinimized(this.props.postId))
+      ? 'editor-expand'
+      : 'minus';
+    return (
+      <button
+        className="btn-addmany-minimize button"
+        onClick={this.minimize.bind(this)} >
+        <span className={'dashicons dashicons-' + dashIcon}></span>
+      </button>
     );
   }
 
@@ -69,16 +80,18 @@ export default class SubPostComponent extends React.Component {
     const { store } = this.context;
     const state = store.getState();
     let subposts = state.subposts.slice(0);
+    let subposts_filtered = [];
 
     subposts.forEach((s) => {
       if(s.postId === this.props.postId) {
         s.isMinimized = (!this.props.parentComponent.isMinimized(s.postId));
       }
+      subposts_filtered.push(s);
     });
 
     store.dispatch({
       type: 'SET_MINIMIZED',
-      subposts: subposts,
+      subposts: subposts_filtered,
     });
   }
 
@@ -241,8 +254,6 @@ export default class SubPostComponent extends React.Component {
   getSortableConfig(){
     let self = this;
     let $ = jQuery;
-    const { store } = this.context;
-    const { subposts } = store.getState();
     let fieldName = self.props.parentComponent.props.fieldName;
     let $domActualValues = $('tr.' + fieldName + ' .addmany-actual-values');
 
@@ -259,6 +270,9 @@ export default class SubPostComponent extends React.Component {
         });
       },
       stop: function(e, ui) {
+        const { store } = self.context;
+        let subposts = store.getState().subposts.slice(0)
+
         ui.item.removeClass('addmany-currently-reordering');
         let newArrayOfSubposts = [];
         $domActualValues.find('li').each(function(i) {

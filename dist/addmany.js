@@ -30446,6 +30446,7 @@
 	          postReferenceInfo = allData.postReferenceInfo;
 	        }
 	      }
+
 	      var subpost = {
 	        postId: postId,
 	        fieldsConfig: fieldsConfig,
@@ -30644,17 +30645,17 @@
 	      e.preventDefault();
 	      var store = this.context.store;
 
-	      var subposts = store.getState().subposts.slice(0).reverse();
+	      var subposts = store.getState().subposts.slice(0);
 
 	      var subpostDates = subposts.map(function (s) {
 	        return s.postReferenceInfo.postDate;
 	      });
-
 	      subpostDates.sort();
 	      var sorted = [];
-	      subpostDates.forEach(function (title) {
+
+	      subpostDates.forEach(function (postDate) {
 	        subposts.forEach(function (s) {
-	          if (title === s.postReferenceInfo.postDate.toLowerCase()) {
+	          if (postDate === s.postReferenceInfo.postDate && sorted.indexOf(s) === -1) {
 	            sorted.push(s);
 	          }
 	        });
@@ -30795,9 +30796,18 @@
 	        isAddBySearch: this.props.isAddBySearch,
 	        order: order })), _react2.default.createElement('button', {
 	        className: 'btn-addmany-delete button',
-	        onClick: this.removeRow.bind(this) }, _react2.default.createElement('span', { className: 'dashicons dashicons-no' })), _react2.default.createElement('button', {
+	        onClick: this.removeRow.bind(this) }, _react2.default.createElement('span', { className: 'dashicons dashicons-no' })), this.getMinimizeButton(), this.getOrderButtons());
+	    }
+	  }, {
+	    key: 'getMinimizeButton',
+	    value: function getMinimizeButton() {
+	      if (this.props.isAddBySearch && !Object.keys(this.props.fieldsConfig).length) {
+	        return null;
+	      }
+	      var dashIcon = this.props.parentComponent.isMinimized(this.props.postId) ? 'editor-expand' : 'minus';
+	      return _react2.default.createElement('button', {
 	        className: 'btn-addmany-minimize button',
-	        onClick: this.minimize.bind(this) }, _react2.default.createElement('span', { className: 'dashicons dashicons-minus' })), this.getOrderButtons());
+	        onClick: this.minimize.bind(this) }, _react2.default.createElement('span', { className: 'dashicons dashicons-' + dashIcon }));
 	    }
 	  }, {
 	    key: 'minimize',
@@ -30809,16 +30819,18 @@
 
 	      var state = store.getState();
 	      var subposts = state.subposts.slice(0);
+	      var subposts_filtered = [];
 
 	      subposts.forEach(function (s) {
 	        if (s.postId === _this2.props.postId) {
 	          s.isMinimized = !_this2.props.parentComponent.isMinimized(s.postId);
 	        }
+	        subposts_filtered.push(s);
 	      });
 
 	      store.dispatch({
 	        type: 'SET_MINIMIZED',
-	        subposts: subposts
+	        subposts: subposts_filtered
 	      });
 	    }
 	  }, {
@@ -30976,12 +30988,6 @@
 	    value: function getSortableConfig() {
 	      var self = this;
 	      var $ = jQuery;
-	      var store = this.context.store;
-
-	      var _store$getState = store.getState();
-
-	      var subposts = _store$getState.subposts;
-
 	      var fieldName = self.props.parentComponent.props.fieldName;
 	      var $domActualValues = $('tr.' + fieldName + ' .addmany-actual-values');
 
@@ -30998,6 +31004,10 @@
 	          });
 	        },
 	        stop: function stop(e, ui) {
+	          var store = self.context.store;
+
+	          var subposts = store.getState().subposts.slice(0);
+
 	          ui.item.removeClass('addmany-currently-reordering');
 	          var newArrayOfSubposts = [];
 	          $domActualValues.find('li').each(function (i) {

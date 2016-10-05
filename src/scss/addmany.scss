@@ -85,6 +85,7 @@
   box-shadow: none;
   padding: 2px;
   line-height: 4px;
+  border: none;
 }
 
 .addmany ~ b {
@@ -120,6 +121,9 @@
 
 .wp-core-ui .addbysearch-result button span.dashicons.dashicons-plus-alt {
   color: #9ad2a7;
+}
+.wp-core-ui .addmany-result button span.dashicons.dashicons-editor-expand {
+  font-size: 14px;
 }
 
 .addmany-actual-values {
@@ -202,9 +206,10 @@
   box-shadow: 4px 2px 14px -1px #CCC;
 }
 
-.addmany-component.with-addbysearch .addmany-actual-values a.addmany-edit-link {
+.addmany-component.with-addbysearch .addmany-actual-values .addbysearch-reference-td:not(.no-fields) a.addmany-edit-link {
   margin-left: 26px;
 }
+
 .addmany-currently-minimized td:not(.addbysearch-reference-td){
   &, & * {
     height: 0 !important;

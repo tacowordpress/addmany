@@ -342,6 +342,7 @@ export default class AddManyComponent extends React.Component {
         postReferenceInfo = allData.postReferenceInfo;
       }
     }
+
     let subpost = {
       postId: postId,
       fieldsConfig: fieldsConfig,
@@ -520,21 +521,23 @@ export default class AddManyComponent extends React.Component {
   sortPostsDate(e) {
     e.preventDefault();
     const { store } = this.context;
-    let subposts = store.getState().subposts.slice(0).reverse();
+    let subposts = store.getState().subposts.slice(0);
 
     let subpostDates = subposts.map((s) => {
       return s.postReferenceInfo.postDate;
     });
-
     subpostDates.sort();
     let sorted = [];
-    subpostDates.forEach((title) => {
+
+
+    subpostDates.forEach((postDate) => {
       subposts.forEach((s) => {
-        if(title === s.postReferenceInfo.postDate.toLowerCase()) {
+        if(postDate === s.postReferenceInfo.postDate
+          && sorted.indexOf(s) === -1) {
           sorted.push(s);
         }
       })
-    })
+    });
 
     store.dispatch({
       type: 'UPDATE_ORDERING',
