@@ -211,6 +211,8 @@ class AddMany {
     $subpost = new \SubPost;
     $subpost->set('post_title', 'AddMany subpost '.md5(mt_rand()));
     $subpost->set('post_parent', $post_data['parent_id']);
+    $subpost->set('post_status', $post_data['draft']);
+
     $subpost->set(
       'field_assigned_to',
       trim($post_data['field_assigned_to'])
@@ -261,12 +263,16 @@ class AddMany {
 
   // This is if a user creates new sub-posts but then leaves the page
   // without hitting the publish or update button
-  // public static function removeAbandonedPosts() {
-  //   $sub_posts = \SubPost::getWhere(array('post_parent' => 0));
-  //   foreach($sub_posts as $sp) {
-  //     wp_delete_post($sp->ID, true);
-  //   }
-  // }
+  public static function removeAbandonedPosts() {
+    $abandoned = \SubPost::getWhere([
+      'post_parent' => $post->ID,
+      'post_status' => 'draft'
+    ]);
+
+    foreach($abandoned as $p) {
+      wp_delete_post($p->ID, true);
+    }
+  }
 
   public static function getAJAXPostsUsingAddBySearch($class_method, $field_assigned_to, $parent_id, $keywords='') {
 
@@ -278,7 +284,7 @@ class AddMany {
     {
       $post_type_structure['original_post_class'] = $post_type_structure[0];
     }
-    
+
     $class_method_config = $post_type_structure;
 
     if(array_key_exists('original_post_class', $class_method_config)) {
@@ -472,8 +478,8 @@ class AddMany {
   }
 
   private static function getAJAXSubPosts($field_assigned_to, $parent_id) {
-    //self::removeAbandonedPosts();
-    $all_records = self::getChildPosts($parent_id, $field_assigned_to);
+    $assigned_records = self::getChildPosts($parent_id, $field_assigned_to);
+    self::removeAbandonedPosts($assigned_records);
     // filter out the fields we don't need
     $filtered = array_map(function($subpost) use ($field_assigned_to, $parent_id) {
       $post_title = $subpost->post_title;
@@ -514,7 +520,7 @@ class AddMany {
           'postReferenceInfo' =>$post_reference_info
         )
       );
-    }, $all_records);
+    }, $assigned_records);
 
     header('Content-Type: application/json');
     echo json_encode(
@@ -544,7 +550,7 @@ class AddMany {
     }
 
     if(wp_is_post_revision($post_parent)) return false;
-    $array_remove_values = array_diff(array_keys($subpost_fields),array_keys($fields_values));
+    $array_remove_values = array_diff(array_keys($subpost_fields) ,array_keys($fields_values));
 
     foreach($fields_values as $k => $v) {
       update_post_meta($post_id, $k, $v);
@@ -553,6 +559,10 @@ class AddMany {
     foreach($array_remove_values as $field_key) {
       delete_post_meta($post_id, $field_key);
     }
+
+    // finally transition post status
+    wp_publish_post($post_id);
+
     remove_action('save_post', 'AddMany::saveAll');
 
     return true;
