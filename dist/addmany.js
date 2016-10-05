@@ -30556,12 +30556,37 @@
 	      return true;
 	    }
 	  }, {
+	    key: 'subpostAlreadyInSelection',
+	    value: function subpostAlreadyInSelection(postReferenceInfo) {
+	      if (postReferenceInfo === null) {
+	        return false;
+	      }
+	      var store = this.context.store;
+
+	      var state = store.getState();
+	      var subposts = state.subposts;
+
+	      var $bool = false;
+
+	      subposts.forEach(function (s) {
+	        if (postReferenceInfo.postId === s.postReferenceInfo.postId) {
+	          $bool = true;
+	        }
+	      });
+
+	      return $bool;
+	    }
+	  }, {
 	    key: 'createNewSubPost',
 	    value: function createNewSubPost(e) {
 	      var postReferenceInfo = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
 	      e.preventDefault();
 	      if (this.limitCheckMax()) {
+	        return;
+	      }
+	      if (this.subpostAlreadyInSelection(postReferenceInfo)) {
+	        alert('This item is already in your selection.');
 	        return;
 	      }
 	      var $ = jQuery;

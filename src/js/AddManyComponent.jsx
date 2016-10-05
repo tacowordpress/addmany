@@ -441,9 +441,32 @@ export default class AddManyComponent extends React.Component {
     return true;
   }
 
+  subpostAlreadyInSelection(postReferenceInfo) {
+    if(postReferenceInfo === null) {
+      return false;
+    }
+    const { store } = this.context;
+    const state = store.getState();
+    const subposts = state.subposts;
+
+    let $bool = false;
+
+    subposts.forEach((s) => {
+      if(postReferenceInfo.postId === s.postReferenceInfo.postId) {
+        $bool = true;
+      }
+    });
+
+    return $bool;
+  }
+
   createNewSubPost(e, postReferenceInfo=null) {
     e.preventDefault();
     if(this.limitCheckMax()) {
+      return;
+    }
+    if(this.subpostAlreadyInSelection(postReferenceInfo)) {
+      alert('This item is already in your selection.');
       return;
     }
     let $ = jQuery;
