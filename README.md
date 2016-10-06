@@ -234,7 +234,7 @@ foreach($store->products as $product): ?>
   product price: <?= $product->get('price'); ?> | Original Price: <?= $product->original_fields->price; ?> <br>
 <?php endforeach; ?>
 ```
-By accessing the property of "original_fields" will get the original value while keeping the new value.
+By accessing the property of "original_fields", you will get the original value while keeping the new value.
 `$product->original_fields->price;` 
 
 This is also useful to show product savings after a reduction in price.
