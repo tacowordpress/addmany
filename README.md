@@ -151,7 +151,7 @@ class Person extends \Taco\Post {
 ```
 
 
-##Getting a Post's Relations
+##Getting a post's relations
 
 
 In your template you can get related posts by simpily accessing the field name through your object, 
@@ -201,7 +201,7 @@ This example shows a method that is defined in the Post class:
 IMPORTANT: The method you define must be named "getFallBackRelatedPosts". It can handle more than one field if you allow it. Just create a switch statement or some logic to check the key and then return the appropriate posts.
 
 
-##Getting a original values of an overwritten post
+##Getting original values of an overwritten post
 With AddMany you can override values from a post that you reference through AddBySearch. This is extremely useful if you have a template of some sort or even a product that may need its values replaced without having to recreate it. 
 
 Let's say a there are a chain of stores that all carry the same product/s but the prices vary from location to location.
