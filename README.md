@@ -23,10 +23,10 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
 
 **Installation (Coming soon)**
 
-####Example Usage
+##Example Usage
 
 
-######One-to-Many
+###One-to-Many
 ```php
 
 // Example configuration for a basic AddMany Field
@@ -45,7 +45,7 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
   }
 ```
 
-######Many-to-Many (AddBySearch)
+###Many-to-Many (AddBySearch)
 
 ```php
 // Example configuration for an AddMany field with AddBySearch 
@@ -58,7 +58,7 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
   }
  ```
  
-######Many-to-Many with unique common fields between 2 posts (like a junction table)
+###Many-to-Many with unique common fields between 2 posts (like a junction table)
  
  ```php
 // Example AddBySearch with shared fields
@@ -75,7 +75,7 @@ class Store extends \Taco\Post {
  }
  ```
  
-######One-to-Many with field variations
+###One-to-Many with field variations
  
  ```php
 
@@ -101,7 +101,7 @@ class Store extends \Taco\Post {
   }
 ```
 
-######One-to-One
+###One-to-One
 ```php
 
 // You can simulate a one-to-one relationship by limiting the number of items to 1
@@ -122,7 +122,7 @@ class Person extends \Taco\Post {
 ```
 
 
-**Getting a Post's Relations**
+###Getting a Post's Relation
 
 
 In your template you can get related posts by simpily accessing the field name through your object e.g. `$blog_post->related_posts`
