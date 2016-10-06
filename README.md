@@ -125,4 +125,27 @@ class Person extends \Taco\Post {
 Documentation still in progress. Check back later for more info.
 
 
+**Getting a Posts Relations**
+
+In your template you can get related posts by simpily accessing the field name through your object e.g. `$blog_post->related_posts`
+This will return a collection of post objects.
+
+```php
+// In your template (Example)
+
+$blog_post = \Taco\Post\Factory::create($post); ?>
+
+<?php foreach($blog_post->related_posts as $rp): ?>
+  <article class="row">
+     <div class="small-12 columns">
+       <a href="<?= $rp->getPermalink(); ?>">
+         <h2><?= $rp->getTheTitle(); ?></h2>
+         <?= $rp->getTheExcerpt(); ?>
+       </a>
+      </div>
+  </article>
+<?php endforeach; ?>
+
+```
+
 
