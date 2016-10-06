@@ -46,6 +46,7 @@ Trait Mixins {
     return \Taco\AddMany::getChildPosts($this->ID,  $field_key);
   }
 
+
   public function isAddBySearch($field) {
     if(!array_key_exists('interfaces', $field['config_addmany'])) {
       return false;
@@ -60,10 +61,14 @@ Trait Mixins {
   }
 
 
-
   public static function getPostClassFromAddBySearchConfig($field) {
     $class_method = $field['config_addmany']['interfaces']['addbysearch']['class_method'];
     return explode('::', $class_method)[0];
+  }
+
+
+  public function hasFallBackMethod() {
+    return method_exists($this, 'getFallBackRelatedPosts');
   }
 
 
@@ -87,7 +92,11 @@ Trait Mixins {
         && $field['data-addmany'] === true
         && !is_admin()
       ){
-        return $this->getRelations($key, $field);
+        $relations = $this->getRelations($key, $field);
+        if(!\Taco\Util\Arr::iterable($relations) && $this->hasFallBackMethod()) {
+          return $this->getFallBackRelatedPosts($key);
+        }
+        return $relations;
       }
       if (!$convert_value) {
           if (!$field) {
