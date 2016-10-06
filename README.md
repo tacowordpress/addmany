@@ -122,9 +122,6 @@ class Person extends \Taco\Post {
 ```
 
 
-Documentation still in progress. Check back later for more info.
-
-
 **Getting a Posts Relations**
 
 In your template you can get related posts by simpily accessing the field name through your object e.g. `$blog_post->related_posts`
@@ -147,5 +144,30 @@ $blog_post = \Taco\Post\Factory::create($post); ?>
 <?php endforeach; ?>
 
 ```
+######What if no related posts exist in the object? 
+In other words, the admin did not manually select them.
+You can define a fallback method. This will alow for cleaner code in your template by removing any logic.
+
+This example shows a method that is defined in the Post class: 
+```php
+  public function getFallBackRelatedPosts($key) {
+    global $post;
+    $post_id = (is_object($post) && isset($post->ID))
+      ? $post->ID
+      : null;
+    if($key === 'related_posts') {
+      return \Taco\Post::getWhere(['posts_per_page' => 3, 'exclude' => $post_id]); 
+      // The above actually just gets the 3 most recent posts, excluding the current one. 
+      // This is a poor example. Don't be this lazy!
+    }
+  }
+```
+
+IMPORTANT: The method you define must be named "getFallBackRelatedPosts". It can handle more than one field if you allow it. Just create a case statement or some logic to check the key and then return the appropriate posts.
+
+
+
+
+Documentation still in progress. Check back later for more info.
 
 
