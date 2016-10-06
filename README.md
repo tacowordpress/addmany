@@ -4,7 +4,7 @@ The visual interface gives WordPress admin the ability to assign one-to-many rel
 
 Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and repeat sets of fields. The main difference being, it puts control back into the hands of the developer.
 
-**Use Cases**
+##Use Cases
  * relate posts to other posts
  * control the order of posts (custom post types)
  * assign modules or panels to a layout that are customizable
