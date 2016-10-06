@@ -174,7 +174,7 @@ This will let you do the below.
 $blog_post = \Taco\Post\Factory::create($post); ?>
 
 <?php foreach($blog_post->related_posts as $rp): ?>
-   <?= echo $rp->post_title; ?>
+   <?= $rp->post_title; ?>
   ...
 <?php endforeach; ?>
 
