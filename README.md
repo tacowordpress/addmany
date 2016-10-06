@@ -12,7 +12,7 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
  * overriding a post(s) fields on a case by case basis without affecting the original
  * create site navigation (future option)
 
-**Requirements**
+##Requirements
 
 AddMany would not be possible without [The TacoWordPress framework – An ORM for custom post types.] (https://github.com/tacowordpress/tacowordpress) This is a requirement.
 
@@ -122,7 +122,7 @@ class Person extends \Taco\Post {
 ```
 
 
-###Getting a Post's Relation
+##Getting a Post's Relation
 
 
 In your template you can get related posts by simpily accessing the field name through your object e.g. `$blog_post->related_posts`
