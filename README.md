@@ -19,6 +19,7 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
 ######Other requirements:
  * PHP >= 5.4 
  * Knowledge of requiring packages through Composer
+ * Prior knowledge of TacoWordpress
  * Object-oriented programming 
 
 ##Installation
