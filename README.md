@@ -124,8 +124,19 @@ class Person extends \Taco\Post {
 
 **Getting a Posts Relations**
 
+
 In your template you can get related posts by simpily accessing the field name through your object e.g. `$blog_post->related_posts`
 This will return a collection of post objects.
+
+In order to utilize the above, you must use the AddMany Mixin in your class.
+
+```php
+
+class Post extends \Taco\Post {
+  use \Taco\AddMany\Mixins;
+  ...
+```
+This will let you do the below.
 
 ```php
 // In your template (Example)
