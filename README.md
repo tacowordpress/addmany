@@ -230,8 +230,8 @@ To understand this concept better, let's create the template code that displays 
 <?php $store = Store::find($post->ID); // load the store containing the products you added
 
 foreach($store->products as $product): ?>
-  product title: <?= $product->getTheTitle(); ?><br>
-  product price: <?= $product->get('price'); ?> | Original Price: <?= $product->original_fields->price; ?> <br>
+  Product title: <?= $product->getTheTitle(); ?><br>
+  New product price: <?= $product->get('price'); ?> | Original Price: <?= $product->original_fields->price; ?> <br>
 <?php endforeach; ?>
 ```
 By accessing the property of "original_fields", you will get the original value while keeping the new value.
