@@ -85,7 +85,7 @@ https://github.com/tacowordpress/tacowordpress/wiki.
  ```
  
 ###Many-to-Many with unique common fields between 2 posts (like a junction table)
- 
+In this example, the shared fields are between the parent post and the child posts of "products".
  ```php
 // Example AddBySearch with shared fields
 
@@ -100,6 +100,9 @@ class Store extends \Taco\Post {
   }
  }
  ```
+ Because the above will reference external "product" posts, you have the ability to extend their values ("price" and "tax" is a good use case) while also keeping their original values. This is useful for creating products and allowing them to slightly vary between stores (for example).
+ 
+ 
  
 ###One-to-Many with field variations
  
