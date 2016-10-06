@@ -201,6 +201,55 @@ This example shows a method that is defined in the Post class:
 IMPORTANT: The method you define must be named "getFallBackRelatedPosts". It can handle more than one field if you allow it. Just create a switch statement or some logic to check the key and then return the appropriate posts.
 
 
+##Getting a original values of an overwritten post
+With AddMany you can override values from a post that you reference through AddBySearch. This is extremely useful if you have a template of some sort or even a product that may need its values replaced without having to recreate it. 
+
+Let's say a there are a chain of stores that all carry the same product/s but the prices vary from location to location.
+The following code will allow this:
+
+```php
+
+class Store extends \Taco\Post {
+  use \Taco\AddMany\Mixins;
+
+  public function getFields() {
+    return [
+      'products' => \Taco\AddMany\Factory::createWithAddBySearch('Product', [
+        'price' => ['type' => 'text']
+      ])->toArray()
+    ];
+  }
+  ...
+```
+
+The admin interface will give you the ability to find and add the products to a list. This list will contain the products with an additional field of "price". Typing a value in these fields will override it but not replace the original.
+
+To understand this concept better, let's create the template code that displays some basic product information.
+
+```php
+<?php $store = Store::find($post->ID); // load the store containing the products you added
+
+foreach($store->products as $product): ?>
+  product title: <?= $product->getTheTitle(); ?><br>
+  product price: <?= $product->get('price'); ?> | Original Price: <?= $product->original_fields->price; ?> <br>
+<?php endforeach; ?>
+```
+By accessing the property of "original_fields" will get the original value while keeping the new value.
+`$product->original_fields->price;` 
+
+This is also useful to show product savings after a reduction in price.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Documentation still in progress. Check back later for more info.
