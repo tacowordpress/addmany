@@ -21,7 +21,31 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
  * Knowledge of requiring packages through Composer
  * Object-oriented programming 
 
-**Installation (Coming soon)**
+##Installation
+In your project's composer.json file, add the packages below in the require section:
+
+```
+"require": {
+  "tacowordpress/tacowordpress": "dev-master",
+  "tacowordpress/addmany": "dev-master",
+  "tacowordpress/util": "dev-master"
+}
+```
+
+In your theme's function file, add the below:
+```php
+
+// Add this so your project has access to Composer's autoloaded files. 
+// Please replace "{path_to_autolaod}".
+require_once '{path_to_autoload}/autoload.php'; 
+
+// Make sure to initialize the core dependency of AddMany, "TacoWordPress".
+\Taco\Loader::init();
+
+// Initialize AddMany
+\Taco\AddMany\Loader::init();
+
+```
 
 ##Example Usage
 
