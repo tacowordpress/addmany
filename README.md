@@ -204,7 +204,7 @@ This example shows a method that is defined in the Post class:
   }
 ```
 
-IMPORTANT: The method you define must be named "getFallBackRelatedPosts". It can handle more than one field if you allow it. Just create a case statement or some logic to check the key and then return the appropriate posts.
+IMPORTANT: The method you define must be named "getFallBackRelatedPosts". It can handle more than one field if you allow it. Just create a switch statement or some logic to check the key and then return the appropriate posts.
 
 
 
