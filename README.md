@@ -174,14 +174,8 @@ This will let you do the below.
 $blog_post = \Taco\Post\Factory::create($post); ?>
 
 <?php foreach($blog_post->related_posts as $rp): ?>
-  <article class="row">
-     <div class="small-12 columns">
-       <a href="<?= $rp->getPermalink(); ?>">
-         <h2><?= $rp->getTheTitle(); ?></h2>
-         <?= $rp->getTheExcerpt(); ?>
-       </a>
-      </div>
-  </article>
+   echo $rp->post_title;
+  ...
 <?php endforeach; ?>
 
 ```
