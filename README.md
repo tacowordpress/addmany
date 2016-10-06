@@ -48,7 +48,8 @@ require_once '{path_to_autoload}/autoload.php';
 ```
 
 ##Example Usage
-
+With the examples below, you should have prior knowledge of how TacoWordPress works. If not, please consult the docs here:
+https://github.com/tacowordpress/tacowordpress/wiki.
 
 ###One-to-Many
 ```php
