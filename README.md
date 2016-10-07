@@ -26,6 +26,8 @@ AddMany would not be possible without [The TacoWordPress framework – An ORM f
 ######Built with [React](https://facebook.github.io/react/) and PHP
 
 ##Installation
+Depending on where you put your project's vendor directory, installation may or may not work. A solution is currently being worked on to resolve this.
+
 In your project's composer.json file, add the packages below in the require section:
 
 ```
