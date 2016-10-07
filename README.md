@@ -243,7 +243,7 @@ This is also useful to show product savings after a reduction in price.
 
 
 
-##Convenience Methods
+##Convenience methods
 The Factory class of AddMany has few convenience methods to make your code just a little cleaner:
 
 Basic AddMany
