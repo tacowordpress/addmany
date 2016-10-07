@@ -227,7 +227,7 @@ The admin interface will give you the ability to find and add the products to a 
 To understand this concept better, let's create the template code that displays some basic product information.
 
 ```php
-<?php $store = Store::find($post->ID); // load the store containing the products you added
+<?php $store = Store::find($post->ID); // load the store and iterate through the products
 
 foreach($store->products as $product): ?>
   Product title: <?= $product->getTheTitle(); ?><br>
