@@ -105,7 +105,7 @@ class Store extends \Taco\Post {
   }
  }
  ```
- Because the above will reference external "product" posts, you have the ability to extend their values ("price" and "tax" is a good use case) while also keeping their original values. This is useful for creating products and allowing them to slightly vary between stores for instance.
+ Because the above will reference external "product" posts, you have the ability to extend their values ("price" and "tax" is a good use case) while also keeping their original values. This is useful for creating products and allowing them to slightly vary between stores.
  
  
  
