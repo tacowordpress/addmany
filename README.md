@@ -209,7 +209,7 @@ IMPORTANT: The method you define must be named "getFallBackRelatedPosts". It can
 ##Getting original values of a referenced post if overwritten
 With AddMany you can override values from a post that you reference through AddBySearch. This is extremely useful if you have a template (of some sort) or even a product that may need its values replaced without having to recreate it. 
 
-Let's say a there are a chain of stores that all carry the same product/s but the prices vary from location to location.
+Let's say there are a chain of stores that all carry the same product/s but the prices vary from location to location.
 The following code will allow this:
 
 ```php
