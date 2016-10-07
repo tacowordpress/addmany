@@ -232,7 +232,7 @@ To understand this concept better, let's create the template code that displays 
 foreach($store->products as $product): ?>
   Product title: <?= $product->getTheTitle(); ?><br>
   product price: $<?= $product->get('price'); ?><br>
-  Original Price: $<?= $product->original_fields->price; ?> <br>
+  Original price: $<?= $product->original_fields->price; ?> <br>
   Savings: $<?= $product->original_fields->price - $product->get('price'); ?><br><br>
 <?php endforeach; ?>
 ```
