@@ -166,7 +166,7 @@ class Post extends \Taco\Post {
   use \Taco\AddMany\Mixins;
   ...
 ```
-This will let you do the below.
+This will let you do the following:
 
 ```php
 // In your template (Example)
