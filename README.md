@@ -249,7 +249,7 @@ This is also useful to show product savings after a reduction in price.
 
 
 ##Convenience methods
-The Factory class of AddMany has few convenience methods to make your code just a little cleaner:
+The Factory class of AddMany has a few convenience methods to make your code just a little cleaner:
 
 Basic AddMany
 `\Taco\AddMany\createAndGet()` will return the array without having to call `->toArray()` 
