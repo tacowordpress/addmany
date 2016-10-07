@@ -159,7 +159,7 @@ class Person extends \Taco\Post {
 ##Getting a post's relations
 
 
-In your template you can get related posts by simpily accessing the field name through your object, 
+In your template you can get related posts by accessing the field name through your object, 
 e.g. ```$blog_post->related_posts```
 This will return a collection of post objects.
 
