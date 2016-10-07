@@ -231,7 +231,9 @@ To understand this concept better, let's create the template code that displays 
 
 foreach($store->products as $product): ?>
   Product title: <?= $product->getTheTitle(); ?><br>
-  New product price: <?= $product->get('price'); ?> | Original Price: <?= $product->original_fields->price; ?> <br>
+  product price: $<?= $product->get('price'); ?><br>
+  Original Price: $<?= $product->original_fields->price; ?> <br>
+  Savings: $<?= $product->original_fields->price - $product->get('price'); ?><br><br>
 <?php endforeach; ?>
 ```
 By accessing the property of "original_fields", you will get the original value while keeping the new value.
