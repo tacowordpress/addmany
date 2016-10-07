@@ -259,12 +259,6 @@ AddMany with AddBySearch
 `\Taco\AddMany\createAndGetWithAddBySearch()` will also return an array
 
 
-
-
-
-
-
-
-**Documentation still in progress. Check back later for more info.**
+##Contributing (Coming soon)
 
 
