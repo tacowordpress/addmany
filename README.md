@@ -163,7 +163,7 @@ In your template you can get related posts by accessing the field name through y
 e.g. ```$blog_post->related_posts```
 This will return a collection of post objects.
 
-In order to utilize the above, you must use the AddMany Mixin in your class.
+In order to utilize the above, you must use the AddMany Mixin within your class.
 
 ```php
 
