@@ -254,6 +254,6 @@ This is also useful to show product savings after a reduction in price.
 
 
 
-Documentation still in progress. Check back later for more info.
+**Documentation still in progress. Check back later for more info.**
 
 
