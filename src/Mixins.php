@@ -77,6 +77,29 @@ Trait Mixins {
   }
 
 
+  public function hasOneRelationship($field) {
+    if(!\Taco\Util\Arr::iterable($field)) {
+      return false;
+    }
+    if(!array_key_exists('config_addmany', $field)) {
+      return false;
+    }
+    if(!array_key_exists('limit_range', $field['config_addmany'])) {
+      return false;
+    }
+    if(!\Taco\Util\Arr::iterable($range = $field['config_addmany']['limit_range'])) {
+      return false;
+    }
+    if($range[0] === 1 && $range[1] === 1) {
+      return true;
+    }
+    if($range[0] === 0 && $range[1] === 1) {
+      return true;
+    }
+    return false;
+  }
+
+
   /**
    * Get a single field - Overrides parent method
    * @param string $key
@@ -92,14 +115,19 @@ Trait Mixins {
       }
 
       $field = $this->getField($key);
+
       if(\Taco\Util\Arr::iterable($field)
         && array_key_exists('data-addmany', $field)
         && $field['data-addmany'] === true
         && !is_admin()
       ){
         $relations = $this->getRelations($key, $field);
+
         if(!\Taco\Util\Arr::iterable($relations) && $this->hasFallBackMethod()) {
-          return $this->getFallBackRelatedPosts($key);
+          $relations = $this->getFallBackRelatedPosts($key);
+        }
+        if($this->hasOneRelationship($field)) {
+          $relations = current($relations);
         }
         return $relations;
       }
