@@ -34,7 +34,9 @@ Trait Mixins {
         if(array_key_exists($subfield_key, $original_fields)) {
           $original_field_key_values[$subfield_key] = $object->get($subfield_key);
         }
-        $object->set($subfield_key, $s->get($subfield_key));
+        if($s->get($subfield_key)) {
+          $object->set($subfield_key, $s->get($subfield_key));
+        }
       }
       $object->set('original_fields', (object) $original_field_key_values);
       return $object;
