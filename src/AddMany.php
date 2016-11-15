@@ -378,7 +378,7 @@ class AddMany {
     $post_parent = \Taco\Post\Factory::create($parent_id);
     $post_parent->loaded_post = $post_parent;
     return array_keys(
-      $post_parent ->getFields()[$field_assigned_to]['config_addmany']['field_variations'][$fields_variation]['fields']
+      (array) $post_parent->getFields()[$field_assigned_to]['config_addmany']['field_variations'][$fields_variation]['fields']
     );
   }
 
