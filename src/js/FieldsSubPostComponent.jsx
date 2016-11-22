@@ -159,8 +159,26 @@ export default class FieldsSubPostComponent extends React.Component {
 
     this.selectorsWithFile.forEach(function(s){
       let $obj = $('[name="' + s + '"]');
+
       if($obj.length) {
         if($obj.val().match(/(jpg|jpeg|png|gif)$/)) {
+
+          // Race condition bug with TacoWordPress Frontend Js
+          if(typeof $obj.addImage == 'undefined') {
+            $.fn.addImage = function(url) {
+              $(this).removeImage();
+              $(this).closest('.upload_field')
+                .prepend('<img src="' + url + '" class="thumbnail" />');
+              return $(this);
+            };
+          }
+          if(typeof $obj.removeImage == 'undefined') {
+            $.fn.removeImage = function() {
+              $(this).closest('.upload_field')
+                .find('.thumbnail').remove();
+              return $(this);
+            };
+          }
           $obj.addImage($obj.val());
         }
       }
