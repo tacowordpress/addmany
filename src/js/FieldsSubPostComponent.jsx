@@ -43,7 +43,7 @@ export default class FieldsSubPostComponent extends React.Component {
         this.selectorsWithFile.push(fieldName);
       }
       if(typeof fieldAttribs.id === 'undefined' || fieldAttribs.type === 'image' || fieldAttribs.type === 'file') {
-        fieldAttribs.id = TacoStr.human(fieldName).replace(/[^a-z\-0-9\_]+/ig, '-').toLowerCase();
+        fieldAttribs.id = fieldName.replace(/[^a-z\-0-9\_]+/ig, '-').toLowerCase();
       }
       if(typeof fieldAttribs.class !== 'undefined') {
         fieldAttribs.className = fieldAttribs.class;
