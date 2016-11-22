@@ -6,7 +6,7 @@ use \Taco\Util\Collection;
 
 class AddMany {
 
-  const VERSION = '006';
+  const VERSION = '007';
   public static $field_definitions = [];
   public static $wp_tiny_mce_settings = null;
   public static $path_url = null;
