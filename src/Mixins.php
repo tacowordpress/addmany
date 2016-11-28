@@ -100,6 +100,37 @@ Trait Mixins {
     }
     return false;
   }
+  
+  
+    /**
+   * Get pairs by term
+   * @param  string $taxonomy  the taxonomy slug
+   * @param  string $term_slug the term slug
+   * @param  string $keywords  optional param that allows querying by keywords
+   * @return array - collection of posts        
+   */
+  public static function getPairsByTerm($taxonomy, $term_slug, $keywords='') {
+    $results = self::getWhere([
+      'tax_query' => [
+        [
+          'taxonomy' => $taxonomy,
+          'field'    =>  'slug',
+          'terms'    => $term_slug
+        ]
+      ],
+      'orderby' => 'post_date',
+      'order' => 'DESC',
+      's' => $keywords
+    ]);
+    if(!\Taco\Util\Arr::iterable($results)) {
+      return [];
+    }
+    return array_combine(
+      \Taco\Util\Collection::pluck($results, 'ID'),
+      \Taco\Util\Collection::pluck($results, 'post_title')
+    );
+  }
+
 
 
   /**
