@@ -102,7 +102,7 @@ Trait Mixins {
   }
   
   
-    /**
+  /**
    * Get pairs by term
    * @param  string $taxonomy  the taxonomy slug
    * @param  string $term_slug the term slug
