@@ -33349,7 +33349,7 @@
 
 	        var special_word = false;
 	        for (var regex in specials) {
-	          var obj_regex = new RegExp('\b' + regex + '\b', 'igm');
+	          var obj_regex = new RegExp('\\b' + regex + '\\b', 'igm');
 	          var special = specials[regex];
 	          // word = word.replace(obj_regex, specials[regex]);
 	          if (!obj_regex.test(word)) continue;
@@ -33380,7 +33380,7 @@
 	      // Questions
 	      var first_word_lower = words[0].toLowerCase();
 	      var first_word_lower_no_contraction = first_word_lower.replace(/'s$/, '');
-	      var is_question = _TacoObj2.default.isIterable(first_word_lower_no_contraction, this.questionWords());
+	      var is_question = _TacoObj2.default.inArray(first_word_lower_no_contraction, this.questionWords());
 	      var has_question_mark = out.search(/[\?]{1,}$/) > -1;
 	      if (is_question && !has_question_mark) out += '?';
 
