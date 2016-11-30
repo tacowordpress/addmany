@@ -18,30 +18,34 @@ class TacoStr {
     // Handle each word
     var words = out.split(' ');
     var out_words = [];
+
+    // If we have a special match, don't do anything else
+    var specials = {
+      'id'   : 'ID',
+      'ids'  : 'IDs',
+      'url'  : 'URL',
+      'urls' : 'URLs',
+      'cta'  : 'CTA',
+      'api'  : 'API',
+      'faq'  : 'FAQ',
+      'ip'   : 'IP',
+      'why'  : 'why',
+      'Why'  : 'Why',
+    };
+
     for(var n in words) {
       var word = words[n];
       var out_word = word;
 
-      // If we have a special match, don't do anything else
-      var specials = {
-        'id'   : 'ID',
-        'ids'  : 'IDs',
-        'url'  : 'URL',
-        'urls' : 'URLs',
-        'cta'  : 'CTA',
-        'api'  : 'API',
-        'faq'  : 'FAQ',
-        'ip'   : 'IP',
-        'why'  : 'why',
-        'Why'  : 'Why',
-      };
       var special_word = false;
       for(var regex in specials) {
-        var obj_regex = new RegExp(regex, 'igm');
+        var obj_regex = new RegExp('\b' + regex + '\b', 'igm');
         var special = specials[regex];
+        // word = word.replace(obj_regex, specials[regex]);
         if(!obj_regex.test(word)) continue;
-          special_word = true;
-          out_word = special;
+
+        special_word = true;
+        out_word = special;
       }
       if(special_word) {
         out_words.push(out_word);
