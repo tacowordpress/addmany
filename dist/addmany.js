@@ -30583,7 +30583,7 @@
 	  }, {
 	    key: 'subpostAlreadyInSelection',
 	    value: function subpostAlreadyInSelection(postReferenceInfo) {
-	      if (postReferenceInfo === null) {
+	      if (postReferenceInfo === null || typeof postReferenceInfo.postId === 'undefined') {
 	        return false;
 	      }
 	      var store = this.context.store;

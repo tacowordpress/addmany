@@ -442,7 +442,7 @@ export default class AddManyComponent extends React.Component {
   }
 
   subpostAlreadyInSelection(postReferenceInfo) {
-    if(postReferenceInfo === null) {
+    if(postReferenceInfo === null || typeof postReferenceInfo.postId === 'undefined') {
       return false;
     }
     const { store } = this.context;
