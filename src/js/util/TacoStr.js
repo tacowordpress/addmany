@@ -70,7 +70,7 @@ class TacoStr {
     // Questions
     var first_word_lower = words[0].toLowerCase();
     var first_word_lower_no_contraction = first_word_lower.replace(/'s$/, '');
-    var is_question = TacoObj.inArray(
+    var is_question = TacoArr.inArray(
       first_word_lower_no_contraction,
       this.questionWords()
     );
