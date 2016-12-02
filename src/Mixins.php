@@ -20,7 +20,7 @@ Trait Mixins {
 
     $post_class = $this->getPostClassFromAddBySearchConfig($field);
     $helper = new $post_class;
-    $linked_posts = array_map(function($s) use ($helper, $field_key) {
+    $linked_posts = array_map(function($s) use ($helper, $field_key, $ID) {
       $object = $helper::find($s->post_reference_id);
 
       $subfields = \Taco\AddMany::getFieldDefinitionKeys(
@@ -100,14 +100,14 @@ Trait Mixins {
     }
     return false;
   }
-  
-  
+
+
   /**
    * Get pairs by term
    * @param  string $taxonomy  the taxonomy slug
    * @param  string $term_slug the term slug
    * @param  string $keywords  optional param that allows querying by keywords
-   * @return array - collection of posts        
+   * @return array - collection of posts
    */
   public static function getPairsByTerm($taxonomy, $term_slug, $keywords='') {
     $results = self::getWhere([
