@@ -75,7 +75,10 @@ export default class AddManyComponent extends React.Component {
       return (
         <div ref="main_container" className="addmany-component">
 
-          <input name="addmany_deleted_ids" type="hidden" value={removed} />
+          <input
+            name={ 'addmany_deleted_ids[' + this.props.fieldName + ']' }
+            type="hidden"
+            value={removed} />
 
           {
             (variations !== null)
@@ -105,10 +108,9 @@ export default class AddManyComponent extends React.Component {
         <div ref="main_container" className="addmany-component with-addbysearch">
 
           <input
-            name="addmany_deleted_ids"
+            name={ 'addmany_deleted_ids[' + this.props.fieldName + ']' }
             type="hidden"
-            value={removed}
-          />
+            value={removed} />
 
           <input
             type="text"

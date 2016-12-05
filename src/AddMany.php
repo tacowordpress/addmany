@@ -6,7 +6,7 @@ use \Taco\Util\Collection;
 
 class AddMany {
 
-  const VERSION = '007';
+  const VERSION = '008';
   public static $field_definitions = [];
   public static $wp_tiny_mce_settings = null;
   public static $path_url = null;
@@ -568,25 +568,23 @@ class AddMany {
     return true;
   }
 
-  private static function areThereDeletedIds() {
-    if(!array_key_exists('addmany_deleted_ids', $_POST)) return false;
-    if(!strlen('addmany_deleted_ids')) return false;
-    return true;
-  }
-
-  private static function deleteSubPosts($string_ids) {
-    $ids = explode(',', $string_ids);
-    if(!Arr::iterable($ids)) return false;
-    foreach($ids as $id) {
-      wp_delete_post((int) $id, true);
+  private static function deleteSubPosts() {
+    if(!\Taco\Util\Arr::iterable($_POST['addmany_deleted_ids'])) return;
+    foreach($_POST['addmany_deleted_ids'] as $string_ids) {
+      if(!strlen($string_ids)) continue;
+      $ids = explode(',', $string_ids);
+      if(!Arr::iterable($ids)) return false;
+      foreach($ids as $id) {
+        wp_delete_post((int) $id, true);
+      }
     }
-    return true;
   }
 
   public static function saveAll($post_id) {
-    if(self::areThereDeletedIds()) {
-      self::deleteSubPosts($_POST['addmany_deleted_ids']);
-    }
+
+    // If there are subposts to be removed, delete them.
+    self::deleteSubPosts();
+
     if(!array_key_exists('subposts', $_POST)) return false;
 
     $source = $_POST;

@@ -30248,7 +30248,10 @@
 	      }
 
 	      if (!this.props.isAddBySearch) {
-	        return _react2.default.createElement('div', { ref: 'main_container', className: 'addmany-component' }, _react2.default.createElement('input', { name: 'addmany_deleted_ids', type: 'hidden', value: removed }), variations !== null ? _react2.default.createElement('select', {
+	        return _react2.default.createElement('div', { ref: 'main_container', className: 'addmany-component' }, _react2.default.createElement('input', {
+	          name: 'addmany_deleted_ids[' + this.props.fieldName + ']',
+	          type: 'hidden',
+	          value: removed }), variations !== null ? _react2.default.createElement('select', {
 	          value: currentVariation,
 	          onChange: function onChange(e) {
 	            store.dispatch({
@@ -30260,10 +30263,9 @@
 	          onClick: this.createNewSubPost.bind(this) }, 'Add new'), _react2.default.createElement('ul', { className: 'addmany-actual-values' }, renderedSubposts));
 	      } else {
 	        return _react2.default.createElement('div', { ref: 'main_container', className: 'addmany-component with-addbysearch' }, _react2.default.createElement('input', {
-	          name: 'addmany_deleted_ids',
+	          name: 'addmany_deleted_ids[' + this.props.fieldName + ']',
 	          type: 'hidden',
-	          value: removed
-	        }), _react2.default.createElement('input', {
+	          value: removed }), _react2.default.createElement('input', {
 	          type: 'text',
 	          ref: 'searchableText',
 	          placeholder: 'search for posts',
