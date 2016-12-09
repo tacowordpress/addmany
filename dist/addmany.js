@@ -31441,7 +31441,7 @@
 	        }));
 	      }
 
-	      if (attribs.type === 'image') {
+	      if (attribs.type === 'image' || attribs.type === 'file') {
 	        return _react2.default.createElement('div', { className: 'upload_field' }, _react2.default.createElement('input', {
 	          type: 'text',
 	          className: 'upload',

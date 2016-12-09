@@ -59,7 +59,7 @@ export default class InputComponent extends React.Component {
       );
     }
 
-    if(attribs.type === 'image') {
+    if(attribs.type === 'image' || attribs.type === 'file') {
       return (
         <div className="upload_field">
           <input
