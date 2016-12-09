@@ -159,6 +159,9 @@ Trait Mixins {
         if(!\Taco\Util\Arr::iterable($relations) && $this->hasFallBackMethod()) {
           $relations = $this->getFallBackRelatedPosts($key);
         }
+        if(!$relations) {
+          return null;
+        }
         if($this->hasOneRelationship($field)) {
           $relations = current($relations);
         }
