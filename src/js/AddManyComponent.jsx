@@ -543,6 +543,13 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
+  sortRowsByOrder(subposts) {
+    subposts.sort(function(a, b) {
+      return (a.order - b.order);
+    });
+    return subposts;
+  }
+
   sortPostsDate(e) {
     e.preventDefault();
     const { store } = this.context;
@@ -585,9 +592,8 @@ export default class AddManyComponent extends React.Component {
       }
     }).success(function(d) {
       if(d.success) {
-        if(d.success) {
-          self.addRows(d.posts);
-        }
+        let subposts = self.sortRowsByOrder(d.posts);
+        self.addRows(subposts);
       }
     });
   }

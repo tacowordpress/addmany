@@ -30692,6 +30692,14 @@
 	      });
 	    }
 	  }, {
+	    key: 'sortRowsByOrder',
+	    value: function sortRowsByOrder(subposts) {
+	      subposts.sort(function (a, b) {
+	        return a.order - b.order;
+	      });
+	      return subposts;
+	    }
+	  }, {
 	    key: 'sortPostsDate',
 	    value: function sortPostsDate(e) {
 	      e.preventDefault();
@@ -30735,9 +30743,8 @@
 	        }
 	      }).success(function (d) {
 	        if (d.success) {
-	          if (d.success) {
-	            self.addRows(d.posts);
-	          }
+	          var subposts = self.sortRowsByOrder(d.posts);
+	          self.addRows(subposts);
 	        }
 	      });
 	    }
