@@ -17,7 +17,9 @@ Trait Mixins {
 
   public function getSubPostsWithRefs($ID, $field_key, $field) {
     $subposts = \Taco\AddMany::getChildPosts($ID, $field_key);
-
+    uasort($subposts, function($a, $b) {
+      return ($a->order - $b->order);
+    });
     $post_class = $this->getPostClassFromAddBySearchConfig($field);
     $helper = new $post_class;
     $linked_posts = array_map(function($s) use ($helper, $field_key, $ID) {
