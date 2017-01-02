@@ -5,9 +5,20 @@ import { createStore } from 'redux';
 import expect from 'expect';
 import { Provider } from 'react-redux'
 import { connect } from 'react-redux'
-
 require('../scss/addmany.scss');
 
+/**
+ * This file is responsible for intializing the AddMany components
+ * from looping over the DOM and finding fields
+ * that have the "[data-addmany=1]" attribute.
+ * It also contains the store for all the data.
+ */
+
+
+/*
+ * This component and children uses a store
+ * for making data more manageable.
+*/
 const reducer = (state = {}, action) => {
   switch(action.type) {
     case 'INIT':
@@ -76,14 +87,23 @@ const reducer = (state = {}, action) => {
   }
 }
 
+// Connect the store with the AddManyComponent
 const AddManyComponentWithStore = connect(state => state)(AddManyComponent);
 
 (function($){
   let $elements = $('[data-addmany=1]');
   if(!$elements.length) return;
+
+  /**
+   * We're only using jQuery here because it's already included with WordPress
+   * and makes DOM selecting a little easier.
+   */
   $elements.each(function(){
+    // Loop over fields on page that have "[data-addmany=1]" and apply the AddManyComponent to each.
     let fieldDefinitions = window.field_definitions[$(this).attr('name')];
 
+    // TODO: Refactor
+    // There are way too many props here (Only my second React app).
     ReactDOM.render(
       <Provider store={createStore(reducer)}>
         <AddManyComponentWithStore

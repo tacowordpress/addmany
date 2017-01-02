@@ -4,8 +4,17 @@ import TacoStr from './util/TacoStr.js';
 import TacoGeneral from './util/TacoGeneral.js';
 import { Provider } from 'react-redux'
 
+
+/**
+ * This is a Fields SubPost React component's class.
+ * It is a group of input components/fields within a SubPost.
+ */
 export default class FieldsSubPostComponent extends React.Component {
 
+ /**
+  * The constructor method for this component
+  * @param object props
+  */
   constructor(props) {
     super(props);
 
@@ -14,11 +23,21 @@ export default class FieldsSubPostComponent extends React.Component {
     };
   }
 
+
+  /**
+   * Perform some actions after the component mounts
+   * @return void
+   */
   componentDidMount() {
     this.checkAndAddWYSIWYG();
     this.checkAndAddFileUploads();
   }
 
+
+  /**
+   * Get rendered fields within a subpost
+   * @return React component or null
+   */
   getRendered() {
     let self = this;
     let group = [];
@@ -66,6 +85,10 @@ export default class FieldsSubPostComponent extends React.Component {
     return group;
   }
 
+  /**
+   * The render method for this component
+   * @return React component
+   */
   render() {
     const props = this.props;
     const { store } = this.context;
@@ -140,6 +163,10 @@ export default class FieldsSubPostComponent extends React.Component {
     );
   }
 
+  /**
+   * Check if the subpost has WYSIWYG fields, and if so, add them
+   * @return void
+   */
   checkAndAddWYSIWYG() {
     // WYSIWYG editors
     let $ = jQuery;
@@ -152,6 +179,11 @@ export default class FieldsSubPostComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Check if the subpost has file upload fields, and if so, add them
+   * @return void
+   */
   checkAndAddFileUploads() {
     // Initial loading of thumbnail
     let $ = jQuery;
@@ -185,6 +217,11 @@ export default class FieldsSubPostComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Add the preview thumbnail upon adding a value to a field of image
+   * @return void
+   */
   getPreviewThumb($obj) {
     if($obj.val().search(/jpg|jpeg|png|gif/gi) > -1) {
       $obj.addImage($obj.val());

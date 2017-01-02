@@ -2,13 +2,29 @@ import React from 'react';
 import { Provider } from 'react-redux'
 
 
+/**
+ * This is an Input React component's class.
+ * An input component is a field.
+ */
 export default class InputComponent extends React.Component {
+
+
+  /**
+   * The constructor method for this component
+   * @param object props
+   */
   constructor(props) {
     super(props);
 
     this.state = {};
   }
 
+
+  /**
+   * Convert options for a select field to React Components
+   * @param array options
+   * @return array of React components
+   */
   convertOptions(options) {
     if(typeof options === 'undefined' || options === null) {
       return null;
@@ -26,6 +42,11 @@ export default class InputComponent extends React.Component {
     return htmlOptions;
   }
 
+
+  /**
+   * The render method for this component
+   * @return React component
+   */
   render() {
     const props = this.props;
     const { store } = this.context;

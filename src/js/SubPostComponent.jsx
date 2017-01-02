@@ -1,14 +1,29 @@
 import React from 'react';
 import FieldsSubPostComponent from './FieldsSubPostComponent.jsx';
 
+
+/**
+ * This is a SubPost React component's class.
+ * A SubPost is a single item in a list that is definied by the user.
+ * A SubPost consists of many fields which are also React components.
+ */
 export default class SubPostComponent extends React.Component {
 
+  /**
+   * Perform some actions after the component mounts.
+   * @return void
+   */
   componentDidMount(){
     jQuery('tr.' + this.props.parentComponent.props.fieldName)
       .find('.addmany-actual-values')
       .sortable(this.getSortableConfig());
   }
 
+
+  /**
+   * The render method for this component
+   * @return React component
+   */
   render() {
     const { store } = this.context;
     let order = this.props.parentComponent.getOrder(this.props.postId);
@@ -59,6 +74,11 @@ export default class SubPostComponent extends React.Component {
     );
   }
 
+
+  /**
+   * Get a React component for the minimize button
+   * @return React component
+   */
   getMinimizeButton() {
     if(this.props.isAddBySearch && !Object.keys(this.props.fieldsConfig).length) {
       return null;
@@ -75,6 +95,11 @@ export default class SubPostComponent extends React.Component {
     );
   }
 
+
+  /**
+   * Minimize/collapse a subpost to a shortened height
+   * @param object e (event)
+   */
   minimize(e) {
     e.preventDefault();
     const { store } = this.context;
@@ -95,6 +120,12 @@ export default class SubPostComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Get a React component of the order buttons
+   * The order buttons are an alternative to drag and dropping subposts
+   * @return React component or null
+   */
   getOrderButtons() {
     const {store} = this.context;
     const state = store.getState();
@@ -119,6 +150,11 @@ export default class SubPostComponent extends React.Component {
   }
 
 
+  /**
+   * Move a subpost up and change the order
+   * @param object e (event)
+   * @return void
+   */
   moveItemOrderUp(e) {
     e.preventDefault();
     const { store } = this.context;
@@ -168,6 +204,11 @@ export default class SubPostComponent extends React.Component {
   }
 
 
+  /**
+   * Move a subpost down and change the order
+   * @param object e (event)
+   * @return void
+   */
   moveItemOrderDown(e) {
     e.preventDefault();
     const { store } = this.context;
@@ -216,6 +257,12 @@ export default class SubPostComponent extends React.Component {
     }, 2000)
   }
 
+
+  /**
+   * Remove a subpost from the user's selection
+   * @param object e (event)
+   * @return void
+   */
   removeRow(e) {
     e.preventDefault();
     let self = this;
@@ -240,6 +287,14 @@ export default class SubPostComponent extends React.Component {
     this.updateDeletedValues(self.props.postId);
   }
 
+
+  /**
+   * After a subpost is removed, push the subpost id to the deleted values.
+   * Upon saving the parent post (save/update button),
+   * these subposts will be removed.
+   * @param int id
+   * @return void
+   */
   updateDeletedValues(id) {
     const { store } = this.context;
     const state = store.getState();
@@ -251,6 +306,12 @@ export default class SubPostComponent extends React.Component {
     })
   }
 
+
+  /**
+   * Get the sortable configuration for all subposts
+   * The sorting library is already available in the WordPress admin.
+   * @return object
+   */
   getSortableConfig(){
     let self = this;
     let $ = jQuery;

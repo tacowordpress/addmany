@@ -5,9 +5,20 @@ import InputComponent from './InputComponent.jsx';
 import TacoStr from './util/TacoStr.js';
 import { Provider } from 'react-redux'
 
+
+/**
+ * This is an AddMany component's class.
+ * This is the top level component for all the children components.
+ * The hiearchy of parent to children components looks like this:
+ * AddManyComponent > SubPostComponent > FieldsSubPostComponent > InputComponent.
+ */
 export default class AddManyComponent extends React.Component {
 
-  componentDidMount(){
+  /**
+   * Perform some actions after the component mounts.
+   * @return void
+   */
+  componentDidMount() {
     const { store } = this.context;
     this.loadSaved();
     store.dispatch({
@@ -20,6 +31,12 @@ export default class AddManyComponent extends React.Component {
     this.addPostSaveHook();
   }
 
+
+  /**
+   * When the admin user clicks save,
+   * do call some additional methods that check certain things.
+   * @return bool;
+   */
   addPostSaveHook() {
     let $ = jQuery;
     let self = this;
@@ -31,14 +48,24 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Get the field variation – a dropdown that gives the user
+   * different field groups
+   * @return mixed
+   */
   getDefaultVariation() {
     let field_variations = this.props.fieldDefinitions[this.props.fieldName].field_variations;
     return (!this.props.isAddBySearch)
-      ?(Object.keys(field_variations)[0])
+      ? (Object.keys(field_variations)[0])
       : 'default_variation'
   }
 
 
+  /**
+   * Render the component and its children
+   * @return React component
+   */
   render() {
     const { store } = this.context;
     const {
@@ -154,6 +181,13 @@ export default class AddManyComponent extends React.Component {
     }
   }
 
+
+  /**
+   * Collapse the AddMany subposts to a shortened height
+   * so it's easier manipulate.
+   * @param object e (event)
+   * @return void
+   */
   toggleCollapse(e) {
     e.preventDefault();
     const { store } = this.context;
@@ -181,6 +215,11 @@ export default class AddManyComponent extends React.Component {
   }
 
 
+  /**
+   * Is the subpost collapsed?
+   * @param Integer postId
+   * @return bool
+   */
   isMinimized(postId) {
     const { store } = this.context;
     const state = store.getState();
@@ -197,6 +236,11 @@ export default class AddManyComponent extends React.Component {
     return isMinimized;
   }
 
+
+  /**
+   * Get the search results
+   * @return React component or null
+   */
   renderSearchResults() {
     const { store } = this.context;
     const state = store.getState();
@@ -236,7 +280,14 @@ export default class AddManyComponent extends React.Component {
     return rendered;
   }
 
-  handleKeywordChange(e){
+
+  /**
+   * This is the handler for when a user modifies
+   * text in the input when searching
+   * @param object e (event)
+   * @return void
+   */
+  handleKeywordChange(e) {
     const { store } = this.context;
     store.dispatch({
       type: 'SET_KEYWORDS',
@@ -249,6 +300,12 @@ export default class AddManyComponent extends React.Component {
     }
   }
 
+
+  /**
+   * Set search results from keywords in the store's state
+   * @param object e (event)
+   * @return void
+   */
   searchPosts(e) {
     e.preventDefault();
     var $ = jQuery;
@@ -273,7 +330,8 @@ export default class AddManyComponent extends React.Component {
       }
     }).success(function(d) {
       if(d.success) {
-        return self.addSearchResults(d.posts);
+        self.addSearchResults(d.posts);
+        return;
       }
       self.clearResults();
       store.dispatch({
@@ -284,6 +342,11 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Set search results to an empty an array in the store
+   * @return void
+   */
   clearResults() {
     const { store } = this.context;
     const state = store.getState();
@@ -293,6 +356,12 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Add results from the search to the store
+   * @param array posts
+   * @return void
+   */
   addSearchResults(posts) {
     const { store } = this.context;
     const state = store.getState();
@@ -315,12 +384,23 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Add a result to the selection
+   * @param object e (event)
+   * @return void
+   */
   cloneResultIntoSelection(e) {
     e.preventDefault();
     let context = this.context;
     context.createNewSubPost(e, this.postReferenceInfo);
   }
 
+
+  /**
+   * Get the html component for field variations
+   * @return React component
+   */
   getFieldsVariationOptionsHtml() {
     let variationOptions = this.getFieldsVariationOptions();
     let htmlVariationOptions = [];
@@ -333,6 +413,15 @@ export default class AddManyComponent extends React.Component {
     return htmlVariationOptions;
   }
 
+
+  /**
+   * Add a subpost row – happens after selecting from search results
+   * or adding a new subpost from the create button
+   * @param int postId
+   * @param array fieldsConfig
+   * @param array allData
+   * @return void
+   */
   addRow(postId, fieldsConfig = null, allData = null) {
     const { store } = this.context;
     const state = store.getState();
@@ -360,6 +449,12 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Add multiple rows at once from previously saved values
+   * @param array loadedSubposts
+   * @return void
+   */
   addRows(loadedSubposts) {
     const { store } = this.context;
     const state = store.getState();
@@ -370,7 +465,12 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
-  componentWillMount(){
+
+  /**
+   * If a component will mount, set some initial data in the store
+   * @return void
+   */
+  componentWillMount() {
     const { store } = this.context;
     let subfields = this.props.fieldDefinitions[this.props.fieldName];
     store.dispatch({
@@ -379,7 +479,12 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
-  getFieldsVariationOptions(){
+
+  /**
+   * Get options for the field variations dropdown
+   * @return array
+   */
+  getFieldsVariationOptions() {
     let subfields = this.props.fieldDefinitions[this.props.fieldName].field_variations;
     if(Object.keys(subfields).length === 1) {
       return null;
@@ -391,6 +496,11 @@ export default class AddManyComponent extends React.Component {
     return options;
   }
 
+
+  /**
+   * Force update the order of subposts in the user's selection
+   * @return void
+   */
   forceUpdateOrder() {
     let self = this;
     const { store } = this.context;
@@ -413,6 +523,12 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Alert the user if the number of subposts exceeds the
+   * max value of the AddMany field's settings
+   * @return bool
+   */
   limitCheckMax() {
     let self = this;
     const { store } = this.context;
@@ -427,6 +543,12 @@ export default class AddManyComponent extends React.Component {
     }
   }
 
+
+  /**
+   * Alert the user if the number of subposts is below the
+   * min value of the AddMany field's settings
+   * @return bool
+   */
   limitCheckMin() {
     let self = this;
     const { store } = this.context;
@@ -443,6 +565,12 @@ export default class AddManyComponent extends React.Component {
     return true;
   }
 
+
+  /**
+   * Check if a subpost is already in the user's selection
+   * @param object postReferenceInfo
+   * @return bool
+   */
   subpostAlreadyInSelection(postReferenceInfo) {
     if(postReferenceInfo === null || typeof postReferenceInfo.postId === 'undefined') {
       return false;
@@ -462,6 +590,13 @@ export default class AddManyComponent extends React.Component {
     return $bool;
   }
 
+  /**
+   * Create a new subpost by making a request to the server
+   * If successful, the server will return info about the subpost.
+   * @param object e (event)
+   * @param object postReferenceInfo
+   * @return void
+   */
   createNewSubPost(e, postReferenceInfo=null) {
     e.preventDefault();
     if(this.limitCheckMax()) {
@@ -495,6 +630,12 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Get the order of a subpost in the user's selection
+   * @param int postId
+   * @return int
+   */
   getOrder(postId) {
     const { store } = this.context;
     let subposts = store.getState().subposts;
@@ -509,6 +650,12 @@ export default class AddManyComponent extends React.Component {
     return order;
   }
 
+
+  /**
+   * Reverse the order of subposts in the user's selection
+   * @param object e (event)
+   * @return void
+   */
   sortPostsReverse(e) {
     e.preventDefault();
     const { store } = this.context;
@@ -519,6 +666,12 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Sort subposts alphabetically from the user's selection
+   * @param object e (event)
+   * @return void
+   */
   sortPostsAlpha(e) {
     e.preventDefault();
     const { store } = this.context;
@@ -543,6 +696,13 @@ export default class AddManyComponent extends React.Component {
     });
   }
 
+
+  /**
+   * Sort subposts in the user's selection
+   * by the order saved in the database from each subpost
+   * @param array subposts
+   * @return array
+   */
   sortRowsByOrder(subposts) {
     subposts.sort(function(a, b) {
       return (a.order - b.order);
@@ -550,6 +710,12 @@ export default class AddManyComponent extends React.Component {
     return subposts;
   }
 
+
+  /**
+   * Sort subposts by the date
+   * @param object e (event)
+   * @return void
+   */
   sortPostsDate(e) {
     e.preventDefault();
     const { store } = this.context;
