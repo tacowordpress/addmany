@@ -344,14 +344,17 @@ class AddMany {
   }
 
   public static function getPairsWithKeyWords($keywords, $class) {
-    $helper = new $class;
-    $results = $helper->getWhere([
-      's' => $keywords
+    $query = new \WP_Query([
+      's' => $keywords,
+      'posts_per_page' => -1
     ]);
-    return array_combine(
-      \Taco\Util\Collection::pluck($results, 'ID'),
-      \Taco\Util\Collection::pluck($results, 'post_title')
-    );
+
+    $results = [];
+    foreach ($query->posts as $post) {
+      $results[$post->ID] = $post->post_title;
+    }
+
+    return $results;
   }
 
   public static function getPostTypeStructure($class_method) {
