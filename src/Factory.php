@@ -5,7 +5,7 @@ namespace Taco\AddMany;
 class Factory {
 
   public static $inventory;
-  public static $current_object = null;
+  public $current_object = null;
 
 
   public static function create($fields_array=[], $other_options=[]) {
