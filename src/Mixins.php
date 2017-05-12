@@ -186,4 +186,12 @@ Trait Mixins {
 
       return $val;
   }
+
+    public function getRenderMetaBoxField($name, $field=null) 
+    {
+        if (array_key_exists('data-addmany', $field)) {
+            unset($field['config_addmany']);
+        }
+        return parent::getRenderMetaBoxField($name, $field);
+    }
 }
