@@ -7,7 +7,7 @@ use \Taco\Util\Str;
 
 class AddMany {
 
-  const VERSION = '008';
+  const VERSION = '009';
   public static $field_definitions = [];
   public static $wp_tiny_mce_settings = null;
   public static $path_url = null;
@@ -540,20 +540,22 @@ class AddMany {
     exit;
   }
 
-  public static function updateSubPosts($post_id, $fields_values, $object_post_parent=null) {
+  public static function updateSubPosts($post_id, $fields_values, $object_post_parent_id=null) {
     $post_id = trim(preg_replace('/\D/', '', $post_id));
     $subpost = \SubPost::find($post_id);
-
     $field_assigned_to = $subpost->get('field_assigned_to');
+    
+    $post_parent = \Taco\Post\Factory::create($object_post_parent_id);
+    $parent_fields = $post_parent->getFields();
 
-    $subpost_fields = \Taco\Post\Factory::create($object_post_parent->ID)
-      ->getFields()[$field_assigned_to]['config_addmany']['field_variations'][$subpost->get('fields_variation')]['fields'];
+    if(!array_key_exists($field_assigned_to, $parent_fields)) return false;
+    $subpost_fields = $parent_fields[$field_assigned_to]['config_addmany']['field_variations'][$subpost->get('fields_variation')]['fields'];
 
     if(!array_key_exists('order', $subpost_fields)) {
       $subpost_fields['order'] = (int) $fields_values['order'];
     }
 
-    if(!array_key_exists('post_reference_id', $subpost_fields)) {
+    if(!array_key_exists('post_reference_id', $subpost_fields) && array_key_exists('post_reference_id', $fields_values)) {
       $subpost_fields['post_reference_id'] = (int) $fields_values['post_reference_id'];
     }
 
@@ -592,22 +594,23 @@ class AddMany {
 
     // If there are subposts to be removed, delete them.
     self::deleteSubPosts();
-
+    
     if(!array_key_exists('subposts', $_POST)) return false;
 
     $source = $_POST;
     $subposts = $source['subposts'];
     if(!Arr::iterable($subposts)) return false;
-    foreach($subposts as $record) {
-      if(!Arr::iterable($record)) continue;
-      foreach($record as $k => $v) {
+    foreach($subposts as $records) {
+      if(!Arr::iterable($records)) continue;
+      foreach($records as $k => $v) {
         self::updateSubPosts(
           $k,
           $v,
-          $record
+          $post_id
         );
       }
     }
+    
     return true;
   }
 }
