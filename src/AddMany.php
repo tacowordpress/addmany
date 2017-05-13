@@ -343,8 +343,12 @@ class AddMany {
     exit;
   }
 
-  public static function getPairsWithKeyWords($keywords, $class) {
+  public static function getPairsWithKeyWords($keywords, $class_name) {
+    
+    $class_name = Str::machine(Str::camelToHuman($class_name), '-');
+    
     $query = new \WP_Query([
+      'post_type' => $class_name,
       's' => $keywords,
       'posts_per_page' => -1
     ]);
