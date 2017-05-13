@@ -1,10 +1,10 @@
-#AddMany:
+# AddMany:
 In simplest terms allows relationships between posts. 
 The visual interface gives WordPress admin the ability to assign one-to-many relationships with children that share no other parents. You can also allow many-to-many relationships where children may have many parents and vice versa. You can even create shared fields between parent and children which is important for things like products that may change price at different store locations. More on that later.
 
 Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and repeat sets of fields. The main difference being, it puts control back into the hands of the developer and allows you to write custom MySQL queries if need be.
 
-##Use Cases
+## Use Cases
  * relate posts to other posts
  * control the order of posts (custom post types)
  * assign modules or panels to a layout that are customizable
@@ -13,19 +13,19 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
  * create site navigation (future option)
  * keeps context by allowing you to create child posts on the same page 
 
-##Requirements
+## Requirements
 
 AddMany would not be possible without [The TacoWordPress framework – An ORM for custom post types.] (https://github.com/tacowordpress/tacowordpress) This is a requirement.
 
-######Other requirements:
+###### Other requirements:
  * PHP >= 5.4 
  * Knowledge of requiring packages through Composer
  * Prior knowledge of TacoWordpress
  * Object-oriented programming 
 
-######Built with [React](https://facebook.github.io/react/) and PHP
+###### Built with [React](https://facebook.github.io/react/) and PHP
 
-##Installation
+## Installation
 Depending on where you put your project's vendor directory, installation may or may not work. A solution is currently being worked on to resolve this.
 
 In your project's composer.json file, add the packages below in the require section:
@@ -53,11 +53,11 @@ require_once '{path_to_autoload}/autoload.php';
 
 ```
 
-##Example Usage
+## Example Usage
 With the examples below, you should have prior knowledge of how TacoWordPress works. If not, please consult the docs here:
 https://github.com/tacowordpress/tacowordpress/wiki.
 
-###One-to-Many
+### One-to-Many
 ```php
 
 // Example configuration for a basic AddMany Field
@@ -76,7 +76,7 @@ https://github.com/tacowordpress/tacowordpress/wiki.
   }
 ```
 
-###Many-to-Many (AddBySearch)
+### Many-to-Many (AddBySearch)
 
 ```php
 // Example configuration for an AddMany field with AddBySearch 
@@ -89,7 +89,7 @@ https://github.com/tacowordpress/tacowordpress/wiki.
   }
  ```
  
-###Many-to-Many with unique common fields between 2 posts (like a junction table)
+### Many-to-Many with unique common fields between 2 posts (like a junction table)
 In this example, the shared fields are between the parent post and the child posts of "products".
  ```php
 // Example AddBySearch with shared fields
@@ -109,7 +109,7 @@ class Store extends \Taco\Post {
  
  
  
-###One-to-Many with field variations
+### One-to-Many with field variations
  
  ```php
 
@@ -135,7 +135,7 @@ class Store extends \Taco\Post {
   }
 ```
 
-###One-to-One
+### One-to-One
 ```php
 
 // You can simulate a one-to-one relationship by limiting the number of items to 1
@@ -156,7 +156,7 @@ class Person extends \Taco\Post {
 ```
 
 
-##Getting a post's relations
+## Getting a post's relations
 
 
 In your template you can get related posts by accessing the field name through your object, 
@@ -184,7 +184,7 @@ $blog_post = \Taco\Post\Factory::create($post); ?>
 <?php endforeach; ?>
 
 ```
-######What if no related posts exist in the object? 
+###### What if no related posts exist in the object? 
 In other words, the admin did not manually select them.
 You can define a fallback method. This will alow for cleaner code in your template by removing any logic.
 
@@ -206,7 +206,7 @@ This example shows a method that is defined in the Post class:
 IMPORTANT: The method you define must be named "getFallBackRelatedPosts". It can handle more than one field if you allow it. Just create a switch statement or some logic to check the key and then return the appropriate posts.
 
 
-##Getting original values of a referenced post if overwritten
+## Getting original values of a referenced post if overwritten
 With AddMany you can override values from a post that you reference through AddBySearch. This is extremely useful if you have a template (of some sort) or even a product that may need its values replaced without having to recreate it. 
 
 Let's say there are a chain of stores that all carry the same product/s but the prices vary from location to location.
@@ -249,7 +249,7 @@ This is also useful to show product savings after a reduction in price.
 
 
 
-##Convenience methods
+## Convenience methods
 The Factory class of AddMany has a few convenience methods to make your code just a little cleaner:
 
 Basic AddMany
@@ -260,6 +260,6 @@ AddMany with AddBySearch
 `\Taco\AddMany\createAndGetWithAddBySearch()` will also return an array
 
 
-##Contributing (Coming soon)
+## Contributing (Coming soon)
 
 
