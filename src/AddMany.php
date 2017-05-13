@@ -3,6 +3,7 @@
 namespace Taco;
 use \Taco\Util\Arr;
 use \Taco\Util\Collection;
+use \Taco\Util\Str;
 
 class AddMany {
 
