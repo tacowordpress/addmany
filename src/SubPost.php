@@ -10,7 +10,12 @@ class SubPost extends \Taco\Post {
     );
   }
   public function getPostTypeConfig() {
-    return null;
+    return [
+      'public' => false,
+      'show_in_menu' => false,
+      'publicly_queryable' => false,
+      'show_in_admin_bar' => false
+    ];
   }
   public function getHierarchical() {
     return false;
