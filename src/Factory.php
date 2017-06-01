@@ -31,6 +31,12 @@ class Factory {
       );
     }
 
+    if(array_key_exists('show_on_collapsed', $other_options)) {
+      $factory_instance->setShowOnCollapsed(
+        $other_options['show_on_collapsed']
+      );
+    }
+
     $factory_instance->addFieldVariations($fields);
 
     return $factory_instance;
@@ -39,6 +45,10 @@ class Factory {
 
   public function setLimitRange($limit_range=false) {
     $this->current_object->limit_range = $limit_range;
+  }
+
+  public function setShowOnCollapsed($field_key) {
+    $this->current_object->show_on_collapsed = $field_key;
   }
 
   public static function usesFieldVariations($args) {

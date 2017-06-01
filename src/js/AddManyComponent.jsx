@@ -89,6 +89,7 @@ export default class AddManyComponent extends React.Component {
          <SubPostComponent
            key={s.postId}
            postId={s.postId}
+           showOnCollapsed={this.props.showOnCollapsed}
            fieldsConfig={s.fieldsConfig}
            uniqid={s.postId}
            isAddBySearch={s.isAddBySearch}
@@ -125,6 +126,11 @@ export default class AddManyComponent extends React.Component {
           <button
             className="button"
             onClick={this.createNewSubPost.bind(this)}>Add new</button>
+
+            <ul className="addmany-sorting-buttons">
+              <li><button style={{background: '#FFF'}} className="button" onClick={this.sortPostsReverse.bind(this)}>Flip</button></li>
+              <li><button style={{background: '#FFF'}} className="button" onClick={this.toggleCollapse.bind(this)}>Collapse/Expand</button></li>
+            </ul>
 
           <ul className="addmany-actual-values">{renderedSubposts}</ul>
 

@@ -98,6 +98,9 @@ export default class FieldsSubPostComponent extends React.Component {
 
     let styles = { display: 'none' };
     let addBySearchContent = null;
+    let showOnCollapsed = null;
+    let collapsedField = this.getShowOnCollapsedField(this.props.showOnCollapsed);
+    let renderedCollapsedValue = this.getRenderedCollapsed(collapsedField);
 
     if(this.props.postReferenceInfo != null) {
       let postReferenceInfo = this.props.postReferenceInfo;
@@ -141,8 +144,18 @@ export default class FieldsSubPostComponent extends React.Component {
             </tr>
         }
 
-        <tr style={styles}>
+        {
+          (!this.props.isAddBySearch)
+          ? <tr>
+              <td colSpan="2" className="show-on-minimized">
+                { renderedCollapsedValue  }
+              </td>
+            </tr>
+          : null
+        }
 
+        <tr style={styles}>
+          
           <td>
             <InputComponent
               attribs={{type: 'hidden'}}
@@ -162,6 +175,56 @@ export default class FieldsSubPostComponent extends React.Component {
       </tbody>
     );
   }
+
+  /**
+   * get an array of all the fields values cut to a specified length
+   * @param length int
+   * @return array
+   */
+  getMixOfFieldValues(length) {
+    let mixOfValues = [];
+    for(let f of Object.keys(this.props.fields)) {
+      mixOfValues.push(<em style={ { fontSize: '11px' } } key={f}>{ this.props.fields[f].value.slice(0, length) + '... ' }</em>);
+    }
+    return mixOfValues;
+  }
+
+
+  /**
+   * render what should be shown for a collapsed row
+   * @param field object
+   * @return html
+   */
+  getRenderedCollapsed(field) {
+    let styles = { marginLeft: '20px' };
+    if(!field) {
+      return (<strong style={styles}>{ this.getMixOfFieldValues() }</strong>);
+    }
+    if(field.attribs.type == 'image') {
+      return (<img style={ { width: '50px',  height: 'auto', marginLeft: '30px' } } src={ field.value } />)
+    } 
+    return (<strong styles={styles}>{ field.value }</strong>)
+  }
+
+
+  /**
+   * get the field config for a collapsed row
+   * @param field_key string
+   * @return object or null
+   */
+  getShowOnCollapsedField(field_key) {
+    const props = this.props;
+    const { store } = this.context;
+    const state  = store.getState();
+    
+    for(let f of Object.keys(this.props.fields)) {
+      if(field_key == f) {
+        return this.props.fields[f];
+      }
+    }
+    return null;
+  }
+
 
   /**
    * Check if the subpost has WYSIWYG fields, and if so, add them

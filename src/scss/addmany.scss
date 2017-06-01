@@ -210,7 +210,7 @@
   margin-left: 26px;
 }
 
-.addmany-currently-minimized td:not(.addbysearch-reference-td){
+.addmany-currently-minimized td:not(.addbysearch-reference-td):not(.show-on-minimized) {
   &, & * {
     height: 0 !important;
     overflow: hidden;
@@ -223,5 +223,16 @@
     select {
       display: none;
     }
+  }
+  
+}
+
+.show-on-minimized {
+  display: none;
+}
+.meta-box-sortables .addmany-currently-minimized {
+  .show-on-minimized {
+    display: table-cell;
+    width: 100%;
   }
 }

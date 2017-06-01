@@ -43,7 +43,7 @@ export default class SubPostComponent extends React.Component {
         postReferenceId = this.props.postReferenceInfo.postId;
       }
     }
-
+    
     return (
       <li
         className={'subpost-component addmany-result postbox ' + classReordering + classMinimized}
@@ -57,6 +57,7 @@ export default class SubPostComponent extends React.Component {
             postReferenceInfo={this.props.postReferenceInfo}
             fields={this.props.fieldsConfig}
             subpostId={this.props.postId}
+            showOnCollapsed={this.props.showOnCollapsed}
             isAddBySearch={this.props.isAddBySearch}
             order={order} />
         </table>

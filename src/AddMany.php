@@ -7,7 +7,7 @@ use \Taco\Util\Str;
 
 class AddMany {
 
-  const VERSION = '010';
+  const VERSION = '011';
   public static $field_definitions = [];
   public static $wp_tiny_mce_settings = null;
   public static $path_url = null;
@@ -17,6 +17,7 @@ class AddMany {
   public $buttons = [];
   public $field_variations = [];
   public $limit_range = false;
+  public $show_on_collapsed = null;
 
   // Instance methods
 
@@ -36,7 +37,8 @@ class AddMany {
         'interfaces' => $this->interfaces,
         'buttons' => $this->buttons,
         'field_variations' => $this->field_variations,
-        'limit_range' => $this->limit_range
+        'limit_range' => $this->limit_range,
+        'show_on_collapsed' => $this->show_on_collapsed
       ]
     ];
   }
@@ -49,6 +51,7 @@ class AddMany {
         ]
       ],
       'limit_range' => false,
+      'show_on_collapsed' => null,
       'buttons' => ['reverse-sort', 'alpha-sort']
     ];
   }
@@ -200,6 +203,10 @@ class AddMany {
           self::$field_definitions[$k]['limit_range'] = $config_addmany['limit_range'];
         } else {
           self::$field_definitions[$k]['limit_range'] = [];
+        }
+
+        if(array_key_exists('show_on_collapsed', $config_addmany)) {
+          self::$field_definitions[$k]['show_on_collapsed'] = $config_addmany['show_on_collapsed'];
         }
       }
     }
