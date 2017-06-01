@@ -181,7 +181,7 @@ export default class FieldsSubPostComponent extends React.Component {
    * @param length int
    * @return array
    */
-  getMixOfFieldValues(length) {
+  getMixOfFieldValues(length=15) {
     let mixOfValues = [];
     for(let f of Object.keys(this.props.fields)) {
       mixOfValues.push(<em style={ { fontSize: '11px' } } key={f}>{ this.props.fields[f].value.slice(0, length) + '... ' }</em>);

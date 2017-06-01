@@ -32012,7 +32012,9 @@
 
 	  }, {
 	    key: 'getMixOfFieldValues',
-	    value: function getMixOfFieldValues(length) {
+	    value: function getMixOfFieldValues() {
+	      var length = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 15;
+
 	      var mixOfValues = [];
 	      var _iteratorNormalCompletion = true;
 	      var _didIteratorError = false;
