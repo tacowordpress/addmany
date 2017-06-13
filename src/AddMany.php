@@ -588,6 +588,7 @@ class AddMany {
   }
 
   private static function deleteSubPosts() {
+    if(!array_key_exists('addmany_deleted_ids', $_POST)) return;
     if(!\Taco\Util\Arr::iterable($_POST['addmany_deleted_ids'])) return;
     foreach($_POST['addmany_deleted_ids'] as $string_ids) {
       if(!strlen($string_ids)) continue;
