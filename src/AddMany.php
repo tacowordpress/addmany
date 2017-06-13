@@ -7,7 +7,7 @@ use \Taco\Util\Str;
 
 class AddMany {
 
-  const VERSION = '011';
+  const VERSION = '012';
   public static $field_definitions = [];
   public static $wp_tiny_mce_settings = null;
   public static $path_url = null;
@@ -512,6 +512,9 @@ class AddMany {
 
       $array_fields_values = [];
       foreach($subfields as $key) {
+        if($fields_attribs[$key]['type'] == 'link') {
+          $subpost->set($key, stripslashes(urldecode($subpost->get($key))));
+        }
         $array_fields_values[$key] = array(
           'value' => $subpost->get($key),
           'attribs' => $fields_attribs[$key]

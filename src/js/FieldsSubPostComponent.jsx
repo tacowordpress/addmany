@@ -31,6 +31,7 @@ export default class FieldsSubPostComponent extends React.Component {
   componentDidMount() {
     this.checkAndAddWYSIWYG();
     this.checkAndAddFileUploads();
+    this.initLinkFields();
   }
 
 
@@ -83,6 +84,23 @@ export default class FieldsSubPostComponent extends React.Component {
       );
     }
     return group;
+  }
+
+  /**
+   * Check for a link function, and if it exists, call it
+   * @return void
+   */
+  initLinkFields() {
+    if(typeof TacoWordPress == 'undefined') {
+      return;
+    }
+    if(typeof TacoWordPress.FieldLinks == 'undefined') {
+      return;
+    }
+     if(typeof TacoWordPress.FieldLinks.checkForLinks == 'undefined') {
+      return;
+    }
+    TacoWordPress.FieldLinks.checkForLinks();
   }
 
   /**
