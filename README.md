@@ -10,6 +10,12 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
 * [Requirement](https://github.com/tacowordpress/addmany/blob/master/README.md#requirements)
 * [Installation](https://github.com/tacowordpress/addmany/blob/master/README.md#installation)
 * [Example Usage](https://github.com/tacowordpress/addmany/blob/master/README.md#example-usage)
+ - https://github.com/tacowordpress/addmany/blob/master/README.md#one-to-many
+ - https://github.com/tacowordpress/addmany/blob/master/README.md#many-to-many-addbysearch
+ - https://github.com/tacowordpress/addmany/blob/master/README.md#many-to-many-with-unique-common-fields-between-2-posts-like-a-junction-table
+ - https://github.com/tacowordpress/addmany/blob/master/README.md#one-to-one
+
+ 
 
 
 ## Use Cases
