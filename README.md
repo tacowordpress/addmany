@@ -16,6 +16,7 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
   * [One-to-many with field variations](https://github.com/tacowordpress/addmany/blob/master/README.md#one-to-many-with-field-variations)
   * [One-to-one](https://github.com/tacowordpress/addmany/blob/master/README.md#one-to-one)
 * [Getting a posts relations in your template](https://github.com/tacowordpress/addmany/blob/master/README.md#getting-a-posts-relations)
+* [Ordering](https://github.com/tacowordpress/addmany/blob/master/README.md#ordering---what-if-i-just-want-that)
 * [Advanced - Getting original values of Many-to-Many Shared fields](https://github.com/tacowordpress/addmany/blob/master/README.md#getting-original-values-of-a-referenced-post-if-overwritten)
 * [WordPress AddMany UI Customization](https://github.com/tacowordpress/addmany/blob/master/README.md#customizing-how-search-results-get-returned-in-the-ui)
 * [UI - Defining what shows when rows are collapsed](https://github.com/tacowordpress/addmany/blob/master/README.md#ui---defining-what-shows-when-rows-are-collapsed)
@@ -23,8 +24,6 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
 
 
  
-
-
 ## Use Cases
  * relate posts to other posts
  * control the order of posts (custom post types)
@@ -58,6 +57,7 @@ In your project's composer.json file, add the packages below in the require sect
   "tacowordpress/util": "dev-master"
 }
 ```
+Run `composer update` or `composer install` in the terminal. 
 
 In your theme's function file, add the below:
 ```php
@@ -131,7 +131,9 @@ class Store extends \Taco\Post {
  
  
 ### One-to-Many with field variations
- 
+
+Field variations allow the admin user to select and add a combination of different field groups. This allows for more customization of layouts. An example might be a sidebar that has many different modules. Each module would have a different set of fields that control the content, look, and feel. Another example (featured below) might be a staff page with a grid of photos and information for each person. Instead of the layout being separated by staff member type, they are mixed together. You could create 1 field group with all the fields necessary to satifsy both staff member types, but that might cause some field bloat. With fields variations, you can create one field group for board members and another for general staff while keeping them together in the same grid.
+
  ```php
 
 // Example AddMany field with field variations – Adds a dropdown for users to select
@@ -223,6 +225,19 @@ This example shows a method that is defined in the Post class:
     }
   }
 ```
+
+## Ordering - What if I just want that?
+You can do that too!
+```php
+public function getFields() {
+  return [
+    'videos' => \Taco\AddMany\Factory::createAndGetWithAddBySearch('GalleryItem', null, [
+    'uses_ordering' => true
+  ]);
+];
+```
+Specifing ordering by "uses_ordering => true" removes the ability to search posts and instead adds all records for that post type. This gives the admin user the ability to order by drag and drop. Be careful though, AddMany will create a new subpost for published posts in the the database (of that post type). In some cases your better off using this feature to order smaller subsets of data. See the ["Customizing how search results get returned in the UI"](https://github.com/tacowordpress/addmany/blob/master/README.md#customizing-how-search-results-get-returned-in-the-ui) for how.
+
 
 IMPORTANT: The method you define must be named "getFallBackRelatedPosts". It can handle more than one field if you allow it. Just create a switch statement or some logic to check the key and then return the appropriate posts.
 
@@ -316,7 +331,7 @@ We will use the example above where the UI needs to return posts of the custom p
       return $results;
   }
 ```
-*Note*: It's important to keep the text querying ("s" property) in the WP_Query so the user admin can still search with keywords.
+*Note*: It's important to keep the text querying ("s" property) in the WP_Query so the user admin can still search with keywords. Also, when returning an array, the key is required to be the post ID and value "should" be the post title but that isn't totally necessary.
 
 Next we need assign this method in "getFields()". 
 
