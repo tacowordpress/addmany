@@ -91,7 +91,7 @@ class AddMany {
 
     wp_register_script(
       'addmanyjs',
-      '/addons/dist/addmany.js',
+      '/addons/dist/addmany.min.js',
       false,
       self::VERSION,
       true);
