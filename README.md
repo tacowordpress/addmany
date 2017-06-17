@@ -301,7 +301,6 @@ Next we need assign this method in "getFields()".
 
 ```php
 public function getFields() {
-
   return [
     'products' => \Taco\AddMany\Factory::createWithAddBySearch('Person::getEmployees')
   ];
