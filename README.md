@@ -224,6 +224,19 @@ This example shows a method that is defined in the Post class:
   }
 ```
 
+## Ordering - What if I just want that?
+You can do that too!
+```php
+public function getFields() {
+  return [
+    'videos' => \Taco\AddMany\Factory::createAndGetWithAddBySearch('GalleryItem', null, [
+    'uses_ordering' => true
+  ]);
+];
+```
+Specifing ordering by "uses_ordering => true" removes the ability to search posts and instead adds all records for that post type. This gives the admin user the ability to order by drag and drop. Be careful though, AddMany will create a new subpost for published posts in the the database (of that post type). In some cases your better off using this feature to order smaller subsets of data. See the [Customizing how search results get returned in the UI](https://github.com/tacowordpress/addmany/blob/master/README.md#customizing-how-search-results-get-returned-in-the-ui) for how.
+
+
 IMPORTANT: The method you define must be named "getFallBackRelatedPosts". It can handle more than one field if you allow it. Just create a switch statement or some logic to check the key and then return the appropriate posts.
 
 
