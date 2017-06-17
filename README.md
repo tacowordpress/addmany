@@ -16,6 +16,7 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
   * [One-to-many with field variations](https://github.com/tacowordpress/addmany/blob/master/README.md#one-to-many-with-field-variations)
   * [One-to-one](https://github.com/tacowordpress/addmany/blob/master/README.md#one-to-one)
 * [Getting a posts relations in your template](https://github.com/tacowordpress/addmany/blob/master/README.md#getting-a-posts-relations)
+* [Ordering](https://github.com/tacowordpress/addmany/blob/master/README.md#ordering---what-if-i-just-want-that)
 * [Advanced - Getting original values of Many-to-Many Shared fields](https://github.com/tacowordpress/addmany/blob/master/README.md#getting-original-values-of-a-referenced-post-if-overwritten)
 * [WordPress AddMany UI Customization](https://github.com/tacowordpress/addmany/blob/master/README.md#customizing-how-search-results-get-returned-in-the-ui)
 * [UI - Defining what shows when rows are collapsed](https://github.com/tacowordpress/addmany/blob/master/README.md#ui---defining-what-shows-when-rows-are-collapsed)
