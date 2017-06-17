@@ -247,7 +247,67 @@ By accessing the property of "original_fields", you will get the original value 
 
 This is also useful to show product savings after a reduction in price.
 
+## Customizing how search results get returned in the UI
+If you're using the AddMany AddbySearch functionality to query and assign related posts, there is a chance you need to narrow the results even further. Let's say you wanted to return posts of the custom post type person that have a term of "employee" but there are hundreds of people to pick from. You can create your own method to do make the results more definitive. By default, the AddMany core method looks like this:
 
+```php
+  public static function getPairsWithKeyWords($keywords, $post_type_class_name) {
+    $post_type = Str::machine(Str::camelToHuman($post_type_class_name), '-');
+
+    $query = new \WP_Query([
+      'post_type' => $post_type,
+      's' => $keywords,
+      'posts_per_page' => -1
+    ]);
+
+    $results = [];
+    foreach ($query->posts as $post) {
+      $results[$post->ID] = $post->post_title;
+    }
+
+    return $results;
+  }
+```
+######  Creating your own method
+We will use the example above where the UI needs to return posts of the custom post type person with a term of "employee" of the taxonony (slug) "person-type".
+
+```php
+ public static function getEmployees($keywords, $post_type_class_name) {
+      $post_type = Str::machine(Str::camelToHuman($post_type_class_name), '-');
+
+      $query = new \WP_Query([
+          'post_type' => 'person',
+          's' => $keywords,
+          'tax_query' => [
+              [
+                  'taxonomy' => 'person-type',
+                  'field'    => 'slug',
+                  'terms'    => 'employee'
+              ],
+          ),
+          'posts_per_page' => -1
+      ]);
+
+      $results = [];
+      foreach ($query->posts as $post) {
+          $results[$post->ID] = $post->post_title;
+      }
+      return $results;
+  }
+```
+*Note*: It's important to keep the text querying ("s" property) in the WP_Query so the user admin can still search with keywords.
+
+Next we need assign this method in "getFields()". 
+
+```php
+public function getFields() {
+
+  return [
+    'products' => \Taco\AddMany\Factory::createWithAddBySearch('Person::getEmployees')
+  ];
+}
+```
+In the above code "Person" is the post type class name and "getEmployees" is the new method we just created above.
 
 ## Convenience methods
 The Factory class of AddMany has a few convenience methods to make your code just a little cleaner:
