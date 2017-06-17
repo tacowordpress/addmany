@@ -24,8 +24,6 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
 
 
  
-
-
 ## Use Cases
  * relate posts to other posts
  * control the order of posts (custom post types)
@@ -59,6 +57,7 @@ In your project's composer.json file, add the packages below in the require sect
   "tacowordpress/util": "dev-master"
 }
 ```
+Run `composer update` or `composer install` in the terminal. 
 
 In your theme's function file, add the below:
 ```php
