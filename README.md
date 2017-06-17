@@ -332,7 +332,7 @@ We will use the example above where the UI needs to return posts of the custom p
       return $results;
   }
 ```
-*Note*: It's important to keep the text querying ("s" property) in the WP_Query so the user admin can still search with keywords.
+*Note*: It's important to keep the text querying ("s" property) in the WP_Query so the user admin can still search with keywords. Also, when returning an array, the key is required to be the post ID and value "should" be the post title but that isn't totally necessary.
 
 Next we need assign this method in "getFields()". 
 
