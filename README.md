@@ -6,7 +6,7 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
 
 ### Table of Contents
 
-[Use Cases](/#use-cases)
+[Use Cases](https://github.com/tacowordpress/addmany/blob/master/README.md#use-cases)
 
 ## Use Cases
  * relate posts to other posts
