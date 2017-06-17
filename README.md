@@ -132,7 +132,9 @@ class Store extends \Taco\Post {
  
  
 ### One-to-Many with field variations
- 
+
+Field variations allow the admin user to select and add a combination of different field groups. This allows for more customization of layouts. An example might be a sidebar that has many different modules. Each module would have a different set of fields that control the content, look, and feel. Another example (featured below) might be a staff page with a grid of photos and information for each person. Instead of the layout being separated by staff member type, they are mixed together. You could create 1 field group with all the fields necessary to satifsy both staff member types, but that might cause some field bloat. With fields variations, you can create one field group for board members and another for general staff while keeping them together in the same grid.
+
  ```php
 
 // Example AddMany field with field variations – Adds a dropdown for users to select
