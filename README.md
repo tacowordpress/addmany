@@ -7,7 +7,7 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
 ### Table of Contents
 
 * [Use Cases](https://github.com/tacowordpress/addmany/blob/master/README.md#use-cases)
-* [Requirement](https://github.com/tacowordpress/addmany/blob/master/README.md#requirements)
+* [Requirements](https://github.com/tacowordpress/addmany/blob/master/README.md#requirements)
 * [Installation](https://github.com/tacowordpress/addmany/blob/master/README.md#installation)
 * [Example Usage](https://github.com/tacowordpress/addmany/blob/master/README.md#example-usage)
   * [One-to-many](https://github.com/tacowordpress/addmany/blob/master/README.md#one-to-many)
