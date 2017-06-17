@@ -351,12 +351,11 @@ class AddMany {
     exit;
   }
 
-  public static function getPairsWithKeyWords($keywords, $class_name) {
-    
-    $class_name = Str::machine(Str::camelToHuman($class_name), '-');
-    
+  public static function getPairsWithKeyWords($keywords, $post_type_class_name) {
+    $post_type = Str::machine(Str::camelToHuman($post_type_class_name), '-');
+
     $query = new \WP_Query([
-      'post_type' => $class_name,
+      'post_type' => $post_type,
       's' => $keywords,
       'posts_per_page' => -1
     ]);
