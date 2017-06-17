@@ -308,6 +308,24 @@ public function getFields() {
 ```
 In the above code "Person" is the post type class name and "getEmployees" is the new method we just created above.
 
+
+## UI - Defining what shows when rows are collapsed
+Reordering via drag and drop can be cumbersome when the height of rows grow and takes up most of the screen. A collapse button has been provided to decrease the height of these items. This creates an issue of what to show when the height of rows are shortened. By default, AddMany shows a collection of truncated field values from a row to give the admin user an easier task of identifying which is which. You can also specify via code which field value shows, by adding the field name for the key of "show_on_collapsed" in the options part of the array.
+
+Here's an example how.
+
+```php 
+
+public function getFields() {
+  return [
+    'right_column_images' => \Taco\AddMany\Factory::create([
+      'image' => ['type' => 'image']
+    ], ['show_on_collapsed' => 'image'])->toArray()
+  ];
+)'
+```
+
+
 ## Convenience methods
 The Factory class of AddMany has a few convenience methods to make your code just a little cleaner:
 
