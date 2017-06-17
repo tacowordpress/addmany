@@ -248,7 +248,7 @@ By accessing the property of "original_fields", you will get the original value 
 This is also useful to show product savings after a reduction in price.
 
 ## Customizing how search results get returned in the UI
-If you're using the AddMany AddbySearch functionality to query and assign related posts, there is a chance you need to narrow the results even further. Let's say you wanted to return posts of the custom post type person that have a term of "employee" but there are hundreds of people to pick from. You can create your own method to do make the results more definitive. By default, the AddMany core method looks like this:
+If you're using the AddMany's AddbySearch functionality to query and assign related posts, there is a chance you need to narrow the results even further. Let's say you wanted to return posts of the custom post type person that have a term of "employee" but there are hundreds of people to pick from. You can create your own method to make the results more definitive. By default, the AddMany core method looks like this:
 
 ```php
   public static function getPairsWithKeyWords($keywords, $post_type_class_name) {
