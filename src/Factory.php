@@ -37,6 +37,12 @@ class Factory {
       );
     }
 
+    if(array_key_exists('use_ordering', $other_options)) {
+      $factory_instance->setUsesOrdering(
+        $other_options['use_ordering']
+      );
+    }
+
     $factory_instance->addFieldVariations($fields);
 
     return $factory_instance;
@@ -49,6 +55,10 @@ class Factory {
 
   public function setShowOnCollapsed($field_key) {
     $this->current_object->show_on_collapsed = $field_key;
+  }
+
+  public function setUsesOrdering() {
+    $this->current_object->uses_ordering = true;
   }
 
   public static function usesFieldVariations($args) {
@@ -90,6 +100,10 @@ class Factory {
       $factory_instance->setLimitRange(
         $other_options['limit_range']
       );
+    }
+
+    if(array_key_exists('uses_ordering', $other_options) && $other_options['uses_ordering'] == true) {
+      $factory_instance->setUsesOrdering(true);
     }
 
     return $factory_instance;

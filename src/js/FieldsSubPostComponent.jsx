@@ -113,7 +113,6 @@ export default class FieldsSubPostComponent extends React.Component {
     const state  = store.getState();
     let renderedFields = this.getRendered();
     let orderfieldName = 'subposts[' + state.fieldName + '][' + this.props.subpostId + '][order]';
-
     let styles = { display: 'none' };
     let addBySearchContent = null;
     let showOnCollapsed = null;

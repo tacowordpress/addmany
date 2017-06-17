@@ -90,6 +90,7 @@ export default class AddManyComponent extends React.Component {
            key={s.postId}
            postId={s.postId}
            showOnCollapsed={this.props.showOnCollapsed}
+           usesOrdering={this.props.usesOrdering}
            fieldsConfig={s.fieldsConfig}
            uniqid={s.postId}
            isAddBySearch={s.isAddBySearch}
@@ -137,6 +138,10 @@ export default class AddManyComponent extends React.Component {
         </div>
       );
     } else {
+
+      if(this.props.usesOrdering) {
+        return this.getOrderingOnly(renderedSubposts);
+      }
       return (
         <div ref="main_container" className="addmany-component with-addbysearch">
 
@@ -163,7 +168,7 @@ export default class AddManyComponent extends React.Component {
           <br />
 
           <b>Search Results</b><em style={{float: 'right'}}>{resultsMessage}</em>
-          <ul className="addmany-search-results">{this.renderSearchResults()}</ul>
+          <ul className="addmany-search-results">{this.renderSearchResults(renderedSubposts)}</ul>
 
           <br />
           <br />
@@ -185,6 +190,21 @@ export default class AddManyComponent extends React.Component {
         </div>
       );
     }
+  }
+
+  getOrderingOnly(renderedSubposts) {
+    return(
+        <div ref="main_container" className="addmany-component with-addbysearch">
+           <b>Your Selection</b>
+          <ul className="addmany-sorting-buttons">
+            <li><button className="button" onClick={this.sortPostsAlpha.bind(this)}>Sort by Alphanumeric</button></li>
+            <li><button className="button" onClick={this.sortPostsDate.bind(this)}>Sort by Post Date</button></li>
+            <li><button style={{background: '#FFF'}} className="button" onClick={this.sortPostsReverse.bind(this)}>Flip</button></li>
+            <li><button style={{background: '#FFF'}} className="button" onClick={this.toggleCollapse.bind(this)}>Collapse/Expand</button></li>
+          </ul>
+          <ul className="addmany-actual-values">{renderedSubposts}</ul>
+        </div>
+    );
   }
 
 
@@ -253,6 +273,7 @@ export default class AddManyComponent extends React.Component {
     if(typeof state.searchResultPosts == 'undefined') {
       return null;
     }
+
     let rendered = [];
     state.searchResultPosts.forEach((p) => {
       rendered.push(
@@ -364,6 +385,30 @@ export default class AddManyComponent extends React.Component {
 
 
   /**
+   * Add all results for ordering purposes
+   * @return void
+   */
+  addOrderingPosts(posts) {
+    const { store } = this.context;    
+    const state = store.getState();
+    const subposts = state.subposts;
+
+    posts.forEach((p) => {
+      let shouldAdd = true;
+      subposts.forEach((sp) => {
+        if(sp.postReferenceInfo.postId === p.postId) {
+          shouldAdd = false;
+        }
+      });
+      if(shouldAdd === true) {
+        let e = new Event('simulated');
+        this.createNewSubPost(e, p);
+      }
+    });
+  }
+
+
+  /**
    * Add results from the search to the store
    * @param array posts
    * @return void
@@ -372,8 +417,11 @@ export default class AddManyComponent extends React.Component {
     const { store } = this.context;
     const state = store.getState();
     let searchResultPosts = [];
-
-    posts.forEach((p) => {
+    if(this.props.usesOrdering == true) {
+      this.addOrderingPosts(posts);
+      return;
+    }
+     posts.forEach((p) => {
       searchResultPosts.push(
         {
           postId: p.postId,
@@ -750,8 +798,9 @@ export default class AddManyComponent extends React.Component {
   }
 
   loadSaved(callback) {
-    var $ = jQuery;
-    var self = this;
+    let $ = jQuery;
+    let self = this;
+    
     $.ajax({
       url: AJAXSubmit.ajaxurl,
       method: 'post',
@@ -766,6 +815,11 @@ export default class AddManyComponent extends React.Component {
       if(d.success) {
         let subposts = self.sortRowsByOrder(d.posts);
         self.addRows(subposts);
+
+        if(self.props.usesOrdering) {
+          let e = new Event('simulatedClick');
+          self.searchPosts(e);
+        }
       }
     });
   }

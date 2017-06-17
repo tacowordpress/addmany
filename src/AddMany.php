@@ -7,7 +7,7 @@ use \Taco\Util\Str;
 
 class AddMany {
 
-  const VERSION = '012';
+  const VERSION = '013';
   public static $field_definitions = [];
   public static $wp_tiny_mce_settings = null;
   public static $path_url = null;
@@ -17,6 +17,7 @@ class AddMany {
   public $buttons = [];
   public $field_variations = [];
   public $limit_range = false;
+  public $uses_ordering = false;
   public $show_on_collapsed = null;
 
   // Instance methods
@@ -38,7 +39,8 @@ class AddMany {
         'buttons' => $this->buttons,
         'field_variations' => $this->field_variations,
         'limit_range' => $this->limit_range,
-        'show_on_collapsed' => $this->show_on_collapsed
+        'show_on_collapsed' => $this->show_on_collapsed,
+        'uses_ordering' => $this->uses_ordering
       ]
     ];
   }
@@ -52,6 +54,7 @@ class AddMany {
       ],
       'limit_range' => false,
       'show_on_collapsed' => null,
+      'uses_ordering' => false,
       'buttons' => ['reverse-sort', 'alpha-sort']
     ];
   }
@@ -88,7 +91,7 @@ class AddMany {
 
     wp_register_script(
       'addmanyjs',
-      '/addons/dist/addmany.min.js',
+      '/addons/dist/addmany.js',
       false,
       self::VERSION,
       true);
@@ -207,6 +210,10 @@ class AddMany {
 
         if(array_key_exists('show_on_collapsed', $config_addmany)) {
           self::$field_definitions[$k]['show_on_collapsed'] = $config_addmany['show_on_collapsed'];
+        }
+
+        if(array_key_exists('uses_ordering', $config_addmany)) {
+          self::$field_definitions[$k]['uses_ordering'] = $config_addmany['uses_ordering'];
         }
       }
     }
@@ -534,7 +541,7 @@ class AddMany {
           'postId' => $subpost->ID,
           'order' => (int) $subpost->get('order'),
           'fieldsVariation' => $subpost->get('fields_variation'),
-          'postReferenceInfo' =>$post_reference_info
+          'postReferenceInfo' => $post_reference_info
         )
       );
     }, $assigned_records);

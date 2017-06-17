@@ -8830,6 +8830,7 @@
 	      fieldName: $(this).attr('name'),
 	      limitRange: window.field_definitions[$(this).attr('name')]['limit_range'],
 	      showOnCollapsed: window.field_definitions[$(this).attr('name')]['show_on_collapsed'],
+	      usesOrdering: window.field_definitions[$(this).attr('name')]['uses_ordering'],
 	      isAddBySearch: typeof fieldDefinitions.is_addbysearch !== 'undefined',
 	      classMethod: typeof fieldDefinitions.class_method !== 'undefined' ? fieldDefinitions.class_method : null
 	    })), $(this).parent()[0]);
@@ -30711,6 +30712,7 @@
 	            key: s.postId,
 	            postId: s.postId,
 	            showOnCollapsed: _this2.props.showOnCollapsed,
+	            usesOrdering: _this2.props.usesOrdering,
 	            fieldsConfig: s.fieldsConfig,
 	            uniqid: s.postId,
 	            isAddBySearch: s.isAddBySearch,
@@ -30734,6 +30736,10 @@
 	          className: 'button',
 	          onClick: this.createNewSubPost.bind(this) }, 'Add new'), _react2.default.createElement('ul', { className: 'addmany-sorting-buttons' }, _react2.default.createElement('li', null, _react2.default.createElement('button', { style: { background: '#FFF' }, className: 'button', onClick: this.sortPostsReverse.bind(this) }, 'Flip')), _react2.default.createElement('li', null, _react2.default.createElement('button', { style: { background: '#FFF' }, className: 'button', onClick: this.toggleCollapse.bind(this) }, 'Collapse/Expand'))), _react2.default.createElement('ul', { className: 'addmany-actual-values' }, renderedSubposts));
 	      } else {
+
+	        if (this.props.usesOrdering) {
+	          return this.getOrderingOnly(renderedSubposts);
+	        }
 	        return _react2.default.createElement('div', { ref: 'main_container', className: 'addmany-component with-addbysearch' }, _react2.default.createElement('input', {
 	          name: 'addmany_deleted_ids[' + this.props.fieldName + ']',
 	          type: 'hidden',
@@ -30745,8 +30751,13 @@
 	          onKeyPress: this.handleKeywordChange.bind(this),
 	          onChange: this.handleKeywordChange.bind(this) }), _react2.default.createElement('button', {
 	          className: 'button',
-	          onClick: this.searchPosts.bind(this) }, searchButtonText), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Search Results'), _react2.default.createElement('em', { style: { float: 'right' } }, resultsMessage), _react2.default.createElement('ul', { className: 'addmany-search-results' }, this.renderSearchResults()), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Your Selection'), _react2.default.createElement('ul', { className: 'addmany-sorting-buttons' }, _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsAlpha.bind(this) }, 'Sort by Alphanumeric')), this.props.isAddBySearch ? _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsDate.bind(this) }, 'Sort by Post Date')) : null, _react2.default.createElement('li', null, _react2.default.createElement('button', { style: { background: '#FFF' }, className: 'button', onClick: this.sortPostsReverse.bind(this) }, 'Flip')), _react2.default.createElement('li', null, _react2.default.createElement('button', { style: { background: '#FFF' }, className: 'button', onClick: this.toggleCollapse.bind(this) }, 'Collapse/Expand'))), _react2.default.createElement('ul', { className: 'addmany-actual-values' }, renderedSubposts));
+	          onClick: this.searchPosts.bind(this) }, searchButtonText), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Search Results'), _react2.default.createElement('em', { style: { float: 'right' } }, resultsMessage), _react2.default.createElement('ul', { className: 'addmany-search-results' }, this.renderSearchResults(renderedSubposts)), _react2.default.createElement('br', null), _react2.default.createElement('br', null), _react2.default.createElement('b', null, 'Your Selection'), _react2.default.createElement('ul', { className: 'addmany-sorting-buttons' }, _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsAlpha.bind(this) }, 'Sort by Alphanumeric')), this.props.isAddBySearch ? _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsDate.bind(this) }, 'Sort by Post Date')) : null, _react2.default.createElement('li', null, _react2.default.createElement('button', { style: { background: '#FFF' }, className: 'button', onClick: this.sortPostsReverse.bind(this) }, 'Flip')), _react2.default.createElement('li', null, _react2.default.createElement('button', { style: { background: '#FFF' }, className: 'button', onClick: this.toggleCollapse.bind(this) }, 'Collapse/Expand'))), _react2.default.createElement('ul', { className: 'addmany-actual-values' }, renderedSubposts));
 	      }
+	    }
+	  }, {
+	    key: 'getOrderingOnly',
+	    value: function getOrderingOnly(renderedSubposts) {
+	      return _react2.default.createElement('div', { ref: 'main_container', className: 'addmany-component with-addbysearch' }, _react2.default.createElement('b', null, 'Your Selection'), _react2.default.createElement('ul', { className: 'addmany-sorting-buttons' }, _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsAlpha.bind(this) }, 'Sort by Alphanumeric')), _react2.default.createElement('li', null, _react2.default.createElement('button', { className: 'button', onClick: this.sortPostsDate.bind(this) }, 'Sort by Post Date')), _react2.default.createElement('li', null, _react2.default.createElement('button', { style: { background: '#FFF' }, className: 'button', onClick: this.sortPostsReverse.bind(this) }, 'Flip')), _react2.default.createElement('li', null, _react2.default.createElement('button', { style: { background: '#FFF' }, className: 'button', onClick: this.toggleCollapse.bind(this) }, 'Collapse/Expand'))), _react2.default.createElement('ul', { className: 'addmany-actual-values' }, renderedSubposts));
 	    }
 
 	    /**
@@ -30825,6 +30836,7 @@
 	      if (typeof state.searchResultPosts == 'undefined') {
 	        return null;
 	      }
+
 	      var rendered = [];
 	      state.searchResultPosts.forEach(function (p) {
 	        rendered.push(_react2.default.createElement('li', {
@@ -30934,6 +30946,35 @@
 	    }
 
 	    /**
+	     * Add all results for ordering purposes
+	     * @return void
+	     */
+
+	  }, {
+	    key: 'addOrderingPosts',
+	    value: function addOrderingPosts(posts) {
+	      var _this4 = this;
+
+	      var store = this.context.store;
+
+	      var state = store.getState();
+	      var subposts = state.subposts;
+
+	      posts.forEach(function (p) {
+	        var shouldAdd = true;
+	        subposts.forEach(function (sp) {
+	          if (sp.postReferenceInfo.postId === p.postId) {
+	            shouldAdd = false;
+	          }
+	        });
+	        if (shouldAdd === true) {
+	          var e = new Event('simulated');
+	          _this4.createNewSubPost(e, p);
+	        }
+	      });
+	    }
+
+	    /**
 	     * Add results from the search to the store
 	     * @param array posts
 	     * @return void
@@ -30946,7 +30987,10 @@
 
 	      var state = store.getState();
 	      var searchResultPosts = [];
-
+	      if (this.props.usesOrdering == true) {
+	        this.addOrderingPosts(posts);
+	        return;
+	      }
 	      posts.forEach(function (p) {
 	        searchResultPosts.push({
 	          postId: p.postId,
@@ -31367,6 +31411,7 @@
 	    value: function loadSaved(callback) {
 	      var $ = jQuery;
 	      var self = this;
+
 	      $.ajax({
 	        url: AJAXSubmit.ajaxurl,
 	        method: 'post',
@@ -31381,6 +31426,11 @@
 	        if (d.success) {
 	          var subposts = self.sortRowsByOrder(d.posts);
 	          self.addRows(subposts);
+
+	          if (self.props.usesOrdering) {
+	            var e = new Event('simulatedClick');
+	            self.searchPosts(e);
+	          }
 	        }
 	      });
 	    }
@@ -31505,10 +31555,11 @@
 	        fields: this.props.fieldsConfig,
 	        subpostId: this.props.postId,
 	        showOnCollapsed: this.props.showOnCollapsed,
+	        usesOrdering: this.props.usesOrdering,
 	        isAddBySearch: this.props.isAddBySearch,
-	        order: order })), _react2.default.createElement('button', {
+	        order: order })), !this.props.usesOrdering ? _react2.default.createElement('button', {
 	        className: 'btn-addmany-delete button',
-	        onClick: this.removeRow.bind(this) }, _react2.default.createElement('span', { className: 'dashicons dashicons-no' })), this.getMinimizeButton(), this.getOrderButtons());
+	        onClick: this.removeRow.bind(this) }, _react2.default.createElement('span', { className: 'dashicons dashicons-no' })) : null, this.getMinimizeButton(), this.getOrderButtons());
 	    }
 
 	    /**
@@ -31992,7 +32043,6 @@
 	      var state = store.getState();
 	      var renderedFields = this.getRendered();
 	      var orderfieldName = 'subposts[' + state.fieldName + '][' + this.props.subpostId + '][order]';
-
 	      var styles = { display: 'none' };
 	      var addBySearchContent = null;
 	      var showOnCollapsed = null;

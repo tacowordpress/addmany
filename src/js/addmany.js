@@ -115,6 +115,7 @@ const AddManyComponentWithStore = connect(state => state)(AddManyComponent);
           fieldName={$(this).attr('name')}
           limitRange={window.field_definitions[$(this).attr('name')]['limit_range']}
           showOnCollapsed={window.field_definitions[$(this).attr('name')]['show_on_collapsed']}
+          usesOrdering={window.field_definitions[$(this).attr('name')]['uses_ordering']}
           isAddBySearch={typeof fieldDefinitions.is_addbysearch !== 'undefined'}
           classMethod={(typeof fieldDefinitions.class_method !== 'undefined' ) ? fieldDefinitions.class_method : null}
           />

@@ -58,16 +58,23 @@ export default class SubPostComponent extends React.Component {
             fields={this.props.fieldsConfig}
             subpostId={this.props.postId}
             showOnCollapsed={this.props.showOnCollapsed}
+            usesOrdering={this.props.usesOrdering}
             isAddBySearch={this.props.isAddBySearch}
             order={order} />
         </table>
 
-        <button
-          className="btn-addmany-delete button"
-          onClick={this.removeRow.bind(this)}>
-          <span className="dashicons dashicons-no"></span>
-        </button>
-
+        {
+          (!this.props.usesOrdering)
+          ?
+            <button
+              className="btn-addmany-delete button"
+              onClick={this.removeRow.bind(this)}>
+                <span className="dashicons dashicons-no"></span>
+            </button>
+          
+          : null
+        }
+       
         {this.getMinimizeButton()}
         {this.getOrderButtons()}
 
