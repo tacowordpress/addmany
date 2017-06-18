@@ -293,6 +293,20 @@ export default class SubPostComponent extends React.Component {
     // update order
     this.props.parentComponent.forceUpdateOrder();
     this.updateDeletedValues(self.props.postId);
+
+    store.dispatch({
+      type: 'UPDATE_MESSAGES',
+      messages: 'Item removed.',
+      messageType: 'stressed'
+    });
+
+    setTimeout(() => {
+      store.dispatch({
+        type: 'UPDATE_MESSAGES',
+        messages: '',
+        messageType: ''
+      }); 
+    }, 3000);   
   }
 
 

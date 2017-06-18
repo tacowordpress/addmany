@@ -74,7 +74,9 @@ export default class AddManyComponent extends React.Component {
       searchButtonText,
       loadingClass,
       resultsMessage,
-      currentVariation
+      currentVariation,
+      messages,
+      messageType
     } = store.getState();
 
     let variations = this.getFieldsVariationOptions();
@@ -172,7 +174,9 @@ export default class AddManyComponent extends React.Component {
 
           <br />
           <br />
-
+          
+          <span className={'addmany-messages ' + ((messages) ? ' show ' : ' ') + messageType}>{ messages }</span>
+          <br />
           <b>Your Selection</b>
           <ul className="addmany-sorting-buttons">
             <li><button className="button" onClick={this.sortPostsAlpha.bind(this)}>Sort by Alphanumeric</button></li>
@@ -680,6 +684,19 @@ export default class AddManyComponent extends React.Component {
     }).success(function(d) {
       if(d.success) {
         self.addRow(d.posts[0].postId, d.posts[0].fields, d)
+        store.dispatch({
+          type: 'UPDATE_MESSAGES',
+          messages: 'An item was added. Scroll to the end of the list below to see it.',
+          messageType: 'positive'
+        });
+
+        setTimeout(() => {
+            store.dispatch({
+            type: 'UPDATE_MESSAGES',
+            messages: '',
+            messageType: ''
+          }); 
+        }, 3000);      
       }
     });
   }

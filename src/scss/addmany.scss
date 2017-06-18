@@ -236,3 +236,25 @@
     width: 100%;
   }
 }
+
+.addmany-messages {
+  background: #9ad2a7;
+  padding: 0;
+  display: inline-block;
+  clear: both;
+  margin-bottom: 30px;
+  opacity: 0;
+  transition: all 0.3s;
+  position: relative;
+
+  &.show {
+    transition: all 0.3s;
+    opacity: 1;
+    padding: 14px;
+    box-shadow: 8px 3px 0px 0px hsl(0, 0%, 48%);
+    font-weight: bold;
+  }
+  &.show.stressed {
+    background: #e6a7a7;
+  }
+}

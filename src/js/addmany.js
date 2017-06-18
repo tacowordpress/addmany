@@ -29,7 +29,8 @@ const reducer = (state = {}, action) => {
         removedSubpostIds: [],
         searchResultPosts: [],
         searchButtonText: 'Show all',
-        isGloballyMinimized: false
+        isGloballyMinimized: false,
+        messages: ''
       });
     case 'UPDATE_VARIATION':
       return Object.assign({}, state, {
@@ -81,6 +82,11 @@ const reducer = (state = {}, action) => {
     return Object.assign({}, state, {
       subposts: action.subposts,
       isGloballyMinimized: action.isGloballyMinimized
+    });
+     case 'UPDATE_MESSAGES':
+    return Object.assign({}, state, {
+      messages: action.messages,
+      messageType: action.messageType
     });
     default:
       return state;

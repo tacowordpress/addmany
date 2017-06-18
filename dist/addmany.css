@@ -191,3 +191,21 @@
 .meta-box-sortables .addmany-currently-minimized .show-on-minimized {
   display: table-cell;
   width: 100%; }
+
+.addmany-messages {
+  background: #9ad2a7;
+  padding: 0;
+  display: inline-block;
+  clear: both;
+  margin-bottom: 30px;
+  opacity: 0;
+  transition: all 0.3s;
+  position: relative; }
+  .addmany-messages.show {
+    transition: all 0.3s;
+    opacity: 1;
+    padding: 14px;
+    box-shadow: 8px 3px 0px 0px #7a7a7a;
+    font-weight: bold; }
+  .addmany-messages.show.stressed {
+    background: #e6a7a7; }
