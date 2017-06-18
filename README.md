@@ -32,6 +32,29 @@ Similar to ACF (Advanced Custom Fields), AddMany has the ability to create and r
  * overriding a post(s) fields on a case by case basis without affecting the original
  * keeps context by allowing you to create child posts on the same page 
 
+## How it Works
+
+**Related Posts**
+
+<img src="https://raw.githubusercontent.com/tacowordpress/addmany/master/docs/img/doc-img-1.png" width="400"/>
+
+**What happens behind the scenes**
+
+<img src="https://raw.githubusercontent.com/tacowordpress/addmany/master/docs/img/doc-img-2.png" width="600"/>
+
+**Why is there a "Subpost" between my current post and the related post? What is a SubPost?**
+
+It would probably be helpful to explain what a "SubPost" is. It is a custom post type that sits between the post and the related post. It's hidden from the WordPress admin menus but you're actually seeing as a row whenever you add a related post in the UI. 
+
+**There are a number of important reasons why AddMany uses a SubPost:**
+
+* They allow a unique set of fields to be assigned between the post and related post
+* Different relationship types can be assgined like one-to-many, many-to-many, one-to-one, etc.
+* Can be queried via MySQL
+* Because a Subpost utilizies the existing WordPress database structure no additional tables need to created.
+
+
+
 ## Requirements
 
 AddMany would not be possible without [The TacoWordPress framework – An ORM for custom post types.] (https://github.com/tacowordpress/tacowordpress) This is a requirement.
