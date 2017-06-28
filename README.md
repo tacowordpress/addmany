@@ -58,7 +58,7 @@ It would probably be helpful to explain what a "SubPost" is. It is a custom post
 
 ## Requirements
 
-AddMany would not be possible without [The TacoWordPress framework – An ORM for custom post types.] (https://github.com/tacowordpress/tacowordpress) This is a requirement.
+AddMany would not be possible without [The TacoWordPress framework – An ORM for custom post types.](https://github.com/tacowordpress/tacowordpress) This is a requirement.
 
 ###### Other requirements:
  * PHP >= 5.4 
