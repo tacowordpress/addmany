@@ -45,7 +45,7 @@ let config = {
     this.entry[name] = [name];
   },
   entry: {
-    'addmany': ['babel-polyfill', base_path + '/src/js/addmany.js'],
+    'addmany': [base_path + '/src/js/addmany.js'],
   },
   output: {
     path: output_path + 'dist/',
