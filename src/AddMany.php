@@ -7,7 +7,7 @@ use \Taco\Util\Str;
 
 class AddMany {
 
-  const VERSION = '013';
+  const VERSION = '014';
   public static $field_definitions = [];
   public static $wp_tiny_mce_settings = null;
   public static $path_url = null;
