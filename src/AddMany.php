@@ -201,6 +201,7 @@ class AddMany {
 
         if(
           array_key_exists('limit_range', $config_addmany)
+          && !empty($config_addmany['limit_range'])
           && count($config_addmany['limit_range']) == 2)
         {
           self::$field_definitions[$k]['limit_range'] = $config_addmany['limit_range'];
@@ -560,9 +561,9 @@ class AddMany {
     $post_id = trim(preg_replace('/\D/', '', $post_id));
     $subpost = \SubPost::find($post_id);
     $field_assigned_to = $subpost->get('field_assigned_to');
-    
+
     if(wp_is_post_revision($object_post_parent_id)) return;
-    
+
     $post_parent = \Taco\Post\Factory::create($object_post_parent_id);
     $parent_fields = $post_parent->getFields();
 
@@ -613,7 +614,7 @@ class AddMany {
 
     // If there are subposts to be removed, delete them.
     self::deleteSubPosts();
-    
+
     if(!array_key_exists('subposts', $_POST)) return false;
 
     $source = $_POST;
@@ -629,7 +630,7 @@ class AddMany {
         );
       }
     }
-    
+
     return true;
   }
 }
